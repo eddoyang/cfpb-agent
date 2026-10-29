@@ -1,0 +1,29 @@
+"""Postgres connection helper with pgvector type registration."""
+from contextlib import contextmanager
+from pathlib import Path
+
+import psycopg
+from pgvector.psycopg import register_vector
+
+import config
+
+
+@contextmanager
+def get_conn():
+    conn = psycopg.connect(config.PG_DSN, autocommit=False)
+    try:
+        register_vector(conn)
+        yield conn
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
+
+
+def apply_schema() -> None:
+    """Idempotently apply db/schema.sql (useful if the container already existed)."""
+    sql = (Path(__file__).parent / "schema.sql").read_text()
+    with psycopg.connect(config.PG_DSN, autocommit=True) as conn:
+        conn.execute(sql)
