@@ -1,0 +1,48 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	prepare(prepare)
+	supervisor(supervisor)
+	regs_agent(regs_agent)
+	cases_agent(cases_agent)
+	stats_agent(stats_agent)
+	synthesize(synthesize)
+	verify(verify)
+	replan(replan)
+	respond(respond)
+	clarify(clarify)
+	abstain(abstain)
+	escalate(escalate)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> prepare;
+	cases_agent --> supervisor;
+	prepare -.-> escalate;
+	prepare -.-> supervisor;
+	regs_agent --> supervisor;
+	replan --> supervisor;
+	stats_agent --> supervisor;
+	supervisor -.-> abstain;
+	supervisor -.-> cases_agent;
+	supervisor -.-> clarify;
+	supervisor -.-> escalate;
+	supervisor -.-> regs_agent;
+	supervisor -.-> stats_agent;
+	supervisor -.-> synthesize;
+	synthesize -.-> escalate;
+	synthesize -.-> verify;
+	verify -.-> abstain;
+	verify -.-> escalate;
+	verify -.-> replan;
+	verify -.-> respond;
+	abstain --> __end__;
+	clarify --> __end__;
+	escalate --> __end__;
+	respond --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+
