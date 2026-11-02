@@ -10,8 +10,8 @@ import config
 
 
 @contextmanager
-def get_conn():
-    conn = psycopg.connect(config.PG_DSN, autocommit=False)
+def get_conn(dsn: str | None = None):
+    conn = psycopg.connect(dsn or config.PG_DSN, autocommit=False)
     try:
         register_vector(conn)
         yield conn
@@ -23,8 +23,8 @@ def get_conn():
         conn.close()
 
 
-def apply_schema() -> None:
+def apply_schema(dsn: str | None = None) -> None:
     """Idempotently apply db/schema.sql (useful if the container already existed)."""
     sql = (Path(__file__).parent / "schema.sql").read_text()
-    with psycopg.connect(config.PG_DSN, autocommit=True) as conn:
+    with psycopg.connect(dsn or config.PG_DSN, autocommit=True) as conn:
         conn.execute(sql)

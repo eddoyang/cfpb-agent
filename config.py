@@ -59,11 +59,12 @@ REG_CHUNK_MAX_TOKENS = 700  # regulation chunks, split on paragraph boundaries
 COMPLAINT_MAX_TOKENS = 1500  # long narratives are truncated before embedding
 
 # --- LLM settings ----------------------------------------------------------
-# 0 where the model accepts it (Haiku); models that reject a custom temperature
-# (Sonnet 5.5) run at their default. Set LLM_TEMPERATURE=none to never send it.
-_temp = os.getenv("LLM_TEMPERATURE", "0")
+# Claude 5.5-generation models (Haiku and Sonnet) reject a custom temperature, so by
+# default none is sent and each model runs at its default. Run-to-run variation is
+# measured instead (eval --repeats). Set LLM_TEMPERATURE=0 only for models that accept it.
+_temp = os.getenv("LLM_TEMPERATURE", "none")
 LLM_TEMPERATURE = None if _temp.lower() == "none" else float(_temp)
-MODELS_WITHOUT_TEMPERATURE = ("claude-sonnet-5-5", "claude-fable-5")
+MODELS_WITHOUT_TEMPERATURE = ("claude-sonnet-5-5", "claude-haiku-5-5", "claude-fable-5")
 LLM_TIMEOUT_S = 90
 LLM_MAX_RETRIES = 2
 MAX_OUTPUT_TOKENS = {"fast": 1024, "strong": 2048}

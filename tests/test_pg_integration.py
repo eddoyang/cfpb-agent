@@ -2,9 +2,13 @@
 deterministic hash embedder stands in). Skipped unless a database is reachable:
 
     docker compose up -d && python -m pytest tests/test_pg_integration.py
+
+They run in a SEPARATE database (cfpb_test) on the same server, created on first use,
+so they never read or modify the real reg_chunks/complaints data.
 """
 
 import hashlib
+import re
 
 import numpy as np
 import psycopg
@@ -18,6 +22,9 @@ from skills.stats import build_sql, run_stats
 from tests.fakes import make_rt
 
 TEST_PREFIX = "TEST-"
+TEST_DB = "cfpb_test"
+TEST_DSN = re.sub(r"dbname=\S+", f"dbname={TEST_DB}", config.PG_DSN)
+assert TEST_DSN != config.PG_DSN, "integration tests must not use the main database"
 
 
 class HashEmbedder:
@@ -96,13 +103,20 @@ COMPLAINTS = [
 ]
 
 
+def _ensure_test_database():
+    with psycopg.connect(config.PG_DSN, autocommit=True) as conn:
+        exists = conn.execute("SELECT 1 FROM pg_database WHERE datname = %s", (TEST_DB,)).fetchone()
+        if not exists:
+            conn.execute(f'CREATE DATABASE "{TEST_DB}"')
+
+
 @pytest.fixture(scope="module")
 def store():
-    apply_schema()
+    _ensure_test_database()
+    apply_schema(TEST_DSN)
     emb = HashEmbedder()
-    with get_conn() as conn:
-        conn.execute("DELETE FROM reg_chunks WHERE chunk_id LIKE %s", (TEST_PREFIX + "%",))
-        conn.execute("DELETE FROM complaints WHERE complaint_id >= 990000")
+    with get_conn(TEST_DSN) as conn:
+        conn.execute("TRUNCATE reg_chunks, complaints")  # test database only
         for sec, title, part, text in REGS:
             conn.execute(
                 """INSERT INTO reg_chunks VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
@@ -137,10 +151,9 @@ def store():
                     np.array(emb.embed_query(text), dtype=np.float32),
                 ),
             )
-    yield PgStore(embedder=emb)
-    with get_conn() as conn:
-        conn.execute("DELETE FROM reg_chunks WHERE chunk_id LIKE %s", (TEST_PREFIX + "%",))
-        conn.execute("DELETE FROM complaints WHERE complaint_id >= 990000")
+    yield PgStore(embedder=emb, dsn=TEST_DSN)
+    with get_conn(TEST_DSN) as conn:
+        conn.execute("TRUNCATE reg_chunks, complaints")
 
 
 def test_vector_search_ranks_relevant_section_first(store):

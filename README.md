@@ -81,8 +81,8 @@ back to the supervisor once (re-plan), then abstains or escalates.
 ## Configuration notes
 - **Models:** `claude-haiku-5-5` (classify, route, summarize) and `claude-sonnet-5-5` (draft,
   verify). Override with `FAST_MODEL` / `STRONG_MODEL`.
-- **Temperature:** Haiku runs at 0. Sonnet 5.5 does not accept a custom temperature, so it runs
-  at its default; run-to-run variation is measured with `eval.harness --repeats`.
+- **Temperature:** Claude Haiku 5.5 and Sonnet 5.5 don't accept a custom temperature, so both run
+  at their defaults; run-to-run variation is measured with `eval.harness --repeats`.
 - **Prices** in `config.py` are placeholders; confirm them on the providers' pricing pages
   before quoting costs.
 - **Score floor** (`REG_MIN_SCORE`, default 0.30) must be calibrated on your data; the eval
