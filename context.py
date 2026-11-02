@@ -4,6 +4,7 @@ Two named configurations are compared in experiments/context_compare.py:
   lean : few chunks, tight evidence budget, older history summarised
   rich : many chunks, large budget, full history verbatim
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
@@ -16,20 +17,34 @@ class ContextConfig:
     name: str
     reg_top_k: int
     case_top_k: int
-    max_evidence_tokens: int     # budget for the packed evidence block
-    max_case_tokens: int         # each complaint narrative is clipped to this
-    history_mode: str            # "summary" | "full"
-    history_keep_turns: int      # turns kept verbatim in summary mode
+    max_evidence_tokens: int  # budget for the packed evidence block
+    max_case_tokens: int  # each complaint narrative is clipped to this
+    history_mode: str  # "summary" | "full"
+    history_keep_turns: int  # turns kept verbatim in summary mode
     max_history_tokens: int
 
 
 CONTEXT_CONFIGS = {
-    "lean": ContextConfig("lean", reg_top_k=3, case_top_k=2, max_evidence_tokens=2500,
-                          max_case_tokens=250, history_mode="summary",
-                          history_keep_turns=2, max_history_tokens=500),
-    "rich": ContextConfig("rich", reg_top_k=10, case_top_k=5, max_evidence_tokens=9000,
-                          max_case_tokens=800, history_mode="full",
-                          history_keep_turns=99, max_history_tokens=6000),
+    "lean": ContextConfig(
+        "lean",
+        reg_top_k=3,
+        case_top_k=2,
+        max_evidence_tokens=2500,
+        max_case_tokens=250,
+        history_mode="summary",
+        history_keep_turns=2,
+        max_history_tokens=500,
+    ),
+    "rich": ContextConfig(
+        "rich",
+        reg_top_k=10,
+        case_top_k=5,
+        max_evidence_tokens=9000,
+        max_case_tokens=800,
+        history_mode="full",
+        history_keep_turns=99,
+        max_history_tokens=6000,
+    ),
 }
 
 
@@ -86,7 +101,7 @@ def render_history(history: list[dict] | None, cfg: ContextConfig, summarize=Non
     lines = [f"{h['role']}: {h['content']}" for h in history]
     if cfg.history_mode == "summary" and len(lines) > cfg.history_keep_turns:
         older = "\n".join(lines[: -cfg.history_keep_turns])
-        recent = lines[-cfg.history_keep_turns:]
+        recent = lines[-cfg.history_keep_turns :]
         summary = summarize(older) if summarize else truncate_tokens(older, 200)
         lines = [f"(summary of earlier conversation) {summary}"] + recent
     text = "\n".join(lines)

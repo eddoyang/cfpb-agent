@@ -9,6 +9,7 @@
 Writes eval/results/<timestamp>_<context>/results.json and report.md, and copies the
 report to eval/results/latest.md. Same cases + temperature 0 = comparable runs.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -70,8 +71,10 @@ def score(case: dict, r: dict) -> dict:
             cited = {_section_of(c["id"]) for c in r.get("citations", [])}
             checks["citation_hit"] = bool(cited & set(exp["sections_any"]))
             if not checks["citation_hit"]:
-                reasons.append(f"answer cites {sorted(s for s in cited if s)}, expected one of "
-                               f"{exp['sections_any']}")
+                reasons.append(
+                    f"answer cites {sorted(s for s in cited if s)}, expected one of "
+                    f"{exp['sections_any']}"
+                )
     if exp.get("sections_all"):
         missing = set(exp["sections_all"]) - retrieved
         checks["retrieval_all"] = not missing
@@ -97,15 +100,23 @@ def score(case: dict, r: dict) -> dict:
     v = r.get("verification") or {}
     path = r.get("path", [])
     return {
-        "id": case["id"], "workflow": case["workflow"], "category": case["category"],
-        "expected": exp.get("outcome"), "actual": r["outcome"],
-        "passed": all(checks.values()), "checks": checks, "reasons": reasons,
+        "id": case["id"],
+        "workflow": case["workflow"],
+        "category": case["category"],
+        "expected": exp.get("outcome"),
+        "actual": r["outcome"],
+        "passed": all(checks.values()),
+        "checks": checks,
+        "reasons": reasons,
         "supported_ratio": v.get("supported_ratio"),
         "verifier_caught": path.count("draft") > 1 or "replan" in path,
-        "path": path, "overrides": r.get("overrides", []),
+        "path": path,
+        "overrides": r.get("overrides", []),
         "best_reg_score": max(r.get("retrieved_scores") or [0.0]),
-        "latency_s": r["latency_s"], "cost_usd": r["usage"]["cost_usd"],
-        "input_tokens": r["usage"]["input_tokens"], "output_tokens": r["usage"]["output_tokens"],
+        "latency_s": r["latency_s"],
+        "cost_usd": r["usage"]["cost_usd"],
+        "input_tokens": r["usage"]["input_tokens"],
+        "output_tokens": r["usage"]["output_tokens"],
         "llm_calls": r["usage"]["llm_calls"],
         "response": r.get("response", ""),
     }
@@ -114,14 +125,19 @@ def score(case: dict, r: dict) -> dict:
 # ---------------------------------------------------------------- running
 def run_case(rt, case: dict) -> dict:
     from graphs.runner import run_dynamic, run_static
+
     try:
         if case["workflow"] == "static":
             r = run_static(rt, case["input"])
         else:
             r = run_dynamic(rt, case["input"], history=case.get("history"))
     except Exception as e:  # a crash is a failed case, not a crashed harness
-        r = {"outcome": "crash", "errors": [f"{type(e).__name__}: {e}"], "latency_s": 0,
-             "usage": {"cost_usd": 0, "input_tokens": 0, "output_tokens": 0, "llm_calls": 0}}
+        r = {
+            "outcome": "crash",
+            "errors": [f"{type(e).__name__}: {e}"],
+            "latency_s": 0,
+            "usage": {"cost_usd": 0, "input_tokens": 0, "output_tokens": 0, "llm_calls": 0},
+        }
     return score(case, r)
 
 
@@ -132,8 +148,10 @@ def run_cases(rt, cases: list[dict], repeats: int = 1, progress=print) -> list[d
             row = run_case(rt, case)
             row["repeat"] = i
             rows.append(row)
-            progress(f"  {'PASS' if row['passed'] else 'FAIL'}  {case['id']:<26} "
-                     f"{row['actual']:<10} {row['latency_s']:>6.1f}s  ${row['cost_usd']:.4f}")
+            progress(
+                f"  {'PASS' if row['passed'] else 'FAIL'}  {case['id']:<26} "
+                f"{row['actual']:<10} {row['latency_s']:>6.1f}s  ${row['cost_usd']:.4f}"
+            )
     return rows
 
 
@@ -147,8 +165,9 @@ def summarize(rows: list[dict]) -> dict:
     by_case = defaultdict(list)
     for r in rows:
         by_case[r["id"]].append(r["actual"])
-    consistency = {cid: Counter(outs).most_common(1)[0][1] / len(outs)
-                   for cid, outs in by_case.items()}
+    consistency = {
+        cid: Counter(outs).most_common(1)[0][1] / len(outs) for cid, outs in by_case.items()
+    }
     answered = [r for r in rows if r["actual"] == "answer"]
     ratios = [r["supported_ratio"] for r in answered if r["supported_ratio"] is not None]
 
@@ -157,10 +176,21 @@ def summarize(rows: list[dict]) -> dict:
         return (sum(vals), len(vals))
 
     return {
-        "runs": len(rows), "cases": len(by_case),
+        "runs": len(rows),
+        "cases": len(by_case),
         "pass": sum(r["passed"] for r in rows),
-        "metrics": {k: rate(k) for k in ["outcome", "product", "retrieval_hit", "citation_hit",
-                                          "retrieval_all", "actions", "forbidden"]},
+        "metrics": {
+            k: rate(k)
+            for k in [
+                "outcome",
+                "product",
+                "retrieval_hit",
+                "citation_hit",
+                "retrieval_all",
+                "actions",
+                "forbidden",
+            ]
+        },
         "mean_supported_ratio": round(statistics.mean(ratios), 3) if ratios else None,
         "verifier_caught": sum(r["verifier_caught"] for r in rows),
         "latency_mean": round(statistics.mean(lat), 2) if lat else 0,
@@ -175,27 +205,42 @@ def summarize(rows: list[dict]) -> dict:
 
 
 def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
-    L = [f"# Evaluation report: {meta['timestamp']}", "",
-         (f"Context config **{meta['context']}**, repeats {meta['repeats']}, models "
-         f"`{config.FAST_MODEL}` (classify/route) and `{config.STRONG_MODEL}` (draft/verify). "
-         f"Cost uses the prices in config.py; confirm them before quoting."), "",
-         "## Summary", "",
-         "| Metric | Result |", "|---|---|",
-         f"| Cases passed | {summary['pass']}/{summary['runs']} ({_pct(summary['pass'], summary['runs'])}) |"]
-    names = {"outcome": "Correct outcome (answer/clarify/abstain/escalate)",
-             "product": "Classification accuracy", "retrieval_hit": "Retrieval hit (expected section retrieved)",
-             "citation_hit": "Citation hit (answer cites expected section)",
-             "retrieval_all": "Multi-section retrieval", "actions": "Dynamic routing used expected tool",
-             "forbidden": "No forbidden content (injection / false premise)"}
+    L = [
+        f"# Evaluation report: {meta['timestamp']}",
+        "",
+        (
+            f"Context config **{meta['context']}**, repeats {meta['repeats']}, models "
+            f"`{config.FAST_MODEL}` (classify/route) and `{config.STRONG_MODEL}` (draft/verify). "
+            f"Cost uses the prices in config.py; confirm them before quoting."
+        ),
+        "",
+        "## Summary",
+        "",
+        "| Metric | Result |",
+        "|---|---|",
+        f"| Cases passed | {summary['pass']}/{summary['runs']} ({_pct(summary['pass'], summary['runs'])}) |",
+    ]
+    names = {
+        "outcome": "Correct outcome (answer/clarify/abstain/escalate)",
+        "product": "Classification accuracy",
+        "retrieval_hit": "Retrieval hit (expected section retrieved)",
+        "citation_hit": "Citation hit (answer cites expected section)",
+        "retrieval_all": "Multi-section retrieval",
+        "actions": "Dynamic routing used expected tool",
+        "forbidden": "No forbidden content (injection / false premise)",
+    }
     for k, (n, d) in summary["metrics"].items():
         if d:
             L.append(f"| {names[k]} | {n}/{d} ({_pct(n, d)}) |")
-    L += [f"| Mean supported-claim ratio (answered) | {summary['mean_supported_ratio']} |",
-          f"| Runs where the verifier forced a redraft/replan | {summary['verifier_caught']} |",
-          f"| Outcome consistency across repeats | {summary['consistency']} |",
-          f"| Latency mean / p95 | {summary['latency_mean']}s / {summary['latency_p95']}s |",
-          f"| Cost total / per run | ${summary['cost_total']} / ${summary['cost_per_run']} |",
-          f"| Tokens in / out | {summary['tokens_in']:,} / {summary['tokens_out']:,} |", ""]
+    L += [
+        f"| Mean supported-claim ratio (answered) | {summary['mean_supported_ratio']} |",
+        f"| Runs where the verifier forced a redraft/replan | {summary['verifier_caught']} |",
+        f"| Outcome consistency across repeats | {summary['consistency']} |",
+        f"| Latency mean / p95 | {summary['latency_mean']}s / {summary['latency_p95']}s |",
+        f"| Cost total / per run | ${summary['cost_total']} / ${summary['cost_per_run']} |",
+        f"| Tokens in / out | {summary['tokens_in']:,} / {summary['tokens_out']:,} |",
+        "",
+    ]
 
     L += ["## By category", "", "| Category | Passed |", "|---|---|"]
     cats = defaultdict(list)
@@ -204,34 +249,53 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
     for c, v in sorted(cats.items()):
         L.append(f"| {c} | {sum(v)}/{len(v)} |")
 
-    L += ["", "## Cases", "",
-          "| Case | Workflow | Category | Expected | Actual | Pass | Supported | Latency | Cost |",
-          "|---|---|---|---|---|---|---|---|---|"]
+    L += [
+        "",
+        "## Cases",
+        "",
+        "| Case | Workflow | Category | Expected | Actual | Pass | Supported | Latency | Cost |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
     for r in rows:
-        L.append(f"| {r['id']} | {r['workflow']} | {r['category']} | {'/'.join(r['expected'] or [])} "
-                 f"| {r['actual']} | {'yes' if r['passed'] else '**no**'} "
-                 f"| {r['supported_ratio'] if r['supported_ratio'] is not None else 'n/a'} "
-                 f"| {r['latency_s']}s | ${r['cost_usd']:.4f} |")
+        L.append(
+            f"| {r['id']} | {r['workflow']} | {r['category']} | {'/'.join(r['expected'] or [])} "
+            f"| {r['actual']} | {'yes' if r['passed'] else '**no**'} "
+            f"| {r['supported_ratio'] if r['supported_ratio'] is not None else 'n/a'} "
+            f"| {r['latency_s']}s | ${r['cost_usd']:.4f} |"
+        )
 
     fails = [r for r in rows if not r["passed"]]
     L += ["", f"## Failures ({len(fails)})", ""]
     for r in fails:
-        L += [f"### {r['id']} ({r['category']})", "",
-              f"- Path: {' → '.join(r['path'])}",
-              *[f"- {x}" for x in r["reasons"]],
-              *[f"- Policy override: {o}" for o in r["overrides"]],
-              f"- Response: {r['response'][:400]!r}", ""]
+        L += [
+            f"### {r['id']} ({r['category']})",
+            "",
+            f"- Path: {' → '.join(r['path'])}",
+            *[f"- {x}" for x in r["reasons"]],
+            *[f"- Policy override: {o}" for o in r["overrides"]],
+            f"- Response: {r['response'][:400]!r}",
+            "",
+        ]
 
     scores = sorted(r["best_reg_score"] for r in rows if r["best_reg_score"])
-    oos = sorted(r["best_reg_score"] for r in rows
-                 if r["category"] == "out_of_scope" and r["best_reg_score"])
-    L += ["## Retrieval score calibration", "",
-          f"Current floor REG_MIN_SCORE = {config.REG_MIN_SCORE}.", ""]
+    oos = sorted(
+        r["best_reg_score"] for r in rows if r["category"] == "out_of_scope" and r["best_reg_score"]
+    )
+    L += [
+        "## Retrieval score calibration",
+        "",
+        f"Current floor REG_MIN_SCORE = {config.REG_MIN_SCORE}.",
+        "",
+    ]
     if scores:
-        L.append(f"- Best regulation score per run: min {scores[0]:.3f}, median "
-                 f"{statistics.median(scores):.3f}, max {scores[-1]:.3f}")
+        L.append(
+            f"- Best regulation score per run: min {scores[0]:.3f}, median "
+            f"{statistics.median(scores):.3f}, max {scores[-1]:.3f}"
+        )
     if oos:
-        L.append(f"- Out-of-scope runs that reached retrieval: {', '.join(f'{s:.3f}' for s in oos)}")
+        L.append(
+            f"- Out-of-scope runs that reached retrieval: {', '.join(f'{s:.3f}' for s in oos)}"
+        )
     L.append("- Set the floor just above typical out-of-scope scores and below in-scope ones.")
     return "\n".join(L) + "\n"
 
@@ -239,8 +303,9 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
 def write_results(rows, summary, meta) -> Path:
     out = RESULTS_DIR / f"{meta['timestamp']}_{meta['context']}"
     out.mkdir(parents=True, exist_ok=True)
-    (out / "results.json").write_text(json.dumps({"meta": meta, "summary": summary,
-                                                  "rows": rows}, indent=2, default=str))
+    (out / "results.json").write_text(
+        json.dumps({"meta": meta, "summary": summary, "rows": rows}, indent=2, default=str)
+    )
     report = render_report(rows, summary, meta)
     (out / "report.md").write_text(report)
     shutil.copy(out / "report.md", RESULTS_DIR / "latest.md")
@@ -248,7 +313,9 @@ def write_results(rows, summary, meta) -> Path:
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     ap.add_argument("--context", default="lean", choices=["lean", "rich"])
     ap.add_argument("--repeats", type=int, default=1)
     ap.add_argument("--workflow", default="all", choices=["all", "static", "dynamic"])
@@ -258,19 +325,30 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     from runtime import build_runtime
-    cases = load_cases(ids=set(args.ids.split(",")) if args.ids else None,
-                       workflow=args.workflow, category=args.category)
+
+    cases = load_cases(
+        ids=set(args.ids.split(",")) if args.ids else None,
+        workflow=args.workflow,
+        category=args.category,
+    )
     rt = build_runtime(context=args.context)
     print(f"Running {len(cases)} cases x {args.repeats} ({args.context} context)")
     rows = run_cases(rt, cases, repeats=args.repeats)
     summary = summarize(rows)
-    meta = {"timestamp": datetime.now().strftime("%Y%m%d-%H%M%S"), "context": args.context,
-            "repeats": args.repeats, "fast_model": config.FAST_MODEL,
-            "strong_model": config.STRONG_MODEL, "reg_min_score": config.REG_MIN_SCORE}
+    meta = {
+        "timestamp": datetime.now().strftime("%Y%m%d-%H%M%S"),
+        "context": args.context,
+        "repeats": args.repeats,
+        "fast_model": config.FAST_MODEL,
+        "strong_model": config.STRONG_MODEL,
+        "reg_min_score": config.REG_MIN_SCORE,
+    }
     out = write_results(rows, summary, meta)
     rate = summary["pass"] / summary["runs"] if summary["runs"] else 0
-    print(f"\nPassed {summary['pass']}/{summary['runs']} ({rate:.0%}). "
-          f"Cost ${summary['cost_total']}. Report: {out / 'report.md'}")
+    print(
+        f"\nPassed {summary['pass']}/{summary['runs']} ({rate:.0%}). "
+        f"Cost ${summary['cost_total']}. Report: {out / 'report.md'}"
+    )
     if args.fail_under is not None and rate < args.fail_under:
         return 1
     return 0

@@ -1,4 +1,5 @@
 """Postgres connection helper with pgvector type registration."""
+
 from contextlib import contextmanager
 from pathlib import Path
 

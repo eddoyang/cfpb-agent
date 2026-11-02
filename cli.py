@@ -1,12 +1,13 @@
 """Command-line demo (backup for the Streamlit app).
 
-    python cli.py triage "Someone charged $500 to my credit card..."     # static workflow
-    python cli.py triage --complaint-id 8123456 --approve                 # real complaint + human approval
-    python cli.py triage --sample                                         # random complaint from the DB
-    python cli.py ask "How often can a debt collector call?"              # dynamic workflow
-    python cli.py chat                                                    # dynamic, multi-turn
-    python cli.py graph                                                   # Mermaid diagrams of both graphs
+python cli.py triage "Someone charged $500 to my credit card..."     # static workflow
+python cli.py triage --complaint-id 8123456 --approve                 # real complaint + human approval
+python cli.py triage --sample                                         # random complaint from the DB
+python cli.py ask "How often can a debt collector call?"              # dynamic workflow
+python cli.py chat                                                    # dynamic, multi-turn
+python cli.py graph                                                   # Mermaid diagrams of both graphs
 """
+
 from __future__ import annotations
 
 import argparse
@@ -20,16 +21,20 @@ W = 96
 
 def show(r: dict) -> None:
     print("\n" + "=" * W)
-    print(f"OUTCOME: {r['outcome'].upper()}   workflow={r['workflow']}  context={r['context_config']}")
+    print(
+        f"OUTCOME: {r['outcome'].upper()}   workflow={r['workflow']}  context={r['context_config']}"
+    )
     print("-" * W)
     print("PATH:")
     for t in r["trace"]:
-        print(f"  {t['node']:<24} {t['ms']:>6} ms  {t['detail'][:W - 40]}")
+        print(f"  {t['node']:<24} {t['ms']:>6} ms  {t['detail'][: W - 40]}")
     for o in r.get("overrides", []):
         print(f"  policy override: {o}")
     if r.get("classification"):
         c = r["classification"]
-        print(f"\nCLASSIFIED: {c['product']} | {c['issue']} | priority {c['priority']} | parts {c['regulation_parts']}")
+        print(
+            f"\nCLASSIFIED: {c['product']} | {c['issue']} | priority {c['priority']} | parts {c['regulation_parts']}"
+        )
     print("\nRESPONSE:")
     print(textwrap.fill(r["response"] or "(none)", W, initial_indent="  ", subsequent_indent="  "))
     if r["citations"]:
@@ -38,14 +43,18 @@ def show(r: dict) -> None:
             print(f"  [{c['id']}] {c['citation'][:70]}  (score {c['score']})")
     v = r.get("verification")
     if v:
-        print(f"\nVERIFICATION: {'PASS' if v['passed'] else 'FAIL'}  supported={v['supported_ratio']}")
+        print(
+            f"\nVERIFICATION: {'PASS' if v['passed'] else 'FAIL'}  supported={v['supported_ratio']}"
+        )
         for i in v["issues"][:5]:
-            print(f"  - {i[:W - 4]}")
+            print(f"  - {i[: W - 4]}")
     if r.get("escalation_reason"):
         print(f"\nESCALATION REASON: {r['escalation_reason'][:300]}")
     u = r["usage"]
-    print(f"\nUSAGE: {u['llm_calls']} LLM calls, {u['input_tokens']:,} in / {u['output_tokens']:,} out tokens, "
-          f"${u['cost_usd']:.4f}, {r['latency_s']}s wall clock")
+    print(
+        f"\nUSAGE: {u['llm_calls']} LLM calls, {u['input_tokens']:,} in / {u['output_tokens']:,} out tokens, "
+        f"${u['cost_usd']:.4f}, {r['latency_s']}s wall clock"
+    )
     print("=" * W)
 
 
@@ -67,6 +76,7 @@ def main():
         from graphs.dynamic import build_dynamic_graph
         from graphs.static import build_static_graph
         from tests.fakes import make_rt
+
         rt = make_rt(script=None)
         print("%% static\n" + build_static_graph(rt).get_graph().draw_mermaid())
         print("%% dynamic\n" + build_dynamic_graph(rt).get_graph().draw_mermaid())
@@ -78,8 +88,11 @@ def main():
         exclude = None
         text = args.text
         if args.complaint_id or args.sample:
-            row = (rt.store.get_complaint(args.complaint_id) if args.complaint_id
-                   else rt.store.random_complaints(1)[0])
+            row = (
+                rt.store.get_complaint(args.complaint_id)
+                if args.complaint_id
+                else rt.store.random_complaints(1)[0]
+            )
             if not row:
                 raise SystemExit(f"Complaint {args.complaint_id} not found")
             text, exclude = row["narrative"], row["complaint_id"]
@@ -92,19 +105,26 @@ def main():
             show(r)
             ans = input("\nApprove this reply? [y]es / [n]o / [e]dit: ").strip().lower()
             edited = input("Paste the edited reply:\n") if ans.startswith("e") else None
-            r = resume_static(rt, r["thread_id"], approved=ans[:1] in {"y", "e"},
-                              edited_response=edited, reviewer="cli user")
+            r = resume_static(
+                rt,
+                r["thread_id"],
+                approved=ans[:1] in {"y", "e"},
+                edited_response=edited,
+                reviewer="cli user",
+            )
         show(r)
     elif args.cmd == "ask":
         show(run_dynamic(rt, args.question))
     else:
         history: list[dict] = []
         print("Ask about Reg E/F/Z or the complaint data. Empty line to quit.")
-        while (q := input("\nyou> ").strip()):
+        while q := input("\nyou> ").strip():
             r = run_dynamic(rt, q, history=history)
             show(r)
-            history += [{"role": "user", "content": q},
-                        {"role": "assistant", "content": r["response"]}]
+            history += [
+                {"role": "user", "content": q},
+                {"role": "assistant", "content": r["response"]},
+            ]
 
 
 if __name__ == "__main__":

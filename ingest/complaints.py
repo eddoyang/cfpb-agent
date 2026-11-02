@@ -13,6 +13,7 @@ Data quality steps (the interview talking point):
   * Drop near-empty narratives (< 30 words) and exact duplicates (template spam).
   * Truncate very long narratives before embedding (cost + 8k token limit).
 """
+
 from __future__ import annotations
 
 import re
@@ -29,8 +30,18 @@ HEADERS = {"User-Agent": "cfpb-agent-demo/0.1 (educational project)"}
 PAGE_SIZE = 100
 
 COLUMNS = [
-    "complaint_id", "date_received", "product", "sub_product", "issue", "sub_issue",
-    "company", "state", "submitted_via", "company_response", "timely", "narrative",
+    "complaint_id",
+    "date_received",
+    "product",
+    "sub_product",
+    "issue",
+    "sub_issue",
+    "company",
+    "state",
+    "submitted_via",
+    "company_response",
+    "timely",
+    "narrative",
 ]
 
 # Bulk CSV header -> our column names
@@ -65,7 +76,7 @@ def clean_narrative(text: str) -> str:
     text = re.sub(r"\bXX/XX/(XXXX|\d{2,4})\b", "[DATE]", text)
     text = re.sub(r"\bX{2,}\b", "[REDACTED]", text)
     text = re.sub(r"(\[REDACTED\]\s*){2,}", "[REDACTED] ", text)
-    text = re.sub(r"\{\$([\d,]+\.?\d*)\}", r"$\1", text)   # CFPB wraps amounts as {$500.00}
+    text = re.sub(r"\{\$([\d,]+\.?\d*)\}", r"$\1", text)  # CFPB wraps amounts as {$500.00}
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -96,18 +107,20 @@ def _get(params: dict) -> dict:
         except requests.RequestException as e:
             if attempt == 3:
                 raise
-            wait = 2 ** attempt
+            wait = 2**attempt
             print(f"    API error ({e}); retrying in {wait}s")
             time.sleep(wait)
     return {}
 
 
 def discover_products() -> list[str]:
-    data = _get({
-        "has_narrative": "true",
-        "date_received_min": config.COMPLAINTS_SINCE,
-        "size": 1,
-    })
+    data = _get(
+        {
+            "has_narrative": "true",
+            "date_received_min": config.COMPLAINTS_SINCE,
+            "size": 1,
+        }
+    )
     buckets = _find_buckets(data.get("aggregations", {}), "product") or []
     names = [b["key"] for b in buckets]
     keep = [n for n in names if reg_hint_for(n)]
@@ -118,34 +131,38 @@ def discover_products() -> list[str]:
 def fetch_product(product: str, limit: int) -> list[dict]:
     rows, frm = [], 0
     while len(rows) < limit:
-        data = _get({
-            "product": product,
-            "has_narrative": "true",
-            "date_received_min": config.COMPLAINTS_SINCE,
-            "size": PAGE_SIZE,
-            "frm": frm,
-            "sort": "created_date_desc",
-            "no_aggs": "true",
-        })
+        data = _get(
+            {
+                "product": product,
+                "has_narrative": "true",
+                "date_received_min": config.COMPLAINTS_SINCE,
+                "size": PAGE_SIZE,
+                "frm": frm,
+                "sort": "created_date_desc",
+                "no_aggs": "true",
+            }
+        )
         hits = data.get("hits", {}).get("hits", []) if isinstance(data, dict) else data
         if not hits:
             break
         for h in hits:
             s = h.get("_source", h)
-            rows.append({
-                "complaint_id": s.get("complaint_id"),
-                "date_received": s.get("date_received"),
-                "product": s.get("product"),
-                "sub_product": s.get("sub_product"),
-                "issue": s.get("issue"),
-                "sub_issue": s.get("sub_issue"),
-                "company": s.get("company"),
-                "state": s.get("state"),
-                "submitted_via": s.get("submitted_via"),
-                "company_response": s.get("company_response"),
-                "timely": s.get("timely"),
-                "narrative": s.get("complaint_what_happened"),
-            })
+            rows.append(
+                {
+                    "complaint_id": s.get("complaint_id"),
+                    "date_received": s.get("date_received"),
+                    "product": s.get("product"),
+                    "sub_product": s.get("sub_product"),
+                    "issue": s.get("issue"),
+                    "sub_issue": s.get("sub_issue"),
+                    "company": s.get("company"),
+                    "state": s.get("state"),
+                    "submitted_via": s.get("submitted_via"),
+                    "company_response": s.get("company_response"),
+                    "timely": s.get("timely"),
+                    "narrative": s.get("complaint_what_happened"),
+                }
+            )
         frm += PAGE_SIZE
         time.sleep(0.3)  # be polite to a public API
     return rows[:limit]
@@ -178,8 +195,9 @@ def load_from_csv(path: Path, per_product: int) -> pd.DataFrame:
         frames.append(chunk)
     df = pd.concat(frames, ignore_index=True)
     # Balanced, reproducible sample per product
-    df = (df.groupby("product", group_keys=False)
-            .apply(lambda g: g.sample(min(len(g), per_product), random_state=42)))
+    df = df.groupby("product", group_keys=False).apply(
+        lambda g: g.sample(min(len(g), per_product), random_state=42)
+    )
     return df[COLUMNS]
 
 
@@ -199,13 +217,16 @@ def clean_complaints(df: pd.DataFrame) -> pd.DataFrame:
     df["reg_hint"] = df["product"].map(reg_hint_for)
     df["narrative"] = df["narrative"].map(lambda t: truncate_tokens(t, config.COMPLAINT_MAX_TOKENS))
     df["token_count"] = df["narrative"].map(count_tokens)
-    print(f"  Cleaning: {start} -> {len(df)} complaints "
-          f"(dropped {start - len(df)} short/duplicate/invalid)")
+    print(
+        f"  Cleaning: {start} -> {len(df)} complaints "
+        f"(dropped {start - len(df)} short/duplicate/invalid)"
+    )
     return df.reset_index(drop=True)
 
 
-def build_complaints(per_product: int = config.COMPLAINTS_PER_PRODUCT,
-                     csv_path: Path | None = None) -> pd.DataFrame:
+def build_complaints(
+    per_product: int = config.COMPLAINTS_PER_PRODUCT, csv_path: Path | None = None
+) -> pd.DataFrame:
     df = load_from_csv(csv_path, per_product) if csv_path else fetch_from_api(per_product)
     df = clean_complaints(df)
     out = config.PROCESSED_DIR / "complaints.parquet"

@@ -10,6 +10,7 @@ The supervisor (fast model) sees evidence SUMMARIES, not full text, which keeps 
 context small. A deterministic policy layer can override it: step cap, loop
 detection, no-evidence synthesis, and repeated tool errors.
 """
+
 from __future__ import annotations
 
 import json
@@ -73,9 +74,16 @@ class AnalystState(TypedDict, total=False):
 
 
 def _signature(d: dict) -> str:
-    return json.dumps({"a": d["action"], "q": (d.get("query") or "").lower().strip(),
-                       "p": sorted(d.get("regulation_parts") or []),
-                       "k": d.get("product_keyword"), "s": d.get("stats")}, sort_keys=True)
+    return json.dumps(
+        {
+            "a": d["action"],
+            "q": (d.get("query") or "").lower().strip(),
+            "p": sorted(d.get("regulation_parts") or []),
+            "k": d.get("product_keyword"),
+            "s": d.get("stats"),
+        },
+        sort_keys=True,
+    )
 
 
 def apply_policy(s: AnalystState, d: dict) -> tuple[dict, str | None]:
@@ -94,12 +102,16 @@ def apply_policy(s: AnalystState, d: dict) -> tuple[dict, str | None]:
         if d["action"] != "query_stats" and not d.get("query"):
             d = {**d, "query": s["request"]}
         if d["action"] == "query_stats" and not d.get("stats"):
-            return ({**d, "action": "search_regulations", "query": s["request"]},
-                    "query_stats without a request -> search_regulations")
+            return (
+                {**d, "action": "search_regulations", "query": s["request"]},
+                "query_stats without a request -> search_regulations",
+            )
     if d["action"] == "synthesize" and not have_evidence:
         if steps == 0:
-            return ({**d, "action": "search_regulations", "query": s["request"]},
-                    "synthesize with no evidence -> search first")
+            return (
+                {**d, "action": "search_regulations", "query": s["request"]},
+                "synthesize with no evidence -> search first",
+            )
         return {**d, "action": "abstain"}, "no usable evidence -> abstain"
     return d, None
 
@@ -109,19 +121,31 @@ def build_dynamic_graph(rt):
     @traced("prepare")
     def prepare_node(s: AnalystState):
         def summarize(text: str) -> str:
-            out = rt.structured("fast", HistorySummary,
-                                "Summarise this conversation in under 80 words, keeping "
-                                "product names, regulations and numbers.", text,
-                                name="summarize_history")
+            out = rt.structured(
+                "fast",
+                HistorySummary,
+                "Summarise this conversation in under 80 words, keeping "
+                "product names, regulations and numbers.",
+                text,
+                name="summarize_history",
+            )
             return out.summary
+
         h = render_history(s.get("history"), rt.ctx, summarize=summarize)
-        return {"history_text": h, "steps": 0, "replans": 0, "consecutive_errors": 0,
-                "_detail": f"history: {len(s.get('history') or [])} turns, mode={rt.ctx.history_mode}"}
+        return {
+            "history_text": h,
+            "steps": 0,
+            "replans": 0,
+            "consecutive_errors": 0,
+            "_detail": f"history: {len(s.get('history') or [])} turns, mode={rt.ctx.history_mode}",
+        }
 
     @traced("supervisor")
     def supervisor_node(s: AnalystState):
-        done = [f"- {a['action']}({a.get('query') or a.get('stats') or ''}) -> "
-                f"{a.get('result')}" for a in s.get("actions", [])]
+        done = [
+            f"- {a['action']}({a.get('query') or a.get('stats') or ''}) -> {a.get('result')}"
+            for a in s.get("actions", [])
+        ]
         kinds: dict[str, int] = {}
         for e in s.get("evidence", []):
             kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1
@@ -129,18 +153,23 @@ def build_dynamic_graph(rt):
         if s.get("history_text"):
             parts.append(f"<conversation_history>\n{s['history_text']}\n</conversation_history>")
         parts.append("Actions so far:\n" + ("\n".join(done) or "(none)"))
-        parts.append(f"Evidence collected: {kinds or 'none'}. "
-                     f"Steps used: {s.get('steps', 0)}/{config.MAX_SUPERVISOR_STEPS}.")
+        parts.append(
+            f"Evidence collected: {kinds or 'none'}. "
+            f"Steps used: {s.get('steps', 0)}/{config.MAX_SUPERVISOR_STEPS}."
+        )
         if s.get("verifier_feedback"):
             parts.append(f"Verifier feedback on the last answer:\n{s['verifier_feedback']}")
         if s.get("errors"):
             parts.append(f"Recent tool errors: {s['errors'][-2:]}")
-        d = rt.structured("fast", SupervisorDecision, SUPERVISOR_SYSTEM, "\n\n".join(parts),
-                          name="supervisor").model_dump()
+        d = rt.structured(
+            "fast", SupervisorDecision, SUPERVISOR_SYSTEM, "\n\n".join(parts), name="supervisor"
+        ).model_dump()
         final, override = apply_policy(s, d)
-        out = {"decision": final,
-               "_detail": f"{d['action']}: {d['reason']}"
-                          + (f"  [policy override: {override}]" if override else "")}
+        out = {
+            "decision": final,
+            "_detail": f"{d['action']}: {d['reason']}"
+            + (f"  [policy override: {override}]" if override else ""),
+        }
         if override:
             out["overrides"] = [override]
         return out
@@ -149,22 +178,35 @@ def build_dynamic_graph(rt):
         @traced(name)
         def node(s: AnalystState):
             d = s["decision"]
-            entry = {"action": d["action"], "query": d.get("query"),
-                     "stats": d.get("stats"), "signature": _signature(d)}
+            entry = {
+                "action": d["action"],
+                "query": d.get("query"),
+                "stats": d.get("stats"),
+                "signature": _signature(d),
+            }
             try:
                 res = fn(s, d)
             except Exception as e:  # noqa: BLE001 - tool errors are recoverable here
-                return {"steps": s.get("steps", 0) + 1,
-                        "consecutive_errors": s.get("consecutive_errors", 0) + 1,
-                        "errors": [f"{name}: {type(e).__name__}: {e}"],
-                        "actions": [{**entry, "result": f"ERROR {type(e).__name__}"}],
-                        "_detail": f"ERROR: {e}"}
-            summary = (f"{len(res['evidence'])} items"
-                       + (f", best score {res['best_score']}" if "best_score" in res else "")
-                       + ("" if res["sufficient"] else ", nothing relevant"))
-            return {"evidence": res["evidence"], "steps": s.get("steps", 0) + 1,
-                    "consecutive_errors": 0,
-                    "actions": [{**entry, "result": summary}], "_detail": summary}
+                return {
+                    "steps": s.get("steps", 0) + 1,
+                    "consecutive_errors": s.get("consecutive_errors", 0) + 1,
+                    "errors": [f"{name}: {type(e).__name__}: {e}"],
+                    "actions": [{**entry, "result": f"ERROR {type(e).__name__}"}],
+                    "_detail": f"ERROR: {e}",
+                }
+            summary = (
+                f"{len(res['evidence'])} items"
+                + (f", best score {res['best_score']}" if "best_score" in res else "")
+                + ("" if res["sufficient"] else ", nothing relevant")
+            )
+            return {
+                "evidence": res["evidence"],
+                "steps": s.get("steps", 0) + 1,
+                "consecutive_errors": 0,
+                "actions": [{**entry, "result": summary}],
+                "_detail": summary,
+            }
+
         return node
 
     def do_regs(s, d):
@@ -175,31 +217,46 @@ def build_dynamic_graph(rt):
 
     def do_stats(s, d):
         from skills.schemas import StatsRequest
+
         n = sum(1 for e in s.get("evidence", []) if e["kind"] == "stats") + 1
         return run_stats(rt, StatsRequest(**d["stats"]), evidence_index=n)
 
     @traced("synthesize")
     def synth_node(s: AnalystState):
-        d, used = draft(rt, s["request"], s.get("evidence", []), mode="analyst_answer",
-                        history=s.get("history_text", ""), feedback=s.get("verifier_feedback"))
-        return {"draft": d.model_dump(), "context_ids": [e["id"] for e in used],
-                "_detail": f"{len(d.claims)} claims from {len(used)} evidence items"
-                           + (" (insufficient evidence)" if d.insufficient_evidence else "")}
+        d, used = draft(
+            rt,
+            s["request"],
+            s.get("evidence", []),
+            mode="analyst_answer",
+            history=s.get("history_text", ""),
+            feedback=s.get("verifier_feedback"),
+        )
+        return {
+            "draft": d.model_dump(),
+            "context_ids": [e["id"] for e in used],
+            "_detail": f"{len(d.claims)} claims from {len(used)} evidence items"
+            + (" (insufficient evidence)" if d.insufficient_evidence else ""),
+        }
 
     @traced("verify")
     def verify_node(s: AnalystState):
         ids = set(s["context_ids"])
         used = [e for e in s["evidence"] if e["id"] in ids]
         v = verify(rt, Draft(**s["draft"]), used)
-        return {"verification": v,
-                "_detail": ("PASS" if v["passed"] else f"FAIL: {len(v['issues'])} issues")
-                           + f", supported={v['supported_ratio']}"}
+        return {
+            "verification": v,
+            "_detail": ("PASS" if v["passed"] else f"FAIL: {len(v['issues'])} issues")
+            + f", supported={v['supported_ratio']}",
+        }
 
     @traced("replan")
     def replan_node(s: AnalystState):
         fb = s["verification"]["feedback"] or "The drafter reported insufficient evidence."
-        return {"replans": s.get("replans", 0) + 1, "verifier_feedback": fb,
-                "_detail": "sending verifier feedback back to the supervisor"}
+        return {
+            "replans": s.get("replans", 0) + 1,
+            "verifier_feedback": fb,
+            "_detail": "sending verifier feedback back to the supervisor",
+        }
 
     @traced("respond")
     def respond_node(s: AnalystState):
@@ -213,10 +270,14 @@ def build_dynamic_graph(rt):
     @traced("abstain")
     def abstain_node(s: AnalystState):
         reason = s.get("decision", {}).get("reason", "")
-        return {"outcome": "abstain",
-                "final_response": ("I can't answer this reliably from the sources I have "
-                                   "(Regulations E, F and Z, and our CFPB complaint sample). "
-                                   f"{reason}")}
+        return {
+            "outcome": "abstain",
+            "final_response": (
+                "I can't answer this reliably from the sources I have "
+                "(Regulations E, F and Z, and our CFPB complaint sample). "
+                f"{reason}"
+            ),
+        }
 
     @traced("escalate")
     def escalate_node(s: AnalystState):
@@ -225,15 +286,25 @@ def build_dynamic_graph(rt):
         elif s.get("failed"):
             reason = f"System error: {(s.get('errors') or ['unknown'])[-1]}"
         else:
-            reason = ("The answer could not be verified against the sources:\n"
-                      + s.get("verification", {}).get("feedback", ""))
-        return {"outcome": "escalate", "escalation_reason": reason,
-                "final_response": f"Escalated to a human analyst. {reason}"}
+            reason = "The answer could not be verified against the sources:\n" + s.get(
+                "verification", {}
+            ).get("feedback", "")
+        return {
+            "outcome": "escalate",
+            "escalation_reason": reason,
+            "final_response": f"Escalated to a human analyst. {reason}",
+        }
 
     # ---------------------------------------------------------------- routing
-    ROUTES = {"search_regulations": "regs_agent", "search_complaints": "cases_agent",
-              "query_stats": "stats_agent", "synthesize": "synthesize",
-              "clarify": "clarify", "abstain": "abstain", "escalate": "escalate"}
+    ROUTES = {
+        "search_regulations": "regs_agent",
+        "search_complaints": "cases_agent",
+        "query_stats": "stats_agent",
+        "synthesize": "synthesize",
+        "clarify": "clarify",
+        "abstain": "abstain",
+        "escalate": "escalate",
+    }
 
     def after_supervisor(s):
         return "escalate" if s.get("failed") else ROUTES[s["decision"]["action"]]
@@ -258,15 +329,23 @@ def build_dynamic_graph(rt):
     g.add_node("regs_agent", worker("regs_agent", do_regs))
     g.add_node("cases_agent", worker("cases_agent", do_cases))
     g.add_node("stats_agent", worker("stats_agent", do_stats))
-    for name, fn in [("synthesize", synth_node), ("verify", verify_node),
-                     ("replan", replan_node), ("respond", respond_node),
-                     ("clarify", clarify_node), ("abstain", abstain_node),
-                     ("escalate", escalate_node)]:
+    for name, fn in [
+        ("synthesize", synth_node),
+        ("verify", verify_node),
+        ("replan", replan_node),
+        ("respond", respond_node),
+        ("clarify", clarify_node),
+        ("abstain", abstain_node),
+        ("escalate", escalate_node),
+    ]:
         g.add_node(name, fn)
 
     g.add_edge(START, "prepare")
-    g.add_conditional_edges("prepare", lambda s: "escalate" if s.get("failed") else "supervisor",
-                            ["supervisor", "escalate"])
+    g.add_conditional_edges(
+        "prepare",
+        lambda s: "escalate" if s.get("failed") else "supervisor",
+        ["supervisor", "escalate"],
+    )
     g.add_conditional_edges("supervisor", after_supervisor, list(set(ROUTES.values())))
     for w in ["regs_agent", "cases_agent", "stats_agent"]:
         g.add_edge(w, "supervisor")

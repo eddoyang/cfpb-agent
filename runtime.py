@@ -4,6 +4,7 @@ It owns the LLM clients (two Claude tiers), the vector store, the active context
 configuration, and a ledger of every model call (tokens, latency, cost). Tests
 swap in a FakeRuntime that overrides `structured()`; nothing else changes.
 """
+
 from __future__ import annotations
 
 import time
@@ -23,8 +24,13 @@ def make_chat_model(model: str, max_tokens: int):
     non-default temperature, so we only send it when the model accepts it. Where it is
     not accepted, run-to-run variation is measured instead (eval --repeats)."""
     from langchain_anthropic import ChatAnthropic
-    kwargs = {"model": model, "max_tokens": max_tokens, "timeout": config.LLM_TIMEOUT_S,
-                  "max_retries": config.LLM_MAX_RETRIES}
+
+    kwargs = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "timeout": config.LLM_TIMEOUT_S,
+        "max_retries": config.LLM_MAX_RETRIES,
+    }
     fixed_sampling = model.startswith(config.MODELS_WITHOUT_TEMPERATURE)
     if config.LLM_TEMPERATURE is not None and not fixed_sampling:
         kwargs["temperature"] = config.LLM_TEMPERATURE
@@ -74,9 +80,15 @@ class Runtime:
             start = time.perf_counter()
             out = runnable.invoke(messages)
             usage = getattr(out["raw"], "usage_metadata", None) or {}
-            self.ledger.append(LLMCall(name, model, usage.get("input_tokens", 0),
-                                       usage.get("output_tokens", 0),
-                                       time.perf_counter() - start))
+            self.ledger.append(
+                LLMCall(
+                    name,
+                    model,
+                    usage.get("input_tokens", 0),
+                    usage.get("output_tokens", 0),
+                    time.perf_counter() - start,
+                )
+            )
             if out.get("parsed") is not None:
                 return out["parsed"]
             last_error = out.get("parsing_error")
@@ -92,13 +104,21 @@ class Runtime:
             "llm_latency_s": round(sum(c.latency_s for c in calls), 2),
             "cost_usd": round(sum(c.cost for c in calls), 5),
             "by_call": [
-                {"name": c.name, "model": c.model, "in": c.input_tokens,
-                 "out": c.output_tokens, "s": round(c.latency_s, 2)} for c in calls
+                {
+                    "name": c.name,
+                    "model": c.model,
+                    "in": c.input_tokens,
+                    "out": c.output_tokens,
+                    "s": round(c.latency_s, 2),
+                }
+                for c in calls
             ],
         }
 
 
 def build_runtime(context: str = "lean", require_approval: bool = False) -> Runtime:
     from retrieval.store import PgStore
-    return Runtime(store=PgStore(), ctx=get_context_config(context),
-                   require_approval=require_approval)
+
+    return Runtime(
+        store=PgStore(), ctx=get_context_config(context), require_approval=require_approval
+    )

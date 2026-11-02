@@ -1,4 +1,5 @@
 """Central configuration. Every tunable lives here so experiments are one-line changes."""
+
 import os
 from pathlib import Path
 
@@ -54,8 +55,8 @@ COMPLAINTS_PER_PRODUCT = 1200
 COMPLAINTS_SINCE = "2023-01-01"
 
 # --- Chunking -------------------------------------------------------------
-REG_CHUNK_MAX_TOKENS = 700      # regulation chunks, split on paragraph boundaries
-COMPLAINT_MAX_TOKENS = 1500     # long narratives are truncated before embedding
+REG_CHUNK_MAX_TOKENS = 700  # regulation chunks, split on paragraph boundaries
+COMPLAINT_MAX_TOKENS = 1500  # long narratives are truncated before embedding
 
 # --- LLM settings ----------------------------------------------------------
 # 0 where the model accepts it (Haiku); models that reject a custom temperature
@@ -70,8 +71,14 @@ MAX_OUTPUT_TOKENS = {"fast": 1024, "strong": 2048}
 # USD per 1M tokens (input, output). PLACEHOLDERS: confirm against
 # https://claude.com/pricing and https://openai.com/api/pricing before quoting costs.
 MODEL_PRICES = {
-    FAST_MODEL: (float(os.getenv("FAST_PRICE_IN", "1.00")), float(os.getenv("FAST_PRICE_OUT", "5.00"))),
-    STRONG_MODEL: (float(os.getenv("STRONG_PRICE_IN", "3.00")), float(os.getenv("STRONG_PRICE_OUT", "15.00"))),
+    FAST_MODEL: (
+        float(os.getenv("FAST_PRICE_IN", "1.00")),
+        float(os.getenv("FAST_PRICE_OUT", "5.00")),
+    ),
+    STRONG_MODEL: (
+        float(os.getenv("STRONG_PRICE_IN", "3.00")),
+        float(os.getenv("STRONG_PRICE_OUT", "15.00")),
+    ),
 }
 EMBED_PRICE_PER_1M = float(os.getenv("EMBED_PRICE", "0.02"))
 
@@ -94,8 +101,8 @@ CASE_MIN_SCORE = float(os.getenv("CASE_MIN_SCORE", "0.30"))
 HNSW_EF_SEARCH = 100
 
 # --- Workflow stopping conditions -----------------------------------------
-MAX_REDRAFTS = 2           # static: verify failures before escalating
-MAX_SUPERVISOR_STEPS = 6   # dynamic: hard cap on worker calls
-MAX_REPLANS = 1            # dynamic: re-plans after a failed verification
-MAX_CONSECUTIVE_ERRORS = 2 # dynamic: tool failures in a row before escalating
-RECURSION_LIMIT = 40       # LangGraph safety net on top of the caps above
+MAX_REDRAFTS = 2  # static: verify failures before escalating
+MAX_SUPERVISOR_STEPS = 6  # dynamic: hard cap on worker calls
+MAX_REPLANS = 1  # dynamic: re-plans after a failed verification
+MAX_CONSECUTIVE_ERRORS = 2  # dynamic: tool failures in a row before escalating
+RECURSION_LIMIT = 40  # LangGraph safety net on top of the caps above

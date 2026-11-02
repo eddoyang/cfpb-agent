@@ -5,6 +5,7 @@ For Claude it is only an approximation, which is fine for budgeting. tiktoken
 downloads its vocabulary on first use; if that fails (offline, firewall), we fall
 back to a ~4 characters-per-token estimate instead of crashing.
 """
+
 from functools import lru_cache
 
 CHARS_PER_TOKEN = 4
@@ -14,6 +15,7 @@ CHARS_PER_TOKEN = 4
 def _enc():
     try:
         import tiktoken
+
         return tiktoken.get_encoding("cl100k_base")
     except Exception as e:  # network/proxy errors surface as various types
         print(f"[tokens] tiktoken unavailable ({type(e).__name__}); using char estimate")

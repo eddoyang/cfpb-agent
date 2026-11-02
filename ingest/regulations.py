@@ -8,6 +8,7 @@ Chunking strategy (the interview talking point):
     even when the paragraph itself only says "(b) Billing error notice...".
   * Track top-level paragraph labels so citations are precise: 12 CFR 1026.13(a)-(c).
 """
+
 from __future__ import annotations
 
 import json
@@ -81,10 +82,7 @@ def parse_sections(xml_bytes: bytes) -> list[dict]:
             continue
         number = m.group(1)
         title = _clean(SECTION_RE.sub("", head, count=1))
-        paragraphs = [
-            _clean("".join(p.itertext()))
-            for p in div.iter("P", "FP")
-        ]
+        paragraphs = [_clean("".join(p.itertext())) for p in div.iter("P", "FP")]
         paragraphs = [p for p in paragraphs if p]
         # Skip [Reserved] / removed sections
         if not paragraphs or "[Reserved]" in title:
@@ -118,8 +116,9 @@ def _citation(section: str, labels: list[str]) -> str:
     return f"12 CFR {section}({labels[0]})-({labels[-1]})"
 
 
-def chunk_section(sec: dict, part: str, as_of: str,
-                  max_tokens: int = config.REG_CHUNK_MAX_TOKENS) -> list[RegChunk]:
+def chunk_section(
+    sec: dict, part: str, as_of: str, max_tokens: int = config.REG_CHUNK_MAX_TOKENS
+) -> list[RegChunk]:
     regulation = config.REGULATIONS[part]
     header = f"12 CFR {sec['section']} {sec['title']} ({regulation})"
     budget = max_tokens - count_tokens(header) - 4
@@ -129,8 +128,9 @@ def chunk_section(sec: dict, part: str, as_of: str,
     current_label = None
     for para in sec["paragraphs"]:
         m = LABEL_RE.match(para)
-        if m and (current_label is None or ord(m.group(1)) == ord(current_label) + 1
-                  or m.group(1) == "a"):
+        if m and (
+            current_label is None or ord(m.group(1)) == ord(current_label) + 1 or m.group(1) == "a"
+        ):
             current_label = m.group(1)
         for piece in _split_long_paragraph(para, budget):
             units.append((piece, current_label))
@@ -146,18 +146,20 @@ def chunk_section(sec: dict, part: str, as_of: str,
             return
         idx = len(chunks) + 1
         text = header + "\n\n" + "\n".join(buf)
-        chunks.append(RegChunk(
-            chunk_id=f"{sec['section']}#{idx}",
-            part=part,
-            regulation=regulation,
-            section=sec["section"],
-            section_title=sec["title"],
-            citation=_citation(sec["section"], labels),
-            text=text,
-            token_count=count_tokens(text),
-            source_url=f"https://www.ecfr.gov/current/title-12/section-{sec['section']}",
-            as_of_date=as_of,
-        ))
+        chunks.append(
+            RegChunk(
+                chunk_id=f"{sec['section']}#{idx}",
+                part=part,
+                regulation=regulation,
+                section=sec["section"],
+                section_title=sec["title"],
+                citation=_citation(sec["section"], labels),
+                text=text,
+                token_count=count_tokens(text),
+                source_url=f"https://www.ecfr.gov/current/title-12/section-{sec['section']}",
+                as_of_date=as_of,
+            )
+        )
         buf, labels, buf_tokens = [], [], 0
 
     for piece, label in units:

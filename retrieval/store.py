@@ -7,6 +7,7 @@ Evidence dict:
    "citation": "12 CFR 1026.13(a)-(b) Billing error resolution.",
    "text": "...", "score": 0.53, "section": "1026.13", "source_url": "...", "meta": {...}}
 """
+
 from __future__ import annotations
 
 import re
@@ -48,8 +49,10 @@ class PgStore:
     def embedder(self):
         if self._embedder is None:
             from langchain_openai import OpenAIEmbeddings
-            self._embedder = OpenAIEmbeddings(model=config.EMBEDDING_MODEL,
-                                              dimensions=config.EMBEDDING_DIM)
+
+            self._embedder = OpenAIEmbeddings(
+                model=config.EMBEDDING_MODEL, dimensions=config.EMBEDDING_DIM
+            )
         return self._embedder
 
     def embed_query(self, text: str) -> np.ndarray:
@@ -82,12 +85,15 @@ class PgStore:
         rows = self.conn.execute(
             """SELECT chunk_id, part, regulation, section, section_title, citation, text,
                       source_url, as_of_date, 1 - (embedding <=> %s) AS score
-               FROM reg_chunks WHERE section = %s ORDER BY chunk_id""", (vec, section)).fetchall()
+               FROM reg_chunks WHERE section = %s ORDER BY chunk_id""",
+            (vec, section),
+        ).fetchall()
         return [_reg_evidence(r) for r in rows]
 
     # ------------------------------------------------------------ complaints
-    def search_complaints(self, query: str, k: int, product_keyword: str | None = None,
-                          exclude_id: int | None = None) -> list[dict]:
+    def search_complaints(
+        self, query: str, k: int, product_keyword: str | None = None, exclude_id: int | None = None
+    ) -> list[dict]:
         vec = self.embed_query(query)
         clauses, params = ["embedding IS NOT NULL"], {"v": vec, "k": k}
         if product_keyword:
@@ -99,30 +105,45 @@ class PgStore:
         rows = self.conn.execute(
             f"""SELECT complaint_id, date_received, product, issue, company, company_response,
                        timely, narrative, 1 - (embedding <=> %(v)s) AS score
-                FROM complaints WHERE {' AND '.join(clauses)}
-                ORDER BY embedding <=> %(v)s LIMIT %(k)s""", params).fetchall()
-        return [{
-            "id": f"C-{r['complaint_id']}",
-            "kind": "complaint",
-            "citation": (f"CFPB complaint {r['complaint_id']} ({r['product']}; {r['issue']}; "
-                         f"company response: {r['company_response']})"),
-            "text": r["narrative"],
-            "score": float(r["score"]),
-            "section": None,
-            "source_url": f"https://www.consumerfinance.gov/data-research/consumer-complaints/search/detail/{r['complaint_id']}",
-            "meta": {"company": r["company"], "date": str(r["date_received"]),
-                     "company_response": r["company_response"], "timely": r["timely"]},
-        } for r in rows]
+                FROM complaints WHERE {" AND ".join(clauses)}
+                ORDER BY embedding <=> %(v)s LIMIT %(k)s""",
+            params,
+        ).fetchall()
+        return [
+            {
+                "id": f"C-{r['complaint_id']}",
+                "kind": "complaint",
+                "citation": (
+                    f"CFPB complaint {r['complaint_id']} ({r['product']}; {r['issue']}; "
+                    f"company response: {r['company_response']})"
+                ),
+                "text": r["narrative"],
+                "score": float(r["score"]),
+                "section": None,
+                "source_url": f"https://www.consumerfinance.gov/data-research/consumer-complaints/search/detail/{r['complaint_id']}",
+                "meta": {
+                    "company": r["company"],
+                    "date": str(r["date_received"]),
+                    "company_response": r["company_response"],
+                    "timely": r["timely"],
+                },
+            }
+            for r in rows
+        ]
 
     def get_complaint(self, complaint_id: int) -> dict | None:
         return self.conn.execute(
             "SELECT complaint_id, product, issue, company, narrative FROM complaints "
-            "WHERE complaint_id = %s", (complaint_id,)).fetchone()
+            "WHERE complaint_id = %s",
+            (complaint_id,),
+        ).fetchone()
 
     def random_complaints(self, n: int = 5) -> list[dict]:
         return self.conn.execute(
             "SELECT complaint_id, product, issue, narrative FROM complaints "
-            "ORDER BY random() LIMIT %s", (n,)).fetchall()
+            "ORDER BY random() LIMIT %s",
+            (n,),
+        ).fetchall()
 
     # ------------------------------------------------------------ stats
     def run_readonly(self, sql: str, params: dict) -> list[dict]:
@@ -160,6 +181,5 @@ def _reg_evidence(r: dict) -> dict:
         "score": float(r["score"]),
         "section": r["section"],
         "source_url": r["source_url"],
-        "meta": {"part": r["part"], "regulation": r["regulation"],
-                 "as_of": str(r["as_of_date"])},
+        "meta": {"part": r["part"], "regulation": r["regulation"], "as_of": str(r["as_of_date"])},
     }

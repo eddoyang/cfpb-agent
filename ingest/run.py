@@ -1,11 +1,12 @@
 """Ingestion CLI.
 
-    python -m ingest.run                       # everything, via public APIs
-    python -m ingest.run --only regs           # regulations only
-    python -m ingest.run --only complaints --per-product 300
-    python -m ingest.run --complaints-csv data/raw/complaints.csv
-    python -m ingest.run --dry-run             # fetch + chunk, no embeddings / DB
+python -m ingest.run                       # everything, via public APIs
+python -m ingest.run --only regs           # regulations only
+python -m ingest.run --only complaints --per-product 300
+python -m ingest.run --complaints-csv data/raw/complaints.csv
+python -m ingest.run --dry-run             # fetch + chunk, no embeddings / DB
 """
+
 import argparse
 from pathlib import Path
 

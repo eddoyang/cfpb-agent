@@ -7,6 +7,7 @@ Layer 2 (LLM judge, strong model): is each claim actually supported by the text 
 the evidence it cites? This catches the subtle case: a real citation attached to a
 claim the source doesn't say (e.g. a wrong deadline).
 """
+
 from __future__ import annotations
 
 import re
@@ -58,8 +59,10 @@ def verify(rt, d: Draft, evidence: list[dict], use_judge: bool = True) -> dict:
     if use_judge and d.claims:
         blocks = []
         for i, c in enumerate(d.claims):
-            sources = "\n".join(f"  [{x}] {by_id[x]['text'][:1500]}"
-                                for x in c.citations if x in by_id) or "  (no valid sources)"
+            sources = (
+                "\n".join(f"  [{x}] {by_id[x]['text'][:1500]}" for x in c.citations if x in by_id)
+                or "  (no valid sources)"
+            )
             blocks.append(f"Claim {i}: {c.text}\nCited evidence:\n{sources}")
         user = "Draft response:\n" + d.response + "\n\nClaims to check:\n\n" + "\n\n".join(blocks)
         judge = rt.structured("strong", JudgeOutput, JUDGE_SYSTEM, user, name="verify")

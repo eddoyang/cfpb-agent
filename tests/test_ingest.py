@@ -1,4 +1,5 @@
 """Offline tests for parsing, chunking and cleaning (no network, no DB, no API keys)."""
+
 import pandas as pd
 
 from ingest.complaints import (
@@ -67,20 +68,52 @@ def test_reg_hint_mapping():
 
 def test_clean_complaints_drops_short_and_duplicates():
     long_text = "I disputed an unauthorized charge on my credit card " * 5
-    df = pd.DataFrame([
-        {"complaint_id": "1", "date_received": "2024-03-01", "product": "Credit card",
-         "sub_product": None, "issue": "Problem with a purchase", "sub_issue": None,
-         "company": "Bank A", "state": "WA", "submitted_via": "Web",
-         "company_response": "Closed with explanation", "timely": "Yes", "narrative": long_text},
-        {"complaint_id": "2", "date_received": "2024-03-02", "product": "Credit card",
-         "sub_product": None, "issue": "Fees", "sub_issue": None, "company": "Bank B",
-         "state": "CA", "submitted_via": "Web", "company_response": "Closed",
-         "timely": "No", "narrative": long_text},                     # duplicate text
-        {"complaint_id": "3", "date_received": "2024-03-03", "product": "Debt collection",
-         "sub_product": None, "issue": "Attempts to collect", "sub_issue": None,
-         "company": "Agency C", "state": "NY", "submitted_via": "Web",
-         "company_response": "Closed", "timely": "Yes", "narrative": "Too short."},
-    ])
+    df = pd.DataFrame(
+        [
+            {
+                "complaint_id": "1",
+                "date_received": "2024-03-01",
+                "product": "Credit card",
+                "sub_product": None,
+                "issue": "Problem with a purchase",
+                "sub_issue": None,
+                "company": "Bank A",
+                "state": "WA",
+                "submitted_via": "Web",
+                "company_response": "Closed with explanation",
+                "timely": "Yes",
+                "narrative": long_text,
+            },
+            {
+                "complaint_id": "2",
+                "date_received": "2024-03-02",
+                "product": "Credit card",
+                "sub_product": None,
+                "issue": "Fees",
+                "sub_issue": None,
+                "company": "Bank B",
+                "state": "CA",
+                "submitted_via": "Web",
+                "company_response": "Closed",
+                "timely": "No",
+                "narrative": long_text,
+            },  # duplicate text
+            {
+                "complaint_id": "3",
+                "date_received": "2024-03-03",
+                "product": "Debt collection",
+                "sub_product": None,
+                "issue": "Attempts to collect",
+                "sub_issue": None,
+                "company": "Agency C",
+                "state": "NY",
+                "submitted_via": "Web",
+                "company_response": "Closed",
+                "timely": "Yes",
+                "narrative": "Too short.",
+            },
+        ]
+    )
     out = clean_complaints(df)
     assert list(out["complaint_id"]) == [1]
     assert out.loc[0, "reg_hint"] == "1026"

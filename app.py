@@ -4,6 +4,7 @@ Tab 1 runs the STATIC triage workflow (with optional human approval).
 Tab 2 runs the DYNAMIC analyst workflow as a multi-turn chat.
 Tab 3 shows the latest evaluation report.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -17,19 +18,26 @@ from runtime import build_runtime
 
 st.set_page_config(page_title="Complaint triage agents", layout="wide")
 
-OUTCOME_STYLE = {"answer": ("Answered", "green"), "clarify": ("Needs clarification", "blue"),
-                 "abstain": ("Abstained", "gray"), "escalate": ("Escalated to a human", "orange"),
-                 "pending_review": ("Waiting for human approval", "violet"),
-                 "rejected": ("Rejected by reviewer", "red")}
+OUTCOME_STYLE = {
+    "answer": ("Answered", "green"),
+    "clarify": ("Needs clarification", "blue"),
+    "abstain": ("Abstained", "gray"),
+    "escalate": ("Escalated to a human", "orange"),
+    "pending_review": ("Waiting for human approval", "violet"),
+    "rejected": ("Rejected by reviewer", "red"),
+}
 CASES = yaml.safe_load((Path(__file__).parent / "eval" / "cases.yaml").read_text())
 
 
 # ---------------------------------------------------------------- runtime
 with st.sidebar:
     st.header("Settings")
-    context = st.radio("Context configuration", ["lean", "rich"],
-                       help="lean: top-3 chunks, 2.5k-token evidence budget, summarised history. "
-                            "rich: top-10, 9k budget, full history.")
+    context = st.radio(
+        "Context configuration",
+        ["lean", "rich"],
+        help="lean: top-3 chunks, 2.5k-token evidence budget, summarised history. "
+        "rich: top-10, 9k budget, full history.",
+    )
     approval = st.toggle("Require human approval", value=True)
     st.caption("Models and thresholds are set in config.py.")
 
@@ -69,8 +77,9 @@ def show_result(r: dict, show_response: bool = True) -> None:
                 st.markdown(f"- `{c['id']}` [{c['citation']}]({c['url']}) · score {c['score']}")
     if r.get("verification"):
         v = r["verification"]
-        with st.expander(f"Verification: {'PASS' if v['passed'] else 'FAIL'} "
-                         f"(supported {v['supported_ratio']})"):
+        with st.expander(
+            f"Verification: {'PASS' if v['passed'] else 'FAIL'} (supported {v['supported_ratio']})"
+        ):
             for i in v["issues"]:
                 st.markdown(f"- {i}")
             if v["verdicts"]:
@@ -89,10 +98,16 @@ tab1, tab2, tab3 = st.tabs(["Complaint triage (static)", "Analyst Q&A (dynamic)"
 # ---------------------------------------------------------------- static
 with tab1:
     st.subheader("Complaint triage: fixed pipeline")
-    st.caption("classify → retrieve regulations → similar cases → draft → verify (≤2 redrafts) → human approval")
-    samples = {f"{c['id']} ({c['category']})": c["input"] for c in CASES if c["workflow"] == "static"}
-    choice = st.selectbox("Example complaint", ["(write your own)", "(random complaint from the database)"]
-                          + list(samples))
+    st.caption(
+        "classify → retrieve regulations → similar cases → draft → verify (≤2 redrafts) → human approval"
+    )
+    samples = {
+        f"{c['id']} ({c['category']})": c["input"] for c in CASES if c["workflow"] == "static"
+    }
+    choice = st.selectbox(
+        "Example complaint",
+        ["(write your own)", "(random complaint from the database)"] + list(samples),
+    )
     default = samples.get(choice, "")
     exclude = None
     if choice == "(random complaint from the database)":
@@ -114,26 +129,34 @@ with tab1:
         show_result(r)
         if r["pending_review"]:
             st.markdown("#### Human review")
-            edited = st.text_area("Draft reply (edit before approving if needed)",
-                                  value=r["response"], height=220)
+            edited = st.text_area(
+                "Draft reply (edit before approving if needed)", value=r["response"], height=220
+            )
             note = st.text_input("Reviewer note")
             c1, c2 = st.columns(2)
             if c1.button("Approve and send", type="primary"):
                 st.session_state["static_result"] = resume_static(
-                    rt, r["thread_id"], approved=True,
+                    rt,
+                    r["thread_id"],
+                    approved=True,
                     edited_response=edited if edited != r["response"] else None,
-                    reviewer="demo reviewer", note=note)
+                    reviewer="demo reviewer",
+                    note=note,
+                )
                 st.rerun()
             if c2.button("Reject"):
                 st.session_state["static_result"] = resume_static(
-                    rt, r["thread_id"], approved=False, reviewer="demo reviewer", note=note)
+                    rt, r["thread_id"], approved=False, reviewer="demo reviewer", note=note
+                )
                 st.rerun()
 
 # ---------------------------------------------------------------- dynamic
 with tab2:
     st.subheader("Analyst Q&A: supervisor-routed agents")
-    st.caption("The supervisor picks regulation search, similar-complaint search or statistics, "
-               "re-plans if verification fails, and can clarify or abstain.")
+    st.caption(
+        "The supervisor picks regulation search, similar-complaint search or statistics, "
+        "re-plans if verification fails, and can clarify or abstain."
+    )
     hist_key = f"chat-{context}"
     st.session_state.setdefault(hist_key, [])
     examples = [c["input"] for c in CASES if c["workflow"] == "dynamic"]
@@ -154,15 +177,19 @@ with tab2:
         history = [{"role": t["role"], "content": t["content"]} for t in st.session_state[hist_key]]
         with st.spinner("Supervisor planning..."):
             res = run_dynamic(rt, q, history=history)
-        st.session_state[hist_key] += [{"role": "user", "content": q},
-                                       {"role": "assistant", "content": res["response"], "result": res}]
+        st.session_state[hist_key] += [
+            {"role": "user", "content": q},
+            {"role": "assistant", "content": res["response"], "result": res},
+        ]
         st.rerun()
 
 # ---------------------------------------------------------------- eval
 with tab3:
     st.subheader("Evaluation")
-    st.caption("Run `python -m eval.harness` (add `--repeats 3` for reliability). "
-               "The newest report appears here.")
+    st.caption(
+        "Run `python -m eval.harness` (add `--repeats 3` for reliability). "
+        "The newest report appears here."
+    )
     latest = Path(__file__).parent / "eval" / "results" / "latest.md"
     if latest.exists():
         st.markdown(latest.read_text())

@@ -1,4 +1,5 @@
 """Headless smoke test of the Streamlit app with the fake runtime."""
+
 from pathlib import Path
 
 import pytest
@@ -16,10 +17,17 @@ AppTest = pytest.importorskip("streamlit.testing.v1").AppTest
 
 
 def script(name, schema, system, user):
-    return {"classify": classification(), "draft": good_draft(), "verify": judge_all_supported(),
-            "supervisor": ({"action": "search_regulations", "reason": "r", "query": "q"}
-                           if "(none)" in user else {"action": "synthesize", "reason": "s"}),
-            "summarize_history": {"summary": "s"}}[name]
+    return {
+        "classify": classification(),
+        "draft": good_draft(),
+        "verify": judge_all_supported(),
+        "supervisor": (
+            {"action": "search_regulations", "reason": "r", "query": "q"}
+            if "(none)" in user
+            else {"action": "synthesize", "reason": "s"}
+        ),
+        "summarize_history": {"summary": "s"},
+    }[name]
 
 
 class Store(FakeStore):
@@ -29,10 +37,13 @@ class Store(FakeStore):
 
 @pytest.fixture
 def app(monkeypatch):
-    monkeypatch.setattr(runtime, "build_runtime",
-                        lambda context="lean", require_approval=False:
-                        make_rt(script, store=Store(), context=context,
-                                require_approval=require_approval))
+    monkeypatch.setattr(
+        runtime,
+        "build_runtime",
+        lambda context="lean", require_approval=False: make_rt(
+            script, store=Store(), context=context, require_approval=require_approval
+        ),
+    )
     at = AppTest.from_file(str(Path(__file__).parent.parent / "app.py"), default_timeout=30)
     at.run()
     assert not at.exception
