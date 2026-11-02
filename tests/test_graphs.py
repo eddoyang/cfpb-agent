@@ -3,6 +3,7 @@
 from graphs.dynamic import apply_policy
 from graphs.runner import resume_static, run_dynamic, run_static
 from tests.fakes import (
+    REG_1026_12,
     FakeStore,
     bad_draft,
     classification,
@@ -169,6 +170,15 @@ def test_dynamic_loop_detection_forces_synthesis():
     assert r["outcome"] == "answer" and r["path"].count("regs_agent") == 1
 
 
+class FreshStore(FakeStore):
+    """Every search returns a chunk not seen before, so only the step cap stops it."""
+
+    def search_regulations(self, query, k, parts=None):
+        self._maybe_fail("regs")
+        n = self.calls.count("regs")
+        return [{**REG_1026_12, "id": f"R-1026.12#{n}"}]
+
+
 def test_dynamic_step_cap():
     counter = {"i": 0}
 
@@ -178,9 +188,26 @@ def test_dynamic_step_cap():
             return dec("search_regulations", query=f"query {counter['i']}")
         return judge_all_supported() if name == "verify" else good_draft()
 
-    r = run_dynamic(make_rt(script), "keep searching")
+    r = run_dynamic(make_rt(script, store=FreshStore()), "keep searching")
     assert r["path"].count("regs_agent") == 6
     assert any("step cap" in o for o in r["overrides"]) and r["outcome"] == "answer"
+
+
+def test_dynamic_stops_reworded_searches_that_find_nothing_new():
+    counter = {"i": 0}
+
+    def script(name, schema, system, user):
+        if name == "supervisor":
+            counter["i"] += 1
+            return dec("search_regulations", query=f"reworded query {counter['i']}")
+        return judge_all_supported() if name == "verify" else good_draft()
+
+    r = run_dynamic(make_rt(script), "keep searching")
+    # 1st search adds 3 chunks; the next 2 return the same chunks -> synthesize.
+    assert r["path"].count("regs_agent") == 3
+    assert any("found nothing new" in o for o in r["overrides"]) and r["outcome"] == "answer"
+    assert len(r["retrieved_ids"]) == len(set(r["retrieved_ids"])) == 3
+    assert [c["id"] for c in r["citations"]] == ["R-1026.12#1"]
 
 
 def test_dynamic_abstains_out_of_scope():

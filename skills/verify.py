@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import re
 
+from ingest.tokens import truncate_tokens
 from skills.schemas import Draft, JudgeOutput
 
 PROMISE_PATTERNS = [
@@ -28,6 +29,15 @@ A claim is NOT supported if it adds a number, deadline, condition, or right that
 cited text does not state, even if it is true in general. Be strict but fair:
 paraphrase is fine. Also list policy issues: promising refunds or outcomes, stating legal
 conclusions about this specific customer as certain, or an inappropriate tone."""
+
+
+def judge_text(ev: dict, ctx) -> str:
+    """The evidence text exactly as the drafter saw it. Regulation chunks go in whole
+    (already capped at REG_CHUNK_MAX_TOKENS); narratives are clipped as in pack_evidence.
+    Showing the judge less than the drafter makes correct claims look unsupported."""
+    if ev["kind"] == "complaint":
+        return truncate_tokens(ev["text"], ctx.max_case_tokens)
+    return ev["text"]
 
 
 def deterministic_checks(d: Draft, evidence: list[dict]) -> list[str]:
@@ -60,7 +70,9 @@ def verify(rt, d: Draft, evidence: list[dict], use_judge: bool = True) -> dict:
         blocks = []
         for i, c in enumerate(d.claims):
             sources = (
-                "\n".join(f"  [{x}] {by_id[x]['text'][:1500]}" for x in c.citations if x in by_id)
+                "\n".join(
+                    f"  [{x}] {judge_text(by_id[x], rt.ctx)}" for x in c.citations if x in by_id
+                )
                 or "  (no valid sources)"
             )
             blocks.append(f"Claim {i}: {c.text}\nCited evidence:\n{sources}")

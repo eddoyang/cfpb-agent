@@ -1,5 +1,5 @@
-"""Structured outputs for every LLM-backed skill. Claude fills these via tool calling,
-so downstream code never parses free text."""
+"""Structured outputs for every LLM-backed skill. Claude fills these via native
+structured outputs (JSON schema), so downstream code never parses free text."""
 
 from __future__ import annotations
 

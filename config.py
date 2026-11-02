@@ -106,4 +106,5 @@ MAX_REDRAFTS = 2  # static: verify failures before escalating
 MAX_SUPERVISOR_STEPS = 6  # dynamic: hard cap on worker calls
 MAX_REPLANS = 1  # dynamic: re-plans after a failed verification
 MAX_CONSECUTIVE_ERRORS = 2  # dynamic: tool failures in a row before escalating
+MAX_STALE_SEARCHES = 2  # dynamic: searches in a row that found nothing new -> synthesize
 RECURSION_LIMIT = 40  # LangGraph safety net on top of the caps above

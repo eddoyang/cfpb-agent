@@ -73,7 +73,11 @@ class Runtime:
     def structured(self, tier: str, schema: type[T], system: str, user: str, name: str) -> T:
         """Call Claude with a Pydantic output schema; log usage; retry once on bad output."""
         model = config.FAST_MODEL if tier == "fast" else config.STRONG_MODEL
-        runnable = self.llm(tier).with_structured_output(schema, include_raw=True)
+        # json_schema uses Claude's native structured outputs. The default (forced tool
+        # calling) is not supported on Sonnet 5.5 and can come back with no tool call.
+        runnable = self.llm(tier).with_structured_output(
+            schema, include_raw=True, method="json_schema"
+        )
         messages = [("system", system), ("human", user)]
         last_error = None
         for _ in range(2):
