@@ -67,7 +67,7 @@ LLM_TEMPERATURE = None if _temp.lower() == "none" else float(_temp)
 MODELS_WITHOUT_TEMPERATURE = ("claude-sonnet-5-5", "claude-haiku-5-5", "claude-fable-5")
 LLM_TIMEOUT_S = 90
 LLM_MAX_RETRIES = 2
-MAX_OUTPUT_TOKENS = {"fast": 1024, "strong": 2048}
+MAX_OUTPUT_TOKENS = {"fast": 1024, "strong": 4096}
 
 # USD per 1M tokens (input, output). PLACEHOLDERS: confirm against
 # https://claude.com/pricing and https://openai.com/api/pricing before quoting costs.
