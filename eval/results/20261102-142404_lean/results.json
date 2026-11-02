@@ -1,0 +1,1084 @@
+{
+  "meta": {
+    "timestamp": "20261102-142404",
+    "context": "lean",
+    "repeats": 1,
+    "fast_model": "claude-haiku-5-5",
+    "strong_model": "claude-sonnet-5-5",
+    "reg_min_score": 0.3
+  },
+  "summary": {
+    "runs": 28,
+    "cases": 28,
+    "pass": 17,
+    "metrics": {
+      "outcome": [
+        18,
+        28
+      ],
+      "product": [
+        10,
+        10
+      ],
+      "retrieval_hit": [
+        15,
+        15
+      ],
+      "citation_hit": [
+        8,
+        8
+      ],
+      "retrieval_all": [
+        0,
+        1
+      ],
+      "actions": [
+        5,
+        5
+      ],
+      "forbidden": [
+        1,
+        2
+      ]
+    },
+    "mean_supported_ratio": 1.0,
+    "verifier_caught": 9,
+    "latency_mean": 27.47,
+    "latency_p95": 72.89,
+    "cost_total": 2.3688,
+    "cost_per_run": 0.0846,
+    "tokens_in": 445530,
+    "tokens_out": 93110,
+    "consistency": 1.0,
+    "inconsistent_cases": []
+  },
+  "rows": [
+    {
+      "id": "st-unauth-credit",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']",
+        "errors: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"We're so"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.656,
+      "latency_s": 75.09,
+      "cost_usd": 0.24583,
+      "input_tokens": 33847,
+      "output_tokens": 9946,
+      "llm_calls": 6,
+      "response": "Escalated to a human specialist. System error: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"We're sorry you found a $500 charge you don't recognize, and for the response you received when you reported it. Below is how the rules we reviewed work. We cannot say how your case will be decided.\\n\\nUnder Regulation Z, \\\"unauthorized use\\\" means use of a card by a person who has no actual, implied, or apparent authority and from which the cardholder receives no benefit [R-1026.12#1]. That definition turns on authority and benefit. The text we reviewed does not say the card must have been lost. Liability for unauthorized use cannot exceed the lesser of $50 or the value obtained before you notified the issuer [R-1026.12#1]. Notice may be given by phone [R-1026.12#1].\\n\\nA charge not made by you or someone with authority to use your card can also be a billing error [R-1026.13#1]. To start the formal process, send a written billing error notice. It must give your name and account number, and the type, date, and amount of the charge and why you believe it is an error. The bank must receive it within 60 days after it sent the first statement showing the charge [R-1026.13#1]. For a valid notice, the bank must acknowledge it within 30 days and finish its resolution steps within two billing cycles, and no later than 90 days [R-1026.13#1]. Once the bank receives a valid notice, you need not pay the disputed portion while it is pending. The bank may not try to collect it or make adverse credit reports because you did not pay it [R-1026.13#2]. If the bank finds no billing error, it must send you an explanation and, if you ask, documentary evidence [R-1026.13#2].\\n\\nNext step: send your written notice promptly and keep a copy.\", \"claims\": [{\"text\": \"Unauthorized use means use of a credit card by a person without actual, implied, or apparent authority, from which the cardholder receives no benefit.\", \"citations\": [\"R-1026.12#1\"]}, {\"text\": \"The definition of unauthorized use in the reviewed text does not state that the card must have been lost.\", \"citations\": [\"R-1026.12#1\"]}, {\"text\": \"Cardholder liability for unauthorized use cannot exceed the lesser of $50\"}]}. Got: 3 validation errors for Draft\nclaims.2.citations\n  Field required [type=missing, input_value={'text': 'Cardholder liab...ceed the lesser of $50'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninsufficient_evidence\n  Field required [type=missing, input_value={'response': 'We\\'re sorr...ed the lesser of $50'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninternal_notes\n  Field required [type=missing, input_value={'response': 'We\\'re sorr...ed the lesser of $50'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ",
+      "repeat": 0
+    },
+    {
+      "id": "st-billing-not-delivered",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']"
+      ],
+      "supported_ratio": 0.857,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.69,
+      "latency_s": 64.71,
+      "cost_usd": 0.21861,
+      "input_tokens": 35140,
+      "output_tokens": 7883,
+      "llm_calls": 6,
+      "response": "Escalated to a human specialist. The drafter reported that the evidence does not cover this complaint.",
+      "repeat": 0
+    },
+    {
+      "id": "st-debit-atm-fraud",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.776,
+      "latency_s": 52.92,
+      "cost_usd": 0.15334,
+      "input_tokens": 24545,
+      "output_tokens": 5765,
+      "llm_calls": 5,
+      "response": "I'm sorry you're dealing with this, especially with your account nearly empty and rent due. You told us someone used your stolen debit card for $900 in ATM withdrawals, that you called the bank the morning after you noticed, and that you were told you are responsible for $500.\n\nUnder Regulation E, the amount a consumer can be held liable for depends on when the bank was notified. If notice is given within two business days after learning of the loss or theft, liability shall not exceed the lesser of $50 or the amount of unauthorized transfers before notice [R-1005.6#1]. If notice is not given within that period, liability can be higher, but shall not exceed the lesser of $500 or a sum calculated under the rule [R-1005.6#1]. Notice can be given by telephone [R-1005.6#1]. If a delay was due to extenuating circumstances, the bank must extend the time limits to a reasonable period [R-1005.6#1]. If state law or your agreement with the bank imposes less liability, your liability shall not exceed that amount [R-1005.6#2]. A consumer may be held liable only if the bank provided certain required disclosures and, for a card, it was an accepted access device [R-1005.6#1].\n\nNo determination has been made here about what you owe. Next, we will review the timing of your call, the dates of the withdrawals, and how the $500 amount was calculated, and we will share the result with you. I cannot state a review timeline or outcome from the information available to me.",
+      "repeat": 0
+    },
+    {
+      "id": "st-eft-error-slow",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']",
+        "errors: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Thank yo"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.678,
+      "latency_s": 56.54,
+      "cost_usd": 0.17127,
+      "input_tokens": 23405,
+      "output_tokens": 7221,
+      "llm_calls": 5,
+      "response": "Escalated to a human specialist. System error: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Thank you for contacting us. We are sorry for the stress of a reported duplicate $1,200 debit and an investigation that has taken longer than you hoped.\\n\\nYou told us that a transfer from your savings to your checking account was debited twice, and that you reported it about three weeks ago. We are confirming the date we received your notice of error, what has been done since, and whether Regulation E's error-resolution rules apply to this internal transfer. We cannot yet say whether any required timeframe has been met.\\n\\nWhere those rules apply, an institution must provisionally credit the amount of the alleged error, including interest where applicable, within 10 business days of receiving the error notice [R-1005.11#2]. There are exceptions. One is where the institution requires written confirmation of an oral notice and does not receive it within 10 business days [R-1005.11#2]. The period is 20 business days instead of 10 if the transfer involves an account within 30 days after its first deposit [R-1005.11#2].\\n\\nIf a provisional credit is made, you must be told its amount and date within two business days and have full use of the funds during the investigation [R-1005.11#2]. Results must be reported within three business days after the investigation is completed [R-1005.11#2]. If the institution finds no error or a different error, its report must include a written explanation and note your right to request the documents it relied on [R-1005.11#2].\\n\\nNext, we will review your account records and notice date and then update you in writing. We cannot promise a particular outcome. Statements showing both debits would help.\", \"claims\": [{\"text\": \"The customer reports that a transfer from savings to checking was debited twice and that the error was reported about three weeks ago.\", \"citations\": []}, {\"text\": \"Where Regulation E's error-resolution procedures apply, the institution must provisionally credit the amount of the alleged error, including interest where applicable, within 10 business days of receiving the error notice.\", \"citations\": [\"R-1005.11#2\"]}, {\"text\": \"The provisional credit requirement has exceptions, including\"}]}. Got: 3 validation errors for Draft\nclaims.2.citations\n  Field required [type=missing, input_value={'text': 'The provisional... exceptions, including'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninsufficient_evidence\n  Field required [type=missing, input_value={'response': \"Thank you f...xceptions, including'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninternal_notes\n  Field required [type=missing, input_value={'response': \"Thank you f...xceptions, including'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ",
+      "repeat": 0
+    },
+    {
+      "id": "st-collector-calls",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.702,
+      "latency_s": 22.53,
+      "cost_usd": 0.08391,
+      "input_tokens": 14691,
+      "output_tokens": 2987,
+      "llm_calls": 3,
+      "response": "Dear Customer,\n\nThank you for telling us about these calls. I'm sorry they have caused you stress, especially at work.\n\nUnder Regulation F, a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person [R-1006.14#1]. A collector is presumed to violate the repeated-call rule if it calls you about a particular debt more than seven times within seven consecutive days. Certain calls are excluded from that count, such as calls that were not connected [R-1006.14#1]. Unless the collector knows of circumstances to the contrary, times before 8:00 a.m. and after 9:00 p.m. are considered inconvenient [R-1006.6#1]. A collector also must not contact you at your workplace if it knows or has reason to know your employer prohibits such communication [R-1006.6#1]. These limits do not apply if you gave prior consent directly to the collector [R-1006.6#1]. Separately, if you notify a collector in writing that you refuse to pay or want it to stop communicating with you, it generally must stop communicating about that debt, subject to exceptions [R-1006.6#1].\n\nNext steps: we will review the call frequency, call times, and workplace contacts you describe against these rules. It would help if you could send the dates, times, and numbers of the calls, and when you told the collector about your employer's policy. I can't promise a particular outcome, but we will review your complaint carefully and respond to you.\n\nSincerely,\nComplaint Team",
+      "repeat": 0
+    },
+    {
+      "id": "st-collector-validation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.706,
+      "latency_s": 25.29,
+      "cost_usd": 0.08292,
+      "input_tokens": 13552,
+      "output_tokens": 3147,
+      "llm_calls": 3,
+      "response": "Escalated to a human specialist. The drafter reported that the evidence does not cover this complaint.",
+      "repeat": 0
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']",
+        "errors: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Dear Cus"
+      ],
+      "supported_ratio": 0.875,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.666,
+      "latency_s": 72.89,
+      "cost_usd": 0.22475,
+      "input_tokens": 29642,
+      "output_tokens": 9388,
+      "llm_calls": 6,
+      "response": "Escalated to a human specialist. System error: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Dear Customer, I'm sorry for the worry this has caused. You describe sending $400 to your mother in Mexico, being told she would receive it in two days, and, three weeks later, still not knowing where the money is or having your fee returned. That is understandably distressing.\\n\\nHere is what the cited rule says about the transfer provider's obligations. Providers must keep written policies and procedures designed to ensure compliance with the error-resolution requirements [R-1005.33#4]. They must also retain any notices of error from a sender, documents the sender provided about the alleged error, and the provider's investigation findings [R-1005.33#4]. If an error under paragraph (a)(1)(iv) is found, the remedies include either refunding the sender or making the appropriate amount available to the recipient at no added cost, plus refunding fees and, where the law allows, taxes [R-1005.33#3]. If the provider concludes no error occurred, its report must give a written explanation of its findings, address your specific complaint, and note your right to request the documents it relied on. On request, it must promptly provide copies [R-1\"}. Got: 3 validation errors for Draft\nclaims\n  Field required [type=missing, input_value={'response': \"Dear Custom...ly provide copies [R-1\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninsufficient_evidence\n  Field required [type=missing, input_value={'response': \"Dear Custom...ly provide copies [R-1\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninternal_notes\n  Field required [type=missing, input_value={'response': \"Dear Custom...ly provide copies [R-1\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ",
+      "repeat": 0
+    },
+    {
+      "id": "st-prepaid-stolen",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.654,
+      "latency_s": 19.58,
+      "cost_usd": 0.07374,
+      "input_tokens": 13412,
+      "output_tokens": 2577,
+      "llm_calls": 3,
+      "response": "We're sorry to hear that purchases you didn't make drained your prepaid card. We understand how stressful that is.\n\nThe card company told you it won't investigate because the card was never registered. Federal rules do allow this in some situations. For prepaid accounts that are not payroll card or government benefit accounts, a financial institution is not required to apply the standard liability limits and error resolution requirements if it has not successfully completed its identification and verification process for the account [R-1005.18#18]. That exception depends on conditions. In the situations described, the institution must have disclosed the risks of not registering using a notice substantially similar to the model notice [R-1005.18#18][R-1005.18#19]. If the program has no verification process, it must have made an alternative disclosure and follow the process it disclosed [R-1005.18#19].\n\nThe exception does not apply to payroll card or government benefit accounts [R-1005.18#18]. If an account is later successfully verified, the institution must limit liability and resolve errors for transfers that occur after verification [R-1005.18#19].\n\nWe can't yet say whether the exception applies to your card. Next steps: please tell us what type of card this is (for example, payroll or government benefit), whether you received a notice about the risks of not registering, and the dates of the transactions. We will review this information and the card company's explanation. We cannot promise a particular outcome, but we will explain our findings to you.",
+      "repeat": 0
+    },
+    {
+      "id": "st-apr-increase",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": true,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.678,
+      "latency_s": 17.41,
+      "cost_usd": 0.05207,
+      "input_tokens": 9498,
+      "output_tokens": 1897,
+      "llm_calls": 3,
+      "response": "Escalated to a human specialist. The drafter reported that the evidence does not cover this complaint.",
+      "repeat": 0
+    },
+    {
+      "id": "st-ambiguous-money",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.89,
+      "cost_usd": 0.00226,
+      "input_tokens": 1215,
+      "output_tokens": 208,
+      "llm_calls": 1,
+      "response": "Which account or product is involved (checking/savings, credit card, debit or prepaid card, money transfer, or debt collection), and what transaction or amount was taken?",
+      "repeat": 0
+    },
+    {
+      "id": "st-ambiguous-help",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.83,
+      "cost_usd": 0.00211,
+      "input_tokens": 1215,
+      "output_tokens": 179,
+      "llm_calls": 1,
+      "response": "Could you tell us which product the problem involves (credit card, checking or savings account, money transfer, prepaid card, or debt collection) and describe what happened?",
+      "repeat": 0
+    },
+    {
+      "id": "st-oos-mortgage",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.95,
+      "cost_usd": 0.00208,
+      "input_tokens": 1229,
+      "output_tokens": 170,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a mortgage servicer and escrow account, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "st-oos-credit-report",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.82,
+      "cost_usd": 0.00207,
+      "input_tokens": 1232,
+      "output_tokens": 167,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a credit reporting agency (Equifax) and a credit report entry, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection). Marked out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "forbidden": false
+      },
+      "reasons": [
+        "response contains forbidden ['guarantee']",
+        "errors: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Dear Cus"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 31.22,
+      "cost_usd": 0.09298,
+      "input_tokens": 11042,
+      "output_tokens": 4293,
+      "llm_calls": 3,
+      "response": "Escalated to a human specialist. System error: draft: SkillError: draft: model did not return valid Draft: Failed to parse Draft from completion {\"response\": \"Dear Customer,\\n\\nWe're sorry you were charged twice for an $80 restaurant bill, and we understand how frustrating that is. We can't guarantee a particular outcome, refund amount, or timeline in advance, but we can explain how the process works.\\n\\nUnder Regulation Z, a billing error includes a charge for which you ask for additional clarification, including documentary evidence [R-1026.13#1]. A billing error notice must be in writing. It must reach the creditor at its billing-error address within 60 days after the first statement showing the charge. It must identify your name and account number and, where possible, explain why you believe there is an error and give its type, date, and amount [R-1026.13#1]. If your dispute was not submitted in writing, please send a written notice.\\n\\nWe must acknowledge a written notice within 30 days unless we have already resolved it, and we must finish the resolution procedures within 2 complete billing cycles, and no later than 90 days [R-1026.13#1]. While the dispute is pending, you need not pay the disputed amount or related charges, and we may not try to collect them [R-1026.13#2]. We also may not report you as delinquent over the disputed amount, or restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\\n\\nIf we determine an error occurred as you described, we must correct it, credit the account, and send you a correction notice [R-1026.13#2]. If we determine no error occurred, we must send you an explanation and, if you ask, copies of documentary evidence [R-1026.13#2].\\n\\nNext, our team will review your dispute under these procedures and contact you in writing.\", \"claims\": [{\"text\": \"Under Regulation Z, a billing error includes a periodic-statement charge for which the consumer requests additional clarification, including documentary evidence.\", \"citations\": [\"R-1026.13#1\"]}, {\"text\": \"A billing error notice must be written, received at the creditor's designated billing-error address within 60 days after the first statement reflecting the alleged error, identify the consumer's name and account number, and, to the extent possible, state the reasons for the belief and the type, date, and amount of the error.\", \"citations\": [\"R-1026.13#1\"]}, {\"text\": \"The creditor must acknowledge a billing error notice in writing within 30 days unless it has already completed the resolution procedures within that period.\", \"citations\": [\"R-1026.13#1\"]}, {\"text\": \"The creditor must complete the resolution procedures within 2 complete billing cycles, and in no event later than 90 days, after receiving a billing error notice.\", \"citations\": [\"R-1026.13#1\"]}, {\"text\": \"The consumer need not pay, and the creditor may not try to collect, any portion of a required payment the consumer believes relates to the disputed amount and related charges.\", \"citations\": [\"R-1026.13#2\"]}, {\"text\": \"The creditor may not make or threaten an adverse credit report, or report the account or amount as delinquent, because the consumer failed to pay the disputed amount or related charges.\", \"citations\": [\"R-1026.13#2\"]}, {\"text\": \"A credit\"}]}. Got: 3 validation errors for Draft\nclaims.6.citations\n  Field required [type=missing, input_value={'text': 'A credit'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninsufficient_evidence\n  Field required [type=missing, input_value={'response': \"Dear Custom..., {'text': 'A credit'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\ninternal_notes\n  Field required [type=missing, input_value={'response': \"Dear Custom..., {'text': 'A credit'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ",
+      "repeat": 0
+    },
+    {
+      "id": "st-multi-product",
+      "workflow": "static",
+      "category": "known_failure",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "retrieval_all": false
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']",
+        "missing sections ['1005.6', '1026.12']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.643,
+      "latency_s": 25.18,
+      "cost_usd": 0.08263,
+      "input_tokens": 13374,
+      "output_tokens": 3206,
+      "llm_calls": 3,
+      "response": "Escalated to a human specialist. The drafter reported that the evidence does not cover this complaint.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-billing-deadlines",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.726,
+      "latency_s": 19.15,
+      "cost_usd": 0.06916,
+      "input_tokens": 16902,
+      "output_tokens": 1965,
+      "llm_calls": 4,
+      "response": "Under Regulation Z, a cardholder must get a written billing error notice to the creditor within 60 days of the creditor sending the first periodic statement that reflects the alleged error. The creditor must acknowledge the notice within 30 days and resolve it within 2 complete billing cycles, but no later than 90 days.\n\nNotice: The notice must be written and received at the address the creditor disclosed for billing error notices, no later than 60 days after the creditor transmitted the first periodic statement reflecting the alleged error. It must let the creditor identify the consumer's name and account number and, where possible, state why the consumer believes an error exists and the type, date, and amount [R-1026.13#1].\n\nAcknowledgment: The creditor must mail or deliver written acknowledgment within 30 days of receiving the notice, unless it has already completed the resolution procedures within that 30-day period [R-1026.13#1].\n\nResolution: The creditor must complete the resolution procedures within 2 complete billing cycles, and in no event later than 90 days after receiving the notice [R-1026.13#1]. If an error occurred as asserted, it must correct the error, credit the account, and send a correction notice [R-1026.13#2]. If no error or a different error occurred, it must send an explanation after a reasonable investigation, and provide documentary evidence if the consumer requests it [R-1026.13#2].\n\nThese are regulatory requirements only. The evidence provided contains no complaint data or statistics on this question.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-reg-e-liability",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.72,
+      "latency_s": 16.83,
+      "cost_usd": 0.06971,
+      "input_tokens": 15857,
+      "output_tokens": 2236,
+      "llm_calls": 4,
+      "response": "Reg E sets three liability tiers for unauthorized transfers, which depend on how quickly the consumer gives notice. Liability applies only if the institution gave the required disclosures, and for access-device transfers, the device must be an accepted one and the institution must have provided a means to identify the consumer [R-1005.6#1].\n\n1. Notice within two business days of learning of the loss or theft: liability is capped at the lesser of $50 or the amount of unauthorized transfers before notice [R-1005.6#1].\n\n2. No notice within two business days: liability is capped at the lesser of $500 or the sum of (i) $50 or the unauthorized transfers within the two business days, whichever is less, and (ii) unauthorized transfers after the two days and before notice, provided the institution establishes they would not have occurred had the consumer given timely notice [R-1005.6#1].\n\n3. Unauthorized transfer on a periodic statement: the consumer must report it within 60 days of the statement's transmittal. If not, liability covers transfers after the 60 days and before notice that the institution establishes would not have occurred with timely notice. Where an access device is involved, the consumer may also be liable for the amounts in tier 1 or 2 [R-1005.6#1].\n\nModifiers:\n- Delays due to extenuating circumstances require the institution to extend the time limits to a reasonable period [R-1005.6#1].\n- If state law or an agreement imposes less liability, the consumer's liability cannot exceed that lesser amount [R-1005.6#2].\n- A non-account-holding provider that issues a debit card and meets certain conditions must extend the 2-business-day periods to 4 and the 60-day periods to 90 [R-1005.14#1].\n\nThis answer reflects the regulation text only; no complaint data was provided.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-call-frequency",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.613,
+      "latency_s": 16.05,
+      "cost_usd": 0.06493,
+      "input_tokens": 16330,
+      "output_tokens": 1771,
+      "llm_calls": 4,
+      "response": "A debt collector is presumed to violate the harassment prohibition if it calls a particular person about a particular debt more than seven times within seven consecutive days, or calls within seven consecutive days after having had a telephone conversation with that person about the debt [R-1006.14#1]. The conversation date is day one of that seven-day period [R-1006.14#1]. \n\nConversely, a collector is presumed to comply if it stays within both limits: no more than seven calls in seven consecutive days, and no call within seven days after a conversation [R-1006.14#1]. \n\nThe following calls do not count toward these frequencies: calls placed with the person's prior consent given directly to the collector (within seven consecutive days after receiving consent), calls not connected to the dialed number, and calls to certain persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1]. \n\nFor this purpose, \"particular debt\" means each of a consumer's debts in collection. For student loans, it means all student loan debts serviced under a single account number when the collector obtained them [R-1006.14#1]. \n\nThese are presumptions in the regulation. The underlying prohibition is on calling repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1]. The evidence provided contains no complaint data or statistics on this question.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-top-companies",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "actions": true
+      },
+      "reasons": [
+        "outcome abstain not in ['answer']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.644,
+      "latency_s": 51.47,
+      "cost_usd": 0.15172,
+      "input_tokens": 38576,
+      "output_tokens": 6252,
+      "llm_calls": 11,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Enough evidence exists to answer both parts, so I'll synthesize and omit the unsupported claim about non-monetary relief flagged by the verifier.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-collection-trend",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "actions": true
+      },
+      "reasons": [
+        "outcome abstain not in ['answer']"
+      ],
+      "supported_ratio": 0.875,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.732,
+      "latency_s": 54.23,
+      "cost_usd": 0.15059,
+      "input_tokens": 36571,
+      "output_tokens": 6669,
+      "llm_calls": 11,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Evidence is sufficient for a narrower answer: the monthly stats are too thin to establish a month-over-month trend, and the regulation and complaint results cover the communication rules, including the 1006.6(b)(4) and 1006.14(h)(2) exceptions the verifier flagged, so the answer should state those exceptions and the data limits.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-relief-and-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.699,
+      "latency_s": 15.9,
+      "cost_usd": 0.04394,
+      "input_tokens": 13902,
+      "output_tokens": 1283,
+      "llm_calls": 5,
+      "response": "About 20.3% of checking or savings complaints in our CFPB sample (n=1,157) were closed with relief [S-1]. This describes our sample only, not the whole market [S-1]. Error resolution for these accounts is covered by 12 CFR 1005.11 (Regulation E), \"Procedures for resolving errors\" [R-1005.11#2]. Note that for remittance transfers, if the account-holding institution is not also the remittance transfer provider, \u00a7 1005.11 governs error resolution for incorrect EFTs from the sender's account; if the institution is also the provider, \u00a7 1005.33 applies [R-1005.33#4]. The evidence does not say which complaints involved Regulation E errors, so the 20.3% figure should not be read as an error-resolution outcome rate.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-ambiguous",
+      "workflow": "dynamic",
+      "category": "ambiguous",
+      "expected": [
+        "clarify",
+        "abstain"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.44,
+      "cost_usd": 0.00295,
+      "input_tokens": 2122,
+      "output_tokens": 166,
+      "llm_calls": 1,
+      "response": "Which rule or topic do you mean? For example, a specific Regulation E (electronic transfers), Regulation F (debt collection), or Regulation Z (credit card billing) question, or a particular situation you want the rule for.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-oos-reg-dd",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.67,
+      "cost_usd": 0.00265,
+      "input_tokens": 2138,
+      "output_tokens": 102,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Regulation DD (Truth in Savings) is outside the sources available here, which cover only 12 CFR 1005, 1006, and 1026.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-oos-canada",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.82,
+      "cost_usd": 0.00269,
+      "input_tokens": 2146,
+      "output_tokens": 108,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question asks about suing a bank under Canadian law in Ontario, which is non-US law and outside the 12 CFR regulations and CFPB complaint sources available.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-missing-crypto",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome answer not in ['abstain', 'escalate']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 53.89,
+      "cost_usd": 0.13807,
+      "input_tokens": 29184,
+      "output_tokens": 7351,
+      "llm_calls": 10,
+      "response": "Our sample has 1,161 complaints matching the product keyword \"virtual currency\" [S-2]. I can't confirm that this is \"last year\" or that all of them concern crypto exchanges. The filters shown contain no date restriction, and \"virtual currency\" is a product-category keyword, not an exchange-specific one [S-2]. A search on the keyword \"crypto\" returned no matching complaints [S-3].\n\nBy state, the largest counts are CA (136), FL (127), TX (123), NY (64) and GA (56) [S-1]. Other states with 30 or more are NC (46), OH (37), PA (36), IL (36), VA (33) and NJ (30) [S-1]. 32 complaints have no state recorded [S-1]. Smaller counts are spread across the remaining states, DC and AP, and the full breakdown is in [S-1].\n\nThese figures describe our ingested CFPB sample, not the full national database [S-1][S-2]. They show complaint data only, not any regulatory requirement.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-missing-old-data",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 2.12,
+      "cost_usd": 0.00297,
+      "input_tokens": 2133,
+      "output_tokens": 168,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The complaint sample only covers complaints since 2023-01-01, so 2019 counts are outside the data available to answer this question.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.614,
+      "latency_s": 27.59,
+      "cost_usd": 0.08956,
+      "input_tokens": 18956,
+      "output_tokens": 3241,
+      "llm_calls": 4,
+      "response": "You cannot stop paying the entire bill; the right covers only the disputed portion. It is in the paragraph headed \"Consumer's right to withhold disputed amount; collection action prohibited\" in the 1026.13(d)\u2013(g) excerpt [R-1026.13#2]. The excerpt shows it as \"(1)\" without the (d) letter, so please confirm the citation against the full regulation.\n\nWhat the regulation says:\n- The consumer need not pay, and the creditor may not try to collect, any part of a required payment the consumer believes relates to the disputed amount, including related finance or other charges [R-1026.13#2].\n- The creditor may still act to collect the undisputed portion of the bill [R-1026.13#2].\n- If the consumer is enrolled in autopay, the issuer must not deduct the disputed amount or related charges if the billing error notice arrives up to 3 business days before the scheduled payment date [R-1026.13#2].\n- The creditor may not report the consumer as delinquent for failing to pay the disputed amount [R-1026.13#2].\n- The creditor may not accelerate the debt or restrict or close the account solely because the consumer exercised these rights in good faith [R-1026.13#2].\n\nSeparate right: 1026.12(c) lets a cardholder withhold payment up to the amount outstanding for goods or services in a dispute with the merchant. It applies only if the cardholder made a good faith attempt to resolve the dispute with the merchant and the other conditions are met, including a $50 threshold and a same-state or within-100-miles test, with exclusions [R-1026.12#2].\n\nThe evidence includes no complaint data or statistics on this question.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-commentary",
+      "workflow": "dynamic",
+      "category": "known_failure",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.538,
+      "latency_s": 36.23,
+      "cost_usd": 0.08926,
+      "input_tokens": 23674,
+      "output_tokens": 2764,
+      "llm_calls": 8,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Two searches have already returned the relevant Reg Z material on unauthorized use, and repeating the search returned no new items, so the available evidence should be used to answer, with the verifier's insufficiency note noted as a caveat.",
+      "repeat": 0
+    }
+  ]
+}
