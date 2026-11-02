@@ -6,10 +6,10 @@ narratives published up to that date are in the CFPB's official FOIA archive:
 https://www.consumerfinance.gov/foia-requests/foia-electronic-reading-room/cfpb-consumer-complaint-database-narratives-archive/
 
 Sources, same output:
-  1. Narratives archive (recommended): download one or more CCDB_Export_*.zip files into
-     a folder and pass --complaints-csv <folder>. ZIPs are read directly.
-  2. Any CSV, ZIP of CSVs, or folder of them that has a narrative column.
-  3. CFPB search API: kept for reference; it no longer returns narratives and may 403.
+    1. Narratives archive (recommended): download one or more CCDB_Export_*.zip files into
+        a folder and pass --complaints-csv <folder>. ZIPs are read directly.
+    2. Any CSV, ZIP of CSVs, or folder of them that has a narrative column.
+    3. CFPB search API: kept for reference; it no longer returns narratives and may 403.
 
 Data quality steps (the interview talking point):
   * Keep only complaints whose narrative the consumer consented to publish.
