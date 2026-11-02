@@ -16,7 +16,7 @@ cp .env.example .env                                  # add ANTHROPIC_API_KEY, O
 
 python -m pytest -q tests                             # 38 tests; DB tests need step 1
 python -m ingest.run --dry-run                        # fetch + chunk only, no cost
-python -m ingest.run                                  # embed + load (well under $1)
+python -m ingest.run --complaints-csv data/raw/cfpb_archive   # embed + load (see Data below)
 python preflight.py                                   # checks keys, models, data, retrieval
 
 python cli.py ask "How often can a debt collector call?"
@@ -95,7 +95,13 @@ top-level paragraphs (`12 CFR 1026.13(a)-(b)`), and the eCFR issue date on every
 
 **Complaints:** consented narratives only; CFPB `XXXX` redactions normalised; under-30-word
 and duplicate narratives dropped; long ones truncated; typed SQL columns so stats run in SQL.
-If the CFPB API is slow, use the bulk CSV (`--complaints-csv`, see `ingest/run.py`).
+**Data source change (August 2026):** the CFPB stopped publishing complaint narratives on
+2026-08-14, so the live API and current bulk download no longer include them. Use the CFPB's
+official [narratives archive](https://www.consumerfinance.gov/foia-requests/foia-electronic-reading-room/cfpb-consumer-complaint-database-narratives-archive/):
+download a few recent `CCDB_Export_*.zip` files into `data/raw/cfpb_archive/` and run
+`python -m ingest.run --only complaints --complaints-csv data/raw/cfpb_archive`. ZIPs are read
+directly; overlapping periods are de-duplicated. The sample is therefore frozen at
+August 2026, which is a stated limitation.
 
 ## Known limitations
 - Official Interpretations (Reg Z Supplement I) and other regulations (Reg DD, FCRA) are not

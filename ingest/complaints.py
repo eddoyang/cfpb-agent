@@ -1,10 +1,15 @@
 """Fetch and clean CFPB complaints that include a consumer narrative.
 
-Two sources, same output:
-  1. CFPB search API (default): pulls a balanced sample per product.
-  2. Bulk CSV fallback: if you downloaded complaints.csv from
-     https://files.consumerfinance.gov/ccdb/complaints.csv.zip into data/raw/,
-     pass --complaints-csv and nothing hits the API.
+IMPORTANT: on 2026-08-14 the CFPB stopped publishing complaint narratives. The live
+API and the current bulk download (complaints.csv.zip) no longer contain them. All
+narratives published up to that date are in the CFPB's official FOIA archive:
+https://www.consumerfinance.gov/foia-requests/foia-electronic-reading-room/cfpb-consumer-complaint-database-narratives-archive/
+
+Sources, same output:
+  1. Narratives archive (recommended): download one or more CCDB_Export_*.zip files into
+     a folder and pass --complaints-csv <folder>. ZIPs are read directly.
+  2. Any CSV, ZIP of CSVs, or folder of them that has a narrative column.
+  3. CFPB search API: kept for reference; it no longer returns narratives and may 403.
 
 Data quality steps (the interview talking point):
   * Keep only complaints whose narrative the consumer consented to publish.
@@ -18,6 +23,7 @@ from __future__ import annotations
 
 import re
 import time
+import zipfile
 from pathlib import Path
 
 import pandas as pd
@@ -26,7 +32,14 @@ import requests
 import config
 from ingest.tokens import count_tokens, truncate_tokens
 
-HEADERS = {"User-Agent": "cfpb-agent-demo/0.1 (educational project)"}
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/json, text/plain, */*",
+    "Referer": "https://www.consumerfinance.gov/data-research/consumer-complaints/search/",
+}
 PAGE_SIZE = 100
 
 COLUMNS = [
@@ -44,21 +57,64 @@ COLUMNS = [
     "narrative",
 ]
 
-# Bulk CSV header -> our column names
-CSV_RENAME = {
-    "Complaint ID": "complaint_id",
-    "Date received": "date_received",
-    "Product": "product",
-    "Sub-product": "sub_product",
-    "Issue": "issue",
-    "Sub-issue": "sub_issue",
-    "Company": "company",
-    "State": "state",
-    "Submitted via": "submitted_via",
-    "Company response to consumer": "company_response",
-    "Timely response?": "timely",
-    "Consumer complaint narrative": "narrative",
+# Our column name -> header names seen in CFPB files. The bulk CSV uses human labels
+# ("Date received"); API-style exports use field names ("date_received"). Matching
+# ignores case, spaces and punctuation.
+COLUMN_ALIASES = {
+    "complaint_id": ["Complaint ID", "complaint_id"],
+    "date_received": ["Date received", "date_received"],
+    "product": ["Product"],
+    "sub_product": ["Sub-product", "sub_product"],
+    "issue": ["Issue"],
+    "sub_issue": ["Sub-issue", "sub_issue"],
+    "company": ["Company"],
+    "state": ["State"],
+    "submitted_via": ["Submitted via", "submitted_via"],
+    "company_response": ["Company response to consumer", "company_response"],
+    "timely": ["Timely response?", "timely"],
+    "narrative": [
+        "Consumer complaint narrative",
+        "complaint_what_happened",
+        "Complaint narrative",
+        "Narrative",
+        "What happened",
+    ],
 }
+REQUIRED_COLUMNS = {"complaint_id", "date_received", "product", "narrative"}
+
+
+def _norm(name) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(name).lower())
+
+
+def resolve_columns(header) -> dict[str, str]:
+    """Map a file's header names to our column names; explain clearly if any are missing."""
+    lookup = {_norm(h): h for h in header}
+    mapping: dict[str, str] = {}
+    for ours, aliases in COLUMN_ALIASES.items():
+        for alias in aliases:
+            if _norm(alias) in lookup:
+                mapping[lookup[_norm(alias)]] = ours
+                break
+    if "narrative" not in mapping.values():
+        for h in header:
+            if "narrative" in _norm(h) or "whathappened" in _norm(h):
+                mapping[h] = "narrative"
+                break
+    missing = REQUIRED_COLUMNS - set(mapping.values())
+    if missing:
+        hint = ""
+        if "narrative" in missing:
+            hint = (
+                " This file has no complaint narrative text, which the system needs. "
+                "Use the bulk file https://files.consumerfinance.gov/ccdb/complaints.csv.zip, "
+                "which includes the 'Consumer complaint narrative' column."
+            )
+        raise ValueError(
+            f"CSV is missing required columns {sorted(missing)}. "
+            f"Columns found: {list(header)}.{hint}"
+        )
+    return mapping
 
 
 # ---------------------------------------------------------------- helpers
@@ -102,14 +158,26 @@ def _get(params: dict) -> dict:
     for attempt in range(4):
         try:
             r = requests.get(config.CFPB_API, params=params, headers=HEADERS, timeout=90)
-            r.raise_for_status()
-            return r.json()
         except requests.RequestException as e:
             if attempt == 3:
                 raise
             wait = 2**attempt
-            print(f"    API error ({e}); retrying in {wait}s")
+            print(f"    Network error ({e}); retrying in {wait}s")
             time.sleep(wait)
+            continue
+        if r.status_code in (401, 403):
+            raise RuntimeError(
+                f"CFPB API refused the request ({r.status_code}). Use the bulk file instead: "
+                "python -m ingest.run --only complaints "
+                "--complaints-csv data/raw/complaints.csv.zip (see README)"
+            )
+        if r.status_code >= 500 and attempt < 3:
+            wait = 2**attempt
+            print(f"    CFPB server error {r.status_code}; retrying in {wait}s")
+            time.sleep(wait)
+            continue
+        r.raise_for_status()
+        return r.json()
     return {}
 
 
@@ -185,19 +253,75 @@ def fetch_from_api(per_product: int) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------- CSV source
+def _csv_sources(path: Path) -> list[tuple[str, object]]:
+    """Expand a path into (label, opener) pairs, one per CSV to read.
+
+    Accepts a CSV file, a ZIP containing one or more CSVs (e.g. the CFPB narratives
+    archive exports), or a folder holding any mix of CSVs and ZIPs.
+    """
+    if path.is_dir():
+        files = sorted(p for p in path.iterdir() if p.suffix.lower() in {".csv", ".zip"})
+        if not files:
+            raise FileNotFoundError(f"No .csv or .zip files found in {path}")
+        return [src for f in files for src in _csv_sources(f)]
+    if path.suffix.lower() == ".zip":
+        with zipfile.ZipFile(path) as zf:
+            members = [
+                m
+                for m in zf.namelist()
+                if m.lower().endswith(".csv") and not m.startswith("__MACOSX")
+            ]
+            if not members:
+                raise ValueError(f"{path.name} contains no CSV files. Contents: {zf.namelist()}")
+        return [
+            (f"{path.name}:{m}", lambda p=path, m=m: zipfile.ZipFile(p).open(m)) for m in members
+        ]
+    return [(path.name, lambda p=path: open(p, "rb"))]
+
+
 def load_from_csv(path: Path, per_product: int) -> pd.DataFrame:
+    """Read CFPB complaint CSVs in chunks; filter and sample.
+
+    `path` may be a CSV, a ZIP of CSVs (bulk file or narratives archive), or a folder
+    of either. See _csv_sources.
+    """
+    sources = _csv_sources(Path(path))
+    since = pd.Timestamp(config.COMPLAINTS_SINCE)
     frames = []
-    for chunk in pd.read_csv(path, usecols=list(CSV_RENAME), dtype=str, chunksize=200_000):
-        chunk = chunk.rename(columns=CSV_RENAME)
-        chunk = chunk[chunk["narrative"].notna()]
-        chunk = chunk[chunk["date_received"] >= config.COMPLAINTS_SINCE]
+    for label, opener in sources:
+        with opener() as fh:
+            mapping = resolve_columns(pd.read_csv(fh, nrows=0).columns)
+        with opener() as fh:
+            reader = pd.read_csv(fh, usecols=list(mapping), dtype=str, chunksize=200_000)
+            frames += list(_filter_chunks(reader, mapping, since))
+        print(f"  Read {label}")
+    return _sample(frames, per_product)
+
+
+def _filter_chunks(reader, mapping: dict, since: pd.Timestamp):
+    for chunk in reader:
+        chunk = chunk.rename(columns=mapping)
+        for col in COLUMNS:  # optional columns this file doesn't have
+            if col not in chunk:
+                chunk[col] = None
+        chunk = chunk[chunk["narrative"].notna() & (chunk["narrative"].str.strip() != "")]
+        # Parse dates rather than compare strings: exports differ in date format.
+        dates = pd.to_datetime(chunk["date_received"], errors="coerce", format="mixed")
+        chunk = chunk[dates >= since]
         chunk = chunk[chunk["product"].map(lambda p: reg_hint_for(p) is not None)]
-        frames.append(chunk)
-    df = pd.concat(frames, ignore_index=True)
-    # Balanced, reproducible sample per product
-    df = df.groupby("product", group_keys=False).apply(
-        lambda g: g.sample(min(len(g), per_product), random_state=42)
-    )
+        yield chunk
+
+
+def _sample(frames: list[pd.DataFrame], per_product: int) -> pd.DataFrame:
+    df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=COLUMNS)
+    df = df.drop_duplicates(subset="complaint_id")  # archive periods can overlap
+    if df.empty:
+        raise ValueError(
+            "No complaints left after filtering (narrative, date, product). "
+            "Check the CSV covers the products and dates in config.py."
+        )
+    # Balanced, reproducible sample per product: shuffle once, keep the first N per group.
+    df = df.sample(frac=1, random_state=42).groupby("product").head(per_product)
     return df[COLUMNS]
 
 

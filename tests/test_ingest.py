@@ -2,12 +2,7 @@
 
 import pandas as pd
 
-from ingest.complaints import (
-    _find_buckets,
-    clean_complaints,
-    clean_narrative,
-    reg_hint_for,
-)
+from ingest.complaints import _find_buckets, clean_complaints, clean_narrative, reg_hint_for
 from ingest.regulations import chunk_section, parse_sections
 
 SAMPLE_XML = b"""<DIV5 N="1026" TYPE="PART"><HEAD>PART 1026-TRUTH IN LENDING</HEAD>
@@ -123,3 +118,143 @@ def test_clean_complaints_drops_short_and_duplicates():
 def test_find_buckets_handles_nesting():
     aggs = {"product": {"doc_count": 10, "product": {"buckets": [{"key": "Credit card"}]}}}
     assert _find_buckets(aggs, "product") == [{"key": "Credit card"}]
+
+
+# ---------------------------------------------------------------- CSV loading
+import pytest  # noqa: E402
+
+from ingest.complaints import load_from_csv, resolve_columns  # noqa: E402
+
+BULK_HEADER = [
+    "Date received",
+    "Product",
+    "Sub-product",
+    "Issue",
+    "Sub-issue",
+    "Consumer complaint narrative",
+    "Company public response",
+    "Company",
+    "State",
+    "ZIP code",
+    "Tags",
+    "Consumer consent provided?",
+    "Submitted via",
+    "Date sent to company",
+    "Company response to consumer",
+    "Timely response?",
+    "Consumer disputed?",
+    "Complaint ID",
+]
+API_HEADER = [
+    "date_received",
+    "product",
+    "sub_product",
+    "issue",
+    "sub_issue",
+    "complaint_what_happened",
+    "company",
+    "state",
+    "submitted_via",
+    "company_response",
+    "timely",
+    "complaint_id",
+]
+
+
+def _write(path, header, rows):
+    pd.DataFrame(rows, columns=header).to_csv(path, index=False)
+
+
+def _row(header, cid, date, product, narrative):
+    values = {h: "x" for h in header}
+    for h in header:
+        n = h.lower()
+        if "complaint id" in n or n == "complaint_id":
+            values[h] = cid
+        elif n.startswith("date received") or n == "date_received":
+            values[h] = date
+        elif n == "product":
+            values[h] = product
+        elif "narrative" in n or "what_happened" in n:
+            values[h] = narrative
+    return [values[h] for h in header]
+
+
+@pytest.mark.parametrize("header", [BULK_HEADER, API_HEADER])
+def test_load_from_csv_handles_header_styles(tmp_path, header):
+    story = "I disputed a charge " * 10
+    f = tmp_path / "c.csv"
+    _write(
+        f,
+        header,
+        [
+            _row(header, "1", "2024-03-01", "Credit card", story),
+            _row(header, "2", "03/05/24", "Debt collection", story),
+            _row(header, "3", "2022-01-01", "Credit card", story),  # too old
+            _row(header, "4", "2024-06-01", "Mortgage", story),  # out of scope
+            _row(header, "5", "2024-06-01", "Credit card", ""),
+        ],
+    )  # no narrative
+    df = load_from_csv(f, per_product=10)
+    assert sorted(df["complaint_id"]) == ["1", "2"]
+    assert list(df.columns)[-1] == "narrative"
+
+
+def test_missing_narrative_column_explains(tmp_path):
+    header = [h for h in BULK_HEADER if h != "Consumer complaint narrative"]
+    with pytest.raises(ValueError, match="no complaint narrative"):
+        resolve_columns(header)
+
+
+def test_load_from_folder_and_per_product_cap(tmp_path):
+    story = "I disputed a charge " * 10
+    for i in range(3):
+        _write(
+            tmp_path / f"e{i}.csv",
+            BULK_HEADER,
+            [_row(BULK_HEADER, str(i), "2024-03-01", "Credit card", story)],
+        )
+    assert len(load_from_csv(tmp_path, per_product=2)) == 2
+
+
+def test_load_from_archive_zips_in_folder(tmp_path):
+    """Narratives-archive style: a folder of ZIPs, each holding CSVs; overlaps deduped."""
+    import zipfile
+
+    story = "I disputed a charge " * 10
+    csv1, csv2 = tmp_path / "a.csv", tmp_path / "b.csv"
+    _write(
+        csv1,
+        BULK_HEADER,
+        [
+            _row(BULK_HEADER, "1", "2026-03-01", "Credit card", story),
+            _row(BULK_HEADER, "2", "2026-03-02", "Debt collection", story),
+        ],
+    )
+    _write(
+        csv2,
+        BULK_HEADER,
+        [
+            _row(BULK_HEADER, "2", "2026-03-02", "Debt collection", story),
+            _row(BULK_HEADER, "3", "2026-04-01", "Prepaid card", story),
+        ],
+    )
+    archive = tmp_path / "archive"
+    archive.mkdir()
+    with zipfile.ZipFile(archive / "CCDB_Export_16.zip", "w") as zf:
+        zf.write(csv1, "export/part1.csv")
+    with zipfile.ZipFile(archive / "CCDB_Export_17.zip", "w") as zf:
+        zf.write(csv2, "part2.csv")
+        zf.writestr("README.txt", "notes")
+    df = load_from_csv(archive, per_product=10)
+    assert sorted(df["complaint_id"]) == ["1", "2", "3"]
+
+
+def test_zip_without_csv_explains(tmp_path):
+    import zipfile
+
+    z = tmp_path / "x.zip"
+    with zipfile.ZipFile(z, "w") as zf:
+        zf.writestr("data.json", "{}")
+    with pytest.raises(ValueError, match="contains no CSV"):
+        load_from_csv(z, per_product=10)
