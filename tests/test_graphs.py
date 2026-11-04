@@ -234,7 +234,7 @@ def test_dynamic_abstain_after_verify_reports_gaps_not_supervisor_reason():
     assert "complaint volume by bank" in r["response"]
 
 
-def test_supervisor_is_told_todays_date_and_sample_range():
+def test_supervisor_is_told_todays_date_and_loaded_sample_range():
     from datetime import date
 
     import config
@@ -249,7 +249,13 @@ def test_supervisor_is_told_todays_date_and_sample_range():
 
     run_dynamic(make_rt(script), "How many complaints did we get last year?")
     assert date.today().isoformat() in seen[0]
-    assert config.COMPLAINTS_SINCE in seen[0] and config.COMPLAINTS_UNTIL in seen[0]
+    # the range comes from the loaded data, not the configured ingest window
+    assert "2026-04-01 to 2026-07-29" in seen[0]
+    assert config.COMPLAINTS_SINCE not in seen[0]
+
+    seen.clear()
+    run_dynamic(make_rt(script, store=FakeStore(fail_on={"dates"})), "Trend last year?")
+    assert f"{config.COMPLAINTS_SINCE} to {config.COMPLAINTS_UNTIL}" in seen[0]
 
 
 def test_dynamic_tool_errors_escalate():

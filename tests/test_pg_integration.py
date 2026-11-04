@@ -229,3 +229,8 @@ def test_stats_sql_runs_on_postgres(store, req, check):
 def test_readonly_blocks_writes(store):
     with pytest.raises(psycopg.errors.ReadOnlySqlTransaction):
         store.run_readonly("DELETE FROM complaints WHERE complaint_id = %(x)s", {"x": 990001})
+
+
+def test_complaint_date_range_reads_loaded_data(store):
+    dates = sorted(str(c[4]) for c in COMPLAINTS)
+    assert store.complaint_date_range() == (dates[0], dates[-1])

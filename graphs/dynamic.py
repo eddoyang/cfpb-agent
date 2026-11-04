@@ -28,9 +28,20 @@ from graphs.common import traced
 from skills import draft, retrieve_cases, retrieve_regulations, run_stats, verify
 from skills.schemas import Draft, HistorySummary, SupervisorDecision
 
+
+def sample_date_range(rt) -> tuple[str, str]:
+    """Dates actually loaded, so 'last year' is planned against real data. Falls back
+    to the configured ingest window if the store can't answer."""
+    try:
+        got = rt.store.complaint_date_range()
+    except Exception:
+        got = None
+    return got or (config.COMPLAINTS_SINCE, config.COMPLAINTS_UNTIL)
+
+
 SEARCH_ACTIONS = {"search_regulations", "search_complaints", "query_stats"}
 
-SUPERVISOR_SYSTEM = f"""You are the planner for a team of agents answering questions from a
+SUPERVISOR_SYSTEM = """You are the planner for a team of agents answering questions from a
 bank's compliance and complaints analysts. Choose ONE next action.
 
 Available actions:
@@ -40,7 +51,7 @@ Available actions:
 - search_complaints: find real CFPB complaint narratives similar to a description.
   Set query and optionally product_keyword ('credit card', 'checking or savings',
   'money transfer', 'prepaid', 'debt collection').
-- query_stats: counts/rates over our complaint sample (since {config.COMPLAINTS_SINCE}).
+- query_stats: counts/rates over our complaint sample (date range given in each request).
   Fill `stats` (metric, group_by, filters). Use for trends, volumes, top companies.
 - synthesize: you have enough evidence to answer.
 - clarify: the question is too ambiguous to plan for; give clarifying_question.
@@ -162,9 +173,10 @@ def build_dynamic_graph(rt):
         kinds: dict[str, int] = {}
         for e in s.get("evidence", []):
             kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1
+        lo, hi = sample_date_range(rt)
         parts = [
             f"Today's date is {date.today().isoformat()}. The complaint sample covers "
-            f"{config.COMPLAINTS_SINCE} to {config.COMPLAINTS_UNTIL}. Turn relative dates "
+            f"{lo} to {hi}; there is no data outside that range. Turn relative dates "
             "('last year', 'this quarter') into stats date_from/date_to.",
             f"<question>\n{s['request']}\n</question>",
         ]

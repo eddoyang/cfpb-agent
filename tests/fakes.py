@@ -55,7 +55,14 @@ CASE_1 = {
 
 
 class FakeStore:
-    def __init__(self, regs=None, cases=None, stats_rows=None, fail_on: set | None = None):
+    def __init__(
+        self,
+        regs=None,
+        cases=None,
+        stats_rows=None,
+        fail_on: set | None = None,
+        date_range=("2026-04-01", "2026-07-29"),
+    ):
         self.regs = regs if regs is not None else [REG_1026_12, REG_1026_13, REG_1006_14]
         self.cases = cases if cases is not None else [CASE_1]
         self.stats_rows = (
@@ -67,6 +74,7 @@ class FakeStore:
             ]
         )
         self.fail_on = fail_on or set()
+        self.date_range = date_range
         self.calls: list[tuple] = []
 
     def _maybe_fail(self, op):
@@ -86,6 +94,10 @@ class FakeStore:
     def run_readonly(self, sql, params):
         self._maybe_fail("stats")
         return list(self.stats_rows)
+
+    def complaint_date_range(self):
+        self._maybe_fail("dates")
+        return self.date_range
 
 
 @dataclass

@@ -27,6 +27,7 @@ class PgStore:
         self.dsn = dsn
         self._embedder = embedder
         self._conn = None
+        self._date_range = None
         self.embed_calls = 0
         self.embed_tokens = 0
 
@@ -146,6 +147,17 @@ class PgStore:
         ).fetchall()
 
     # ------------------------------------------------------------ stats
+    def complaint_date_range(self) -> tuple[str, str] | None:
+        """Earliest and latest date_received actually loaded (ISO strings), cached."""
+        if self._date_range is None:
+            row = self.conn.execute(
+                "SELECT min(date_received) AS lo, max(date_received) AS hi FROM complaints"
+            ).fetchone()
+            if not row or row["lo"] is None:
+                return None
+            self._date_range = (row["lo"].isoformat(), row["hi"].isoformat())
+        return self._date_range
+
     def run_readonly(self, sql: str, params: dict) -> list[dict]:
         """Execute a parameterised SELECT inside a read-only, time-limited transaction."""
         with psycopg.connect(self.dsn, row_factory=dict_row) as conn:
