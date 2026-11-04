@@ -21,7 +21,27 @@ PROMISE_PATTERNS = [
     r"\bguarantee[sd]?\b",
     r"\b100% (refund|reimburse)",
 ]
+# A negation up to three words before a match ("we do not guarantee", "there is no
+# guarantee", "we're not able to guarantee") is a disclaimer, not a promise.
+NEGATED = re.compile(
+    r"\b(no|not|never|cannot|can[’']?t|don[’']?t|doesn[’']?t|won[’']?t|isn[’']?t|"
+    r"aren[’']?t|unable)\b(\W+\w+){0,3}\W*$",
+    re.IGNORECASE,
+)
 INLINE_ID = re.compile(r"\[([RCS]-[^\]\s]+)\]")
+
+
+def promises(text: str) -> list[str]:
+    """Promise patterns that match somewhere without a negation just before them."""
+    hits = []
+    for pat in PROMISE_PATTERNS:
+        for m in re.finditer(pat, text, re.IGNORECASE):
+            before = re.split(r"[.,!?;:\n]", text[max(0, m.start() - 60) : m.start()])[-1]
+            if not NEGATED.search(before):
+                hits.append(pat)
+                break
+    return hits
+
 
 JUDGE_SYSTEM = """You are a compliance reviewer checking a draft against its sources.
 For each numbered claim, decide if the cited evidence text directly supports it.
@@ -54,9 +74,8 @@ def deterministic_checks(d: Draft, evidence: list[dict]) -> list[str]:
     inline_bad = sorted(set(INLINE_ID.findall(d.response)) - ids)
     if inline_bad:
         issues.append(f"Response text cites unknown evidence IDs: {inline_bad}")
-    for pat in PROMISE_PATTERNS:
-        if re.search(pat, d.response, re.IGNORECASE):
-            issues.append(f"Response promises an outcome (matched '{pat}').")
+    for pat in promises(d.response):
+        issues.append(f"Response promises an outcome (matched '{pat}').")
     return issues
 
 

@@ -46,3 +46,23 @@ def test_structured_output_uses_json_schema():
     rt._llms["fast"] = StubLLM()
     assert rt.structured("fast", HistorySummary, "s", "u", name="t").summary == "ok"
     assert calls["method"] == "json_schema"
+
+
+def test_promise_check_ignores_negated_guarantees():
+    from skills.verify import promises
+
+    for ok in [
+        "We do not guarantee a refund.",
+        "We don't guarantee any outcome.",
+        "We can’t guarantee the result.",
+        "There is no guarantee of a credit.",
+        "We're not able to guarantee a refund.",
+    ]:
+        assert promises(ok) == [], ok
+    for bad in [
+        "We guarantee a full refund.",
+        "We can't say much. We guarantee a refund.",
+        "No problem, we will refund you.",
+        "We don't guarantee speed, but we will reimburse you.",
+    ]:
+        assert promises(bad), bad
