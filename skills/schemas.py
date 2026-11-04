@@ -49,7 +49,12 @@ class Draft(BaseModel):
     )
     claims: list[Claim] = Field(description="Every factual or legal statement in the response.")
     insufficient_evidence: bool = Field(
-        description="True if the evidence does not cover the question."
+        description="True only if the evidence does not address the main question at all. "
+        "Leave false when you can answer the main question but some details are missing."
+    )
+    gaps: list[str] = Field(
+        default_factory=list,
+        description="Details the request asks about that the evidence does not cover.",
     )
     internal_notes: str = Field(description="Notes for the human reviewer.")
 

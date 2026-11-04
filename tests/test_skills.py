@@ -66,3 +66,17 @@ def test_promise_check_ignores_negated_guarantees():
         "We don't guarantee speed, but we will reimburse you.",
     ]:
         assert promises(bad), bad
+
+
+def test_draft_partial_answers_are_not_insufficient():
+    from skills import draft
+
+    seen = {}
+
+    def script(name, schema, system, user):
+        seen["system"] = system
+        return {**good_draft(), "gaps": ["exact refund timing"]}
+
+    d, _ = draft(make_rt(script), "When will I get my money back?", [REG_1006_14])
+    assert d.gaps == ["exact refund timing"] and not d.insufficient_evidence
+    assert "only if the evidence does not address the main question" in seen["system"]

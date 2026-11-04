@@ -216,6 +216,22 @@ def test_dynamic_abstains_out_of_scope():
         "What does Reg DD require for savings account disclosures?",
     )
     assert r["outcome"] == "abstain" and r["path"] == ["prepare", "supervisor", "abstain"]
+    assert "Reg DD is not ingested" in r["response"]
+
+
+def test_dynamic_abstain_after_verify_reports_gaps_not_supervisor_reason():
+    no_cover = {**good_draft(), "insufficient_evidence": True, "gaps": ["complaint volume by bank"]}
+    decisions = [
+        dec("search_regulations", query="collector validation notice"),
+        dec("synthesize", reason="Enough evidence exists, so I'll synthesize"),
+    ]
+    r = run_dynamic(
+        make_rt(script_dynamic(decisions, drafts=[no_cover])),
+        "Which banks get the most validation-notice complaints?",
+    )
+    assert r["outcome"] == "abstain"
+    assert "synthesize" not in r["response"]
+    assert "complaint volume by bank" in r["response"]
 
 
 def test_dynamic_tool_errors_escalate():
