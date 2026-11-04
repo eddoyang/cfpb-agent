@@ -53,6 +53,7 @@ PRODUCT_RULES = [
 ]
 COMPLAINTS_PER_PRODUCT = 1200
 COMPLAINTS_SINCE = "2023-01-01"
+COMPLAINTS_UNTIL = "2026-08-14"  # the CFPB stopped publishing narratives after this date
 
 # --- Chunking -------------------------------------------------------------
 REG_CHUNK_MAX_TOKENS = 700  # regulation chunks, split on paragraph boundaries

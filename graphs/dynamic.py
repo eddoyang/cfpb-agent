@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import operator
+from datetime import date
 from typing import Annotated, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -161,7 +162,12 @@ def build_dynamic_graph(rt):
         kinds: dict[str, int] = {}
         for e in s.get("evidence", []):
             kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1
-        parts = [f"<question>\n{s['request']}\n</question>"]
+        parts = [
+            f"Today's date is {date.today().isoformat()}. The complaint sample covers "
+            f"{config.COMPLAINTS_SINCE} to {config.COMPLAINTS_UNTIL}. Turn relative dates "
+            "('last year', 'this quarter') into stats date_from/date_to.",
+            f"<question>\n{s['request']}\n</question>",
+        ]
         if s.get("history_text"):
             parts.append(f"<conversation_history>\n{s['history_text']}\n</conversation_history>")
         parts.append("Actions so far:\n" + ("\n".join(done) or "(none)"))

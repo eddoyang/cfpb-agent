@@ -234,6 +234,24 @@ def test_dynamic_abstain_after_verify_reports_gaps_not_supervisor_reason():
     assert "complaint volume by bank" in r["response"]
 
 
+def test_supervisor_is_told_todays_date_and_sample_range():
+    from datetime import date
+
+    import config
+
+    seen = []
+    base = script_dynamic([dec("abstain", reason="out of scope")])
+
+    def script(name, schema, system, user):
+        if name == "supervisor":
+            seen.append(user)
+        return base(name, schema, system, user)
+
+    run_dynamic(make_rt(script), "How many complaints did we get last year?")
+    assert date.today().isoformat() in seen[0]
+    assert config.COMPLAINTS_SINCE in seen[0] and config.COMPLAINTS_UNTIL in seen[0]
+
+
 def test_dynamic_tool_errors_escalate():
     decisions = [
         dec("search_regulations", query="a"),

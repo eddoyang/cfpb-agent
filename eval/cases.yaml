@@ -134,8 +134,10 @@
   workflow: static
   category: known_failure
   note: >
-    Expected weak spot. One complaint spans Reg Z (credit card) and Reg E (debit). The classifier
-    picks one product, so similar-case search and the lean top-3 retrieval may miss one regulation.
+    Expected weak spot. One complaint spans Reg Z (credit card) and Reg E (debit), and two topics
+    (unauthorized-use liability and dispute handling). The classifier writes one search query
+    and lean retrieval keeps the top 3, which the "dispute" wording pulls toward 1026.13/1005.11,
+    so both liability sections can be missed. Fix: one query per issue, merged results.
   input: >
     A thief used my credit card for $700 of purchases and, on the same day, drained $1,100 from my
     checking account with my debit card. My bank resolved neither dispute.
@@ -207,7 +209,11 @@
   workflow: dynamic
   category: missing_info
   input: How many complaints about crypto exchanges did we receive last year, and from which states?
-  expect: {outcome: [abstain, escalate]}
+  expect: {outcome: [abstain, escalate, answer]}
+  note: >
+    The sample has a "virtual currency" product category but nothing specific to exchanges.
+    "answer" passes only if the counts are filtered to last year and the response says the
+    category is broader than crypto exchanges; review this one by hand in the report.
 
 - id: dy-missing-old-data
   workflow: dynamic
