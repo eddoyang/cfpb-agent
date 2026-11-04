@@ -177,6 +177,8 @@ def build_dynamic_graph(rt):
             "fast", SupervisorDecision, SUPERVISOR_SYSTEM, "\n\n".join(parts), name="supervisor"
         ).model_dump()
         final, override = apply_policy(s, d)
+        if override:
+            final = {**final, "policy_override": override}
         out = {
             "decision": final,
             "_detail": f"{d['action']}: {d['reason']}"
@@ -283,7 +285,20 @@ def build_dynamic_graph(rt):
 
     @traced("abstain")
     def abstain_node(s: AnalystState):
-        reason = s.get("decision", {}).get("reason", "")
+        # The supervisor's reason explains its own choice, so only show it when the
+        # supervisor itself chose to abstain (not after verify or a policy override).
+        d = s.get("decision", {})
+        if s.get("draft"):
+            gaps = s["draft"].get("gaps") or []
+            reason = (
+                "The sources don't cover: " + "; ".join(gaps) + "."
+                if gaps
+                else "The evidence I found doesn't address the question."
+            )
+        elif d.get("action") == "abstain" and not d.get("policy_override"):
+            reason = d.get("reason", "")
+        else:
+            reason = "I couldn't find evidence that addresses the question."
         return {
             "outcome": "abstain",
             "final_response": (
