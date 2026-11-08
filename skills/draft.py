@@ -7,6 +7,9 @@ COMMON_RULES = """Grounding rules (these matter more than fluency):
 - Use ONLY the evidence below. Do not add deadlines, dollar limits, or rights from memory.
 - Put the evidence ID in brackets after every factual or legal statement, e.g. [R-1026.13#1].
 - List every such statement in `claims` with the IDs that support it.
+- Do not list general caveats or disclaimers as claims ("the team will review the details",
+  "this is general information, not legal advice"); they need no citation. A condition or
+  exception stated in the evidence is not a general caveat: cite it and list it as a claim.
 - If the evidence answers the main question but not every detail, answer what it supports,
   say plainly which details the sources don't cover, list them in `gaps`, and leave
   insufficient_evidence false. A partial, well-cited answer is the normal case.

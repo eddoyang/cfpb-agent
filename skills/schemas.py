@@ -47,7 +47,10 @@ class Draft(BaseModel):
         description="The full text shown to the reader, with [evidence-id] "
         "markers after supported statements."
     )
-    claims: list[Claim] = Field(description="Every factual or legal statement in the response.")
+    claims: list[Claim] = Field(
+        description="Every factual or legal statement in the response. "
+        "Not general caveats or disclaimers."
+    )
     insufficient_evidence: bool = Field(
         description="True only if the evidence does not address the main question at all. "
         "Leave false when you can answer the main question but some details are missing."

@@ -95,3 +95,4 @@ def test_draft_partial_answers_are_not_insufficient():
     d, _ = draft(make_rt(script), "When will I get my money back?", [REG_1006_14])
     assert d.gaps == ["exact refund timing"] and not d.insufficient_evidence
     assert "only if the evidence does not address the main question" in seen["system"]
+    assert "Do not list general caveats or disclaimers as claims" in seen["system"]
