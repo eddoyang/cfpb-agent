@@ -109,6 +109,27 @@ def test_static_judge_catches_wrong_fact():
     assert r["verification"]["unsupported"]
 
 
+def test_static_advisory_policy_issue_does_not_force_redraft():
+    judge = {
+        **judge_all_supported(),
+        "policy_issues": [{"severity": "advisory", "issue": "mild tone point"}],
+    }
+    r = run_static(make_rt(script_static(judge=judge)), COMPLAINT)
+    assert r["outcome"] == "answer" and r["path"].count("draft") == 1
+    assert r["verification"]["passed"]
+    assert r["verification"]["advisories"] == ["Advisory: mild tone point"]
+
+
+def test_static_blocking_policy_issue_forces_redraft():
+    judge = {
+        **judge_all_supported(),
+        "policy_issues": [{"severity": "blocking", "issue": "promises a refund"}],
+    }
+    r = run_static(make_rt(script_static(judge=judge)), COMPLAINT)
+    assert r["outcome"] == "escalate" and r["path"].count("draft") == 3
+    assert "Policy: promises a refund" in r["verification"]["issues"]
+
+
 def test_static_human_approval_interrupt_and_resume():
     rt = make_rt(script_static(), require_approval=True)
     r = run_static(rt, COMPLAINT)

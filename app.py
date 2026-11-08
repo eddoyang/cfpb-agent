@@ -80,7 +80,7 @@ def show_result(r: dict, show_response: bool = True) -> None:
         with st.expander(
             f"Verification: {'PASS' if v['passed'] else 'FAIL'} (supported {v['supported_ratio']})"
         ):
-            for i in v["issues"]:
+            for i in v["issues"] + v.get("advisories", []):
                 st.markdown(f"- {i}")
             if v["verdicts"]:
                 st.dataframe(pd.DataFrame(v["verdicts"]), hide_index=True)

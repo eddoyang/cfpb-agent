@@ -64,9 +64,16 @@ class ClaimVerdict(BaseModel):
     reason: str
 
 
+class PolicyIssue(BaseModel):
+    severity: Literal["blocking", "advisory"] = Field(
+        description="blocking: must be fixed before sending. advisory: worth a look, safe to send."
+    )
+    issue: str
+
+
 class JudgeOutput(BaseModel):
     verdicts: list[ClaimVerdict]
-    policy_issues: list[str] = Field(
+    policy_issues: list[PolicyIssue] = Field(
         default_factory=list,
         description="Promises of outcomes/refunds, legal conclusions stated as certain, tone problems.",
     )

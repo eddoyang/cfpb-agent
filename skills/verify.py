@@ -47,8 +47,14 @@ JUDGE_SYSTEM = """You are a compliance reviewer checking a draft against its sou
 For each numbered claim, decide if the cited evidence text directly supports it.
 A claim is NOT supported if it adds a number, deadline, condition, or right that the
 cited text does not state, even if it is true in general. Be strict but fair:
-paraphrase is fine. Also list policy issues: promising refunds or outcomes, stating legal
-conclusions about this specific customer as certain, or an inappropriate tone."""
+paraphrase is fine. Also list policy issues, each with a severity:
+- blocking: promising refunds or outcomes, stating legal conclusions about this specific
+  customer as certain, a statement that would mislead the reader, or a rude, dismissive
+  or blaming tone.
+- advisory: anything that is safe to send as written: wording, warmth, clarity, or a
+  mild tone point. Advisory notes go to the human approver and do not stop the draft.
+If you are unsure whether an issue could mislead or harm the customer, mark it blocking.
+Do not report a claim's lack of support as a policy issue; the verdicts cover that."""
 
 
 def judge_text(ev: dict, ctx) -> str:
@@ -82,6 +88,7 @@ def verify(rt, d: Draft, evidence: list[dict]) -> dict:
     by_id = {e["id"]: e for e in evidence}
     unsupported: list[dict] = []
     verdicts: list[dict] = []
+    advisories: list[str] = []
 
     if d.claims:
         blocks = []
@@ -97,7 +104,11 @@ def verify(rt, d: Draft, evidence: list[dict]) -> dict:
         for v in judge.verdicts:
             if not v.supported and 0 <= v.claim_index < len(d.claims):
                 unsupported.append({"claim": d.claims[v.claim_index].text, "reason": v.reason})
-        issues += [f"Policy: {p}" for p in judge.policy_issues]
+        for p in judge.policy_issues:
+            if p.severity == "blocking":
+                issues.append(f"Policy: {p.issue}")
+            else:
+                advisories.append(f"Advisory: {p.issue}")
 
     n = len(d.claims)
     supported = n - len(unsupported)
@@ -105,10 +116,11 @@ def verify(rt, d: Draft, evidence: list[dict]) -> dict:
     return {
         "passed": not issues,
         "issues": issues,
+        "advisories": advisories,
         "unsupported": unsupported,
         "verdicts": verdicts,
         "n_claims": n,
         "supported_ratio": round(supported / n, 3) if n else None,
         "cited_ids": sorted({x for c in d.claims for x in c.citations}),
-        "feedback": "\n".join(f"- {i}" for i in issues),
+        "feedback": "\n".join(f"- {i}" for i in issues + advisories),
     }

@@ -46,7 +46,7 @@ def show(r: dict) -> None:
         print(
             f"\nVERIFICATION: {'PASS' if v['passed'] else 'FAIL'}  supported={v['supported_ratio']}"
         )
-        for i in v["issues"][:5]:
+        for i in (v["issues"] + v.get("advisories", []))[:5]:
             print(f"  - {i[: W - 4]}")
     if r.get("escalation_reason"):
         print(f"\nESCALATION REASON: {r['escalation_reason'][:300]}")
