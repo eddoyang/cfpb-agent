@@ -3,9 +3,9 @@ read-only SQL for the stats skill. Evidence is returned as plain dicts so it can
 live in LangGraph state (and be checkpointed) without custom serialisers.
 
 Evidence dict:
-  {"id": "R-1026.13#1", "kind": "regulation"|"complaint"|"stats",
-   "citation": "12 CFR 1026.13(a)-(b) Billing error resolution.",
-   "text": "...", "score": 0.53, "section": "1026.13", "source_url": "...", "meta": {...}}
+    {"id": "R-1026.13#1", "kind": "regulation"|"complaint"|"stats",
+    "citation": "12 CFR 1026.13(a)-(b) Billing error resolution.",
+    "text": "...", "score": 0.53, "section": "1026.13", "source_url": "...", "meta": {...}}
 """
 
 from __future__ import annotations
@@ -62,9 +62,9 @@ class PgStore:
         vec = self.embed_query(query)
         sql = """SELECT chunk_id, part, regulation, section, section_title, citation, text,
                         source_url, as_of_date, 1 - (embedding <=> %(v)s) AS score
-                 FROM reg_chunks
-                 WHERE embedding IS NOT NULL {filt}
-                 ORDER BY embedding <=> %(v)s LIMIT %(k)s"""
+                FROM reg_chunks
+                WHERE embedding IS NOT NULL {filt}
+                ORDER BY embedding <=> %(v)s LIMIT %(k)s"""
         params = {"v": vec, "k": k}
         filt = ""
         if parts:
@@ -83,8 +83,8 @@ class PgStore:
         vec = vec if vec is not None else np.zeros(config.EMBEDDING_DIM, dtype=np.float32)
         rows = self.conn.execute(
             """SELECT chunk_id, part, regulation, section, section_title, citation, text,
-                      source_url, as_of_date, 1 - (embedding <=> %s) AS score
-               FROM reg_chunks WHERE section = %s ORDER BY chunk_id""",
+                        source_url, as_of_date, 1 - (embedding <=> %s) AS score
+                FROM reg_chunks WHERE section = %s ORDER BY chunk_id""",
             (vec, section),
         ).fetchall()
         return [_reg_evidence(r) for r in rows]
@@ -103,7 +103,7 @@ class PgStore:
             params["ex"] = exclude_id
         rows = self.conn.execute(
             f"""SELECT complaint_id, date_received, product, issue, company, company_response,
-                       timely, narrative, 1 - (embedding <=> %(v)s) AS score
+                        timely, narrative, 1 - (embedding <=> %(v)s) AS score
                 FROM complaints WHERE {" AND ".join(clauses)}
                 ORDER BY embedding <=> %(v)s LIMIT %(k)s""",
             params,

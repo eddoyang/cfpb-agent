@@ -212,7 +212,7 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
         (
             f"Context config **{meta['context']}**, repeats {meta['repeats']}, models "
             f"`{config.FAST_MODEL}` (classify/route) and `{config.STRONG_MODEL}` (draft/verify). "
-            f"Cost uses the prices in config.py; confirm them before quoting."
+            f"Cost uses the prices in config.py."
         ),
         "",
         "## Summary",
@@ -297,7 +297,11 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
         L.append(
             f"- Out-of-scope runs that reached retrieval: {', '.join(f'{s:.3f}' for s in oos)}"
         )
-    L.append("- Set the floor just above typical out-of-scope scores and below in-scope ones.")
+    inscope = sorted(r["best_reg_score"] for r in rows 
+                    if r["category"] != "out_of_scope" and r["best_reg_score"])
+    if inscope:
+        L.append(f"- Lowest best score among in-scope runs: {inscope[0]:.3f} "
+            f"(floor {config.REG_MIN_SCORE} should stay below this)")
     return "\n".join(L) + "\n"
 
 

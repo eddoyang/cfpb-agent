@@ -51,12 +51,12 @@ def load_regulations(chunks) -> None:
     with get_conn() as conn, conn.cursor() as cur:
         cur.executemany(
             """INSERT INTO reg_chunks (chunk_id, part, regulation, section, section_title,
-                   citation, text, token_count, source_url, as_of_date, embedding)
-               VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-               ON CONFLICT (chunk_id) DO UPDATE SET
-                   text = EXCLUDED.text, citation = EXCLUDED.citation,
-                   token_count = EXCLUDED.token_count, as_of_date = EXCLUDED.as_of_date,
-                   embedding = EXCLUDED.embedding""",
+                    citation, text, token_count, source_url, as_of_date, embedding)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON CONFLICT (chunk_id) DO UPDATE SET
+                    text = EXCLUDED.text, citation = EXCLUDED.citation,
+                    token_count = EXCLUDED.token_count, as_of_date = EXCLUDED.as_of_date,
+                    embedding = EXCLUDED.embedding""",
             [
                 (
                     c.chunk_id,
@@ -96,11 +96,11 @@ def load_complaints(df: pd.DataFrame) -> None:
 
     with get_conn() as conn, conn.cursor() as cur:
         cur.executemany(
-            """INSERT INTO complaints (complaint_id, date_received, product, sub_product, issue,
-                   sub_issue, company, state, submitted_via, company_response, timely,
-                   reg_hint, narrative, token_count, embedding)
-               VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-               ON CONFLICT (complaint_id) DO NOTHING""",
+                """INSERT INTO complaints (complaint_id, date_received, product, sub_product, issue,
+                    sub_issue, company, state, submitted_via, company_response, timely,
+                    reg_hint, narrative, token_count, embedding)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON CONFLICT (complaint_id) DO NOTHING""",
             [
                 (
                     int(r.complaint_id),
