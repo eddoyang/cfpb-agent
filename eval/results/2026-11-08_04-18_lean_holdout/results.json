@@ -1,0 +1,2533 @@
+{
+  "meta": {
+    "timestamp": "2026-11-08, 04:18",
+    "context": "lean",
+    "repeats": 3,
+    "fast_model": "claude-haiku-5-5",
+    "strong_model": "claude-sonnet-5-5",
+    "reg_min_score": 0.45,
+    "cases_file": "holdout.yaml"
+  },
+  "summary": {
+    "runs": 69,
+    "cases": 23,
+    "pass": 64,
+    "metrics": {
+      "outcome": [
+        66,
+        69
+      ],
+      "product": [
+        34,
+        36
+      ],
+      "retrieval_hit": [
+        44,
+        48
+      ],
+      "citation_hit": [
+        43,
+        45
+      ],
+      "retrieval_all": [
+        0,
+        0
+      ],
+      "actions": [
+        12,
+        12
+      ],
+      "forbidden": [
+        6,
+        6
+      ]
+    },
+    "mean_supported_ratio": 1.0,
+    "verifier_caught": 15,
+    "latency_mean": 20.92,
+    "latency_p95": 62.57,
+    "cost_total": 3.325,
+    "cost_per_run": 0.04819,
+    "tokens_in": 949966,
+    "tokens_out": 200520,
+    "consistency": 0.971,
+    "inconsistent_cases": [
+      "ho-st-gift-card-expiry",
+      "ho-dy-grace-period"
+    ]
+  },
+  "rows": [
+    {
+      "id": "ho-st-overdraft-optin",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.698,
+      "latency_s": 20.06,
+      "cost_usd": 0.04399,
+      "input_tokens": 12745,
+      "output_tokens": 2319,
+      "llm_calls": 3,
+      "response": "Thank you for reaching out. We understand how frustrating it is to see a fee on a small coffee purchase, especially if you don't recall agreeing to overdraft coverage.\n\nUnder Regulation E, a bank generally may not charge a fee for paying an ATM or one-time debit card transaction under its overdraft service unless it has first given you a separate written (or, if you agree, electronic) notice describing the service, given you a reasonable opportunity to opt in, obtained your affirmative consent, and sent you written or electronic confirmation of that consent that includes your right to revoke it [R-1005.17#1]. For accounts opened on or after July 1, 2010, that consent must be obtained before any such fee is charged [R-1005.17#2]. The rule's definition of overdraft service excludes certain arrangements, such as a Regulation Z line of credit or an automatic transfer from another account of yours [R-1005.17#1]. If an account is joint, consent from any one joint holder counts as consent for the account [R-1005.17#3].\n\nYou may opt in at any time, and you may revoke consent at any time. The bank must implement a revocation as soon as reasonably practicable [R-1005.17#3].\n\nNext steps: our team will review your account records, including whether and how consent was recorded and how this fee was classified. We will then respond to you with our findings. This is general information, not a decision on your case.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-overdraft-optin",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.698,
+      "latency_s": 62.57,
+      "cost_usd": 0.1561,
+      "input_tokens": 36284,
+      "output_tokens": 8811,
+      "llm_calls": 7,
+      "response": "Thank you for contacting us. We're sorry for the frustration of being charged an overdraft fee on a small debit card purchase when you say you never agreed to overdraft coverage.\n\nUnder Regulation E, a bank generally may not charge a fee for paying an ATM or one-time debit card transaction under its overdraft service unless it has first given the consumer a written notice (or an electronic one, if the consumer agrees) describing the service, given a reasonable opportunity to opt in, obtained the consumer's affirmative consent, and sent written or electronic confirmation of that consent that includes a statement of the right to revoke [R-1005.17#1]. For accounts opened on or after July 1, 2010, the bank must obtain that consent before it assesses any such fee [R-1005.17#2]. The rule's definition of overdraft service excludes some arrangements, such as transfers from another account like savings, or certain lines of credit [R-1005.17#1]. A consumer may opt in at any time, or revoke consent at any time, and the bank must implement a revocation as soon as reasonably practicable [R-1005.17#3].\n\nNext steps: our team will review your account opening records, whether consent was obtained, how the transaction was processed, and how the fee was assessed. We can't promise a particular outcome, but we will explain what we find. The sources available to us don't address response deadlines or refund procedures, so we can't speak to those here.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-overdraft-optin",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.71,
+      "latency_s": 22.53,
+      "cost_usd": 0.04891,
+      "input_tokens": 11977,
+      "output_tokens": 2971,
+      "llm_calls": 3,
+      "response": "Thank you for writing to us, and we're sorry that a $6 coffee led to a $35 fee and that you feel your concerns weren't heard. Here is how the rules generally work. Under Regulation E, a bank generally may not charge a fee for paying an ATM or one-time debit card transaction under its overdraft service unless it has first given you a written (or, if you agree, electronic) notice describing the service, given you a reasonable opportunity to opt in, obtained your affirmative consent, and sent you written or electronic confirmation that includes your right to revoke consent [R-1005.17#1]. For accounts opened on or after July 1, 2010, that consent must be obtained before any such fee is charged [R-1005.17#2]. The rule does not cover transfers from another account of yours, such as a savings account, or overdraft lines of credit subject to Regulation Z, which are excluded from the definition of overdraft service [R-1005.17#1]. You may opt in or revoke consent at any time, and a bank must implement a revocation as soon as reasonably practicable [R-1005.17#3]. Our team will review when your account was opened, what consent records exist, and how this fee was assessed, and we will contact you with what we find. We can't say now what the outcome will be. Please send any account-opening paperwork or notices you have.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-recurring-stop",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.659,
+      "latency_s": 18.91,
+      "cost_usd": 0.04098,
+      "input_tokens": 11359,
+      "output_tokens": 2456,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and we're sorry you were charged again after cancelling your gym membership and asking your bank to stop the payment. We understand how frustrating that is.\n\nUnder Regulation E, a consumer may stop payment of a preauthorized electronic fund transfer from their account by notifying the financial institution orally or in writing at least three business days before the scheduled date of the transfer [R-1005.10#1]. A financial institution may require written confirmation of an oral stop-payment order within 14 days of the oral notice [R-1005.10#1]. If it requires this, it must tell the consumer about the requirement and give the address for sending the confirmation when the consumer gives the oral notice [R-1005.10#1]. An oral stop-payment order ceases to be binding after 14 days if the consumer does not provide the required written confirmation [R-1005.10#1].\n\nNext steps: our team will review the details of your case. That includes when you called, how far ahead of the scheduled charge it was, and whether written confirmation was requested. We will explain the outcome of that review to you. If you have notes of your call, a cancellation confirmation from the gym, or your statement showing the charge, please send them to us.\n\nThe sources available to us do not cover the bank's dispute timelines or what remedies may be available, so we cannot describe those here.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-recurring-stop",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.647,
+      "latency_s": 18.16,
+      "cost_usd": 0.03883,
+      "input_tokens": 10306,
+      "output_tokens": 2439,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and we're sorry you were charged after cancelling your gym membership and asking your bank to stop the payment. We understand how frustrating that is.\n\nUnder Regulation E, a consumer may stop payment of a preauthorized electronic fund transfer from their account by notifying the financial institution orally or in writing at least three business days before the scheduled date of the transfer [R-1005.10#1]. The bank may require written confirmation of an oral stop-payment order within 14 days. If it does, it must tell the consumer about the requirement and give the address where the confirmation must be sent when the oral notice is given [R-1005.10#1]. An oral stop-payment order ceases to be binding after 14 days if the consumer does not provide the required written confirmation [R-1005.10#1].\n\nNext steps: our team will review the details of your call, including when it was made, what you were told, whether written confirmation was requested, and the scheduled date of the charge. We will then explain what we found. Please gather any cancellation confirmation from the gym, your call date, and your statement showing the charge, as these may help the review.\n\nThe sources available to us do not cover the bank's error-investigation procedures or timeframes, so we cannot describe those here.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-recurring-stop",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 19.43,
+      "cost_usd": 0.03871,
+      "input_tokens": 10300,
+      "output_tokens": 2433,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and I'm sorry the gym charged your checking account after you worked to stop it. That is frustrating, and we take it seriously.\n\nUnder Regulation E, a consumer may stop payment of a preauthorized electronic fund transfer by notifying the bank orally or in writing at least three business days before the scheduled date of the transfer [R-1005.10#1]. A bank may require written confirmation of an oral stop-payment order within 14 days. If it does, it must tell the consumer about the requirement and give the address where confirmation must be sent when the oral notice is given [R-1005.10#1]. An oral stop-payment order stops being binding after 14 days if the consumer does not provide the required written confirmation [R-1005.10#1].\n\nNext steps: our team will review the details of your case. That includes the date and manner of your call, the scheduled date of the charge, and whether written confirmation was requested and explained to you. It would help if you send us any call records, confirmation emails, or your gym cancellation confirmation. We will contact you with what we find. We cannot promise a particular outcome now, but we will explain the process and our findings.\n\nThe sources available to me do not describe the bank's error-resolution timelines or how a refund request would be handled.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-gift-card-expiry",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.722,
+      "latency_s": 21.12,
+      "cost_usd": 0.04775,
+      "input_tokens": 13792,
+      "output_tokens": 3238,
+      "llm_calls": 3,
+      "response": "I'm sorry your birthday gift was reduced and then reported as expired. Here is general information on the rules; the team will review your card's details.\n\nUnder Regulation E, a store gift card is a card issued on a prepaid basis to a consumer in a specified amount, in exchange for payment, and redeemable at a single merchant or affiliated group of merchants [R-1005.20#1]. For covered cards, no one may impose a dormancy, inactivity, or service fee unless there has been no activity in the one-year period ending on the date the fee is imposed [R-1005.20#3]. The fee's amount, how often it may be charged, and that it may be assessed for inactivity must also be clearly and conspicuously stated on the card, and no more than one such fee may be imposed in a calendar month [R-1005.20#3].\n\nOn expiration, a card may be sold with an expiration date only if the underlying funds last at least five years from issuance or the date funds were last loaded, or until the card's expiration date if later, and required disclosures are given [R-1005.20#3]. Some cards produced before April 1, 2010 have temporary compliance rules [R-1005.20#4].\n\nNext steps: the team will review the card, its disclosures, the dates and the fees charged. It may help to gather the card, packaging, receipt, and any fee notices. I can't say what the outcome will be.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-gift-card-expiry",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": false,
+        "retrieval_hit": false
+      },
+      "reasons": [
+        "outcome abstain not in ['answer']",
+        "product other != prepaid_card",
+        "none of ['1005.20'] retrieved (got [])"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 2.91,
+      "cost_usd": 0.00041,
+      "input_tokens": 1308,
+      "output_tokens": 555,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: The complaint concerns a retailer's store gift card, not a bank-issued prepaid card, bank account, credit card, money transfer, or debt collection, so it falls outside the products this team covers. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-gift-card-expiry",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "product": false,
+        "retrieval_hit": false
+      },
+      "reasons": [
+        "outcome abstain not in ['answer']",
+        "product other != prepaid_card",
+        "none of ['1005.20'] retrieved (got [])"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 5.28,
+      "cost_usd": 0.00064,
+      "input_tokens": 1308,
+      "output_tokens": 1024,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: The complaint concerns a retailer-issued store gift card, not a bank credit card, bank account, money transfer, prepaid card, or debt collection product, and no bank is named as issuer. Gift card fee and expiration rules exist under Reg E 1005.20, but this appears to be a product outside our Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-payment-posted-late",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.696,
+      "latency_s": 19.04,
+      "cost_usd": 0.04387,
+      "input_tokens": 11424,
+      "output_tokens": 2531,
+      "llm_calls": 3,
+      "response": "We're sorry for the frustration of being charged a late fee and interest after paying online on the due date. Under Regulation Z, a card issuer generally must credit a payment to your account as of the date it is received, unless a delay in crediting does not result in a finance or other charge, or unless the issuer's permitted payment requirements apply [R-1026.10#1]. Issuers may set reasonable cut-off times for electronic payments, but those cut-off times may be no earlier than 5 p.m. on the due date [R-1026.10#1]. If an issuer promotes a payment method, payments made that way are treated as conforming and are credited as of the date of receipt, except when a delay does not result in a finance or other charge [R-1026.10#1]. If an issuer fails to credit a payment as required in time to avoid finance or other charges, it must adjust the account so those charges are credited during the next billing cycle [R-1026.10#2]. Our team will review the details, including when your payment was received, the payment method and the issuer's stated requirements, to determine how these rules apply to your account. Please send us your payment confirmation showing the date and time, and your statement showing the late fee and interest. We will explain our findings once the review is complete. We cannot promise a particular outcome now. The sources we reviewed do not cover the issuer's specific cut-off time or fee limits.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-payment-posted-late",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.69,
+      "latency_s": 17.92,
+      "cost_usd": 0.04233,
+      "input_tokens": 11570,
+      "output_tokens": 2346,
+      "llm_calls": 3,
+      "response": "We're sorry about the late fee and interest you were charged after paying online on your due date, and we understand how frustrating that is. Under Regulation Z, a card issuer must credit a payment to your account as of the date it is received, unless the delay doesn't result in a finance or other charge, or unless an exception for payment requirements applies [R-1026.10#1]. Issuers may set reasonable payment requirements, including cut-off times for electronic payments, but a cut-off time may be no earlier than 5 p.m. on the due date at the location the issuer specifies [R-1026.10#1]. If an issuer promotes a particular payment method, payments made that way are treated as conforming and are credited as of the date of receipt, except where the delay doesn't result in a finance or other charge [R-1026.10#1]. If an issuer fails to credit a payment as required in time to avoid charges, it must adjust the account so the charges are credited during the next billing cycle [R-1026.10#2]. Our team will review when your payment was received, which payment method and cut-off time applied, and how the payment was posted. We will then explain what we find and any next steps for your account. The materials we reviewed don't cover every detail, such as our specific cut-off time or dispute timelines, so we'll address those directly when we respond.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-payment-posted-late",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.696,
+      "latency_s": 38.29,
+      "cost_usd": 0.09431,
+      "input_tokens": 22544,
+      "output_tokens": 5359,
+      "llm_calls": 5,
+      "response": "Thank you for contacting us, and we're sorry about the frustration of being charged a late fee and interest after you paid online on the due date. Here is how the rules generally work. Under Regulation Z, a card issuer must credit a payment as of the date it is received, except when a delay in crediting does not result in a finance or other charge, or as otherwise provided in the rule [R-1026.10#1]. An issuer may set reasonable payment requirements, including cut-off times for electronic payments, but those cut-off times may be no earlier than 5 p.m. on the due date at the location the issuer specifies for receiving payments [R-1026.10#1]. If an issuer promotes a payment method, payments made that way are treated as conforming and are credited as of the date of receipt, except when a delay does not result in a finance or other charge [R-1026.10#1]. If an issuer fails to credit a payment as required in time to avoid finance or other charges, it must adjust the account so those charges are credited during the next billing cycle [R-1026.10#2]. Our team will review the details of your payment, including the time it was made, the method you used, and when it was posted, and will review how the fee and interest were applied. We will contact you with the findings. The sources available to us do not state your issuer's specific cut-off time or the deadline for disputing the charges.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-payment-allocation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.718,
+      "latency_s": 55.57,
+      "cost_usd": 0.12742,
+      "input_tokens": 28255,
+      "output_tokens": 7545,
+      "llm_calls": 7,
+      "response": "Thank you for writing to us. We understand it is frustrating when you pay well above the minimum and the balance carrying the 26% APR barely moves. Under Regulation Z, when a consumer pays more than the required minimum on a covered credit card account, the issuer must apply the excess first to the balance with the highest APR. Any remainder goes to the other balances in descending order of APR [R-1026.53#1]. There are special rules. For a balance under a deferred interest or similar program, where interest is not owed if the balance is paid in full before a set period ends, the rule gives two alternatives. Under the first, the excess follows the general rule, except in the two billing cycles right before the period expires, when it goes first to the deferred interest balance [R-1026.53#1]. Under the second, the issuer may at its option allocate the excess as the consumer requests [R-1026.53#1]. The issuer may also, at its option, apply excess to a secured balance if the consumer requests it [R-1026.53#1]. Our team will review your account, including how each balance is classified and how your payments were applied, and will tell you what we find. The sources available to us do not say whether your 0% balance falls under any exception, and they do not set response deadlines or remedies. Please keep your statements showing the payments and balances.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-payment-allocation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.765,
+      "latency_s": 39.16,
+      "cost_usd": 0.08665,
+      "input_tokens": 18798,
+      "output_tokens": 5374,
+      "llm_calls": 5,
+      "response": "Thank you for writing to us, and we're sorry the way your payments are being applied has left your higher-rate purchase balance barely moving. That is frustrating when you are paying well above the minimum.\n\nUnder Regulation Z, when a consumer pays more than the required minimum on a credit card account under an open-end (not home-secured) plan, the issuer must generally apply the excess first to the balance with the highest APR. Any remainder goes to the other balances in descending order of APR [R-1026.53#1].\n\nThere are special rules. If a balance is under a deferred interest or similar program, where interest is not owed if the balance is paid in full before a set period ends, the issuer must follow the general rule. The exception is the two billing cycles right before that period expires, when the excess must go first to the deferred interest balance [R-1026.53#1]. Alternatively, the issuer may at its option allocate the excess as the consumer requests [R-1026.53#1]. For a secured balance, the issuer may at its option apply the excess to that balance if the consumer asks [R-1026.53#1].\n\nOur team will review your account, your statements and the terms of your balance transfer to see how your payments were applied and which rules apply. We will then explain what we find. We cannot say now what the result will be.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-payment-allocation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.747,
+      "latency_s": 15.05,
+      "cost_usd": 0.034,
+      "input_tokens": 9615,
+      "output_tokens": 1956,
+      "llm_calls": 3,
+      "response": "Thank you for writing to us, and we understand how frustrating it is to pay $500 a month and see your 26% APR purchase balance barely change. Under Regulation Z, when a consumer pays more than the required minimum periodic payment on a covered credit card account (an open-end, not home-secured plan), the issuer must apply the excess first to the balance with the highest APR, and any remainder to the other balances in descending order of APR [R-1026.53#1]. There are special rules. If a balance is under a deferred interest or similar program, then during the two billing cycles before the specified period ends, the excess must go first to that balance [R-1026.53#1]. The issuer may also, at its option, allocate the excess as the consumer requests for such a balance, or for a secured balance [R-1026.53#1]. The sources we have do not say whether a 0% balance transfer counts as a deferred interest program, so that detail is something we will need to confirm. Our team will review your account, including how your payments have been applied, your balance types, and the terms of your 0% offer. We will then contact you with what we find and any next steps. We cannot say now what the outcome will be. This is general information, not legal advice.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-credit-balance-refund",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.691,
+      "latency_s": 68.15,
+      "cost_usd": 0.16067,
+      "input_tokens": 36759,
+      "output_tokens": 9160,
+      "llm_calls": 7,
+      "response": "I'm sorry you are still waiting on a refund a month after asking for it in writing, especially after closing the account. Here is how the rules work in general. Under Regulation Z, when a credit balance of more than $1 is created on a credit account, the creditor must credit that amount to the account [R-1026.11#1]. It must also refund any remaining part of the balance within seven business days of receiving the consumer's written request [R-1026.11#1]. Separately, the creditor must make a good faith effort to refund any credit balance that stays on the account for more than six months by cash, check, money order, or credit to a deposit account. No further action is required if the consumer's current location is not known and cannot be traced through the last known address or telephone number [R-1026.11#1]. For merchandise returns, the rules say a merchant that accepts a return must send a credit statement to the card issuer within 7 business days, and the card issuer must then credit the account within 3 business days of receiving it [R-1026.12#3]. Our team will review the details of your account, including your return, the date your written request was received, and the current balance, to understand what happened and what steps apply. We cannot promise a particular outcome, but we will review the facts and tell you what we find. The sources available to me do not give a response timeframe, so I can't confirm when you will hear back.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-credit-balance-refund",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.674,
+      "latency_s": 24.71,
+      "cost_usd": 0.05524,
+      "input_tokens": 13071,
+      "output_tokens": 3346,
+      "llm_calls": 3,
+      "response": "We're sorry you have waited a month for the $300 credit balance on your closed card account, and we understand how frustrating that is.\n\nUnder Regulation Z, when a credit balance in excess of $1 is created on a credit account, including through amounts otherwise owed to or held for the consumer, the creditor must credit it to the account [R-1026.11#1]. The creditor must also refund any remaining part of the credit balance within seven business days of receiving the consumer's written request [R-1026.11#1]. Separately, the creditor must make a good faith effort to refund any credit balance that stays on the account for more than six months, by cash, check, money order, or credit to a deposit account [R-1026.11#1]. No further action is required if the consumer's location is not known and cannot be traced through the last known address or telephone number [R-1026.11#1]. For merchant returns, the card issuer must credit the consumer's account within 3 business days of receiving the merchant's credit statement [R-1026.12#3].\n\nNext steps: our team will review your account, including when your written request was received and how the $300 credit was posted, and will update you on the status. We cannot say what the outcome will be. The sources we reviewed do not address whether closing the account changes these rules.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-credit-balance-refund",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.708,
+      "latency_s": 24.08,
+      "cost_usd": 0.05174,
+      "input_tokens": 12349,
+      "output_tokens": 3137,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us. We're sorry you have been waiting a month after your return, and we understand how frustrating that is.\n\nIn general, under Regulation Z, when a credit balance of more than $1 is created on a credit card account, including through amounts owed to or held for the consumer, the creditor must credit it to the account [R-1026.11#1]. The creditor must then refund any remaining credit balance within seven business days of receiving the consumer's written request [R-1026.11#1]. A related provision also says a creditor must refund any remaining credit balance upon the consumer's written request [R-1026.21#1]. If a credit balance stays in the account for more than six months, the creditor must make a good faith effort to refund it by cash, check, money order, or credit to a deposit account [R-1026.11#1]. For merchandise returns, a card issuer must credit the consumer's account within 3 business days of receiving the merchant's credit statement [R-1026.12#3].\n\nNext steps: our team will review your account, including when the return credit posted, when your written request was received, and which rules apply to your account. We will then contact you with what we find. We cannot say now what the outcome of that review will be.\n\nThe sources we have do not cover which provision governs your specific account or what remedies apply if a deadline was missed.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-defective-goods",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.637,
+      "latency_s": 77.96,
+      "cost_usd": 0.19019,
+      "input_tokens": 42221,
+      "output_tokens": 11079,
+      "llm_calls": 7,
+      "response": "We're sorry your new laptop stopped working after a week and the store won't repair or refund it. That is frustrating, and yes, your card issuer may be able to help. Under federal rules, when a merchant that accepted your credit card fails to resolve a dispute about property or services you bought, you may assert against the card issuer claims (other than tort claims) and defenses arising from the transaction. You may also withhold payment up to the credit outstanding for that purchase and related finance or other charges [R-1026.12#2]. If you withhold that amount, the issuer may not report it as delinquent until the dispute is settled or judgment is rendered [R-1026.12#2]. These rights have conditions. You must have made a good faith attempt to resolve the dispute with the merchant. The purchase must also exceed $50, and it must have occurred in the same state as your current designated address or within 100 miles of it [R-1026.12#2]. Separate billing error procedures apply only to specific listed types of billing errors, such as property not accepted or not delivered as agreed, so they may not cover a defective item [R-1026.13#1]. Our team will review the details of your purchase and your efforts to resolve this with the store, and will tell you what we need from you next. We cannot promise a particular outcome.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-defective-goods",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.634,
+      "latency_s": 16.87,
+      "cost_usd": 0.04226,
+      "input_tokens": 12530,
+      "output_tokens": 2217,
+      "llm_calls": 3,
+      "response": "Thank you for reaching out, and I'm sorry your laptop stopped working so soon and the store has not repaired or refunded it. Here is some general information about the rules. When a merchant that honors a credit card fails to resolve a dispute about property purchased with the card, the cardholder may assert against the card issuer claims (other than tort claims) and defenses arising out of the transaction, and may withhold payment up to the credit outstanding for that purchase plus related finance charges [R-1026.12#2]. If payment is withheld under this rule, the issuer may not report that amount as delinquent until the dispute is settled or judgment is rendered [R-1026.12#2]. These rights apply only if you made a good faith attempt to resolve the dispute with the merchant, and if the amount of credit extended exceeds $50 and the transaction occurred in the same state as your current designated address or within 100 miles of it [R-1026.12#2]. Certain exclusions to the location and amount limits exist, for example where the merchant is the card issuer or is controlled by it [R-1026.12#2]. Our team will review your details, including your attempts to resolve this with the store and where and when you made the purchase. Please keep records of your contact with the store, such as emails, receipts, and repair requests. The sources we reviewed do not say how long the issuer's dispute review takes for this type of claim, so we cannot state a timeline or outcome.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-defective-goods",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.625,
+      "latency_s": 36.16,
+      "cost_usd": 0.09128,
+      "input_tokens": 24069,
+      "output_tokens": 4848,
+      "llm_calls": 5,
+      "response": "I'm sorry your new laptop stopped working after a week and that the store has not repaired or refunded it. That is frustrating, and we want to explain how the rules work in general. Under Regulation Z, when a merchant that honors a credit card does not satisfactorily resolve a dispute about property purchased with the card, the cardholder may assert against the card issuer claims (other than tort claims) and defenses arising from the transaction. The cardholder may also withhold payment up to the amount of credit outstanding for that purchase and related finance or other charges [R-1026.12#2]. If payment is withheld that way, the issuer may not report that amount as delinquent until the dispute is settled or judgment is rendered [R-1026.12#2]. These rights apply only if the cardholder made a good faith attempt to resolve the dispute with the merchant, and the amount of credit extended exceeds $50, and the transaction occurred in the cardholder's home state or within 100 miles of the cardholder's address [R-1026.12#2]. The amount and location limits do not apply in certain situations, such as when the merchant is the card issuer, is controlled by or affiliated with the issuer, is a franchised dealer in the issuer's products, or obtained the order through the issuer's mail solicitation [R-1026.12#2]. Our team will review the details of your purchase and your attempts to resolve this with the store, and will explain our review and any next steps. Please send us any receipts and records of your contacts with the store. The sources provided do not address warranty or store repair obligations.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-collector-workplace",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.751,
+      "latency_s": 17.08,
+      "cost_usd": 0.04277,
+      "input_tokens": 12971,
+      "output_tokens": 2151,
+      "llm_calls": 3,
+      "response": "Thank you for reaching out, and we're sorry that repeated calls to your workplace are causing you stress. Here is general information about the rules that apply. Under Regulation F, a debt collector must not communicate or attempt to communicate with a consumer about a debt at the consumer's place of employment if the collector knows or has reason to know that the consumer's employer prohibits the consumer from receiving such communication [R-1006.6#1]. Collectors also must not contact a consumer at a place the collector knows or should know is inconvenient to the consumer [R-1006.6#1]. These prohibitions have exceptions: they do not apply if the consumer gave prior consent directly to the collector during a communication that did not itself violate these rules, or if a court of competent jurisdiction expressly permitted the contact [R-1006.6#1]. Separately, if a consumer notifies a collector in writing that the consumer wants it to cease further communication, the collector generally must not communicate further about that debt, subject to exceptions stated in the regulation [R-1006.6#1]. A collector also must not use a medium of communication the person has asked it not to use [R-1006.14#2]. Next steps: our team will review the details of your complaint, including the calls you describe and what the collector was told. We cannot say now what the outcome will be. It may help to keep a record of the dates and times of the calls. The sources we reviewed do not specify how a consumer must tell a collector about an employer's call restrictions, so we cannot address that detail here.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-collector-workplace",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.701,
+      "latency_s": 16.38,
+      "cost_usd": 0.04204,
+      "input_tokens": 12246,
+      "output_tokens": 2227,
+      "llm_calls": 3,
+      "response": "I'm sorry you're dealing with repeated collection calls at your workplace; that is stressful, especially when your employer doesn't allow them. Under Regulation F, a debt collector must not communicate or attempt to communicate with a consumer about a debt at the consumer's place of employment if the collector knows or has reason to know that the employer prohibits the consumer from receiving such communication [R-1006.6#1]. There are exceptions: this does not apply if the consumer gave prior consent directly to the collector during a communication that did not itself violate these rules, or if a court has given express permission [R-1006.6#1]. Separately, collectors must not engage in conduct whose natural consequence is to harass, oppress, or abuse, and must not place calls repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1]. The rule also sets call-frequency presumptions: a collector is presumed to violate the rule if it exceeds seven calls within seven consecutive days to a person about a particular debt, or calls within seven days after a telephone conversation about that debt, subject to certain exclusions [R-1006.14#1]. Our team will review the details of your situation, including when and how you told the collector and the call history. We will explain the process and next steps once that review is done. It may help to keep a log of call dates, times, and numbers. We cannot promise a particular outcome.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-collector-workplace",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.715,
+      "latency_s": 16.89,
+      "cost_usd": 0.04387,
+      "input_tokens": 12372,
+      "output_tokens": 2373,
+      "llm_calls": 3,
+      "response": "I'm sorry these calls keep reaching you at work, especially after you told the collector twice that your employer doesn't allow personal calls. That sounds stressful, and we take it seriously.\n\nUnder Regulation F, a debt collector must not communicate or attempt to communicate with a consumer about a debt at the consumer's place of employment if the collector knows or has reason to know that the employer prohibits the consumer from receiving such communication [R-1006.6#1]. The rules also bar contact at a place the collector knows or should know is inconvenient to the consumer [R-1006.6#1]. These prohibitions do not apply if the consumer gave prior consent directly to the collector during a communication that did not itself violate these rules, or if a court expressly permitted the contact [R-1006.6#1].\n\nSeparately, if a consumer notifies a collector in writing that they refuse to pay a debt or want the collector to stop communicating, the collector generally must not communicate further about that debt, subject to exceptions in the rule [R-1006.6#1]. A collector also must not use a communication medium that a person has asked it not to use [R-1006.14#2].\n\nNext steps: our team will review the details of your account and the contacts, including when and how you told the collector about your employer's policy. We will explain what we find and what options may be available. It may help to keep a log of call dates and times and any notes of what you told the collector.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-collector-arrest-threat",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": false,
+        "citation_hit": false
+      },
+      "reasons": [
+        "none of ['1006.18'] retrieved (got ['1006.14', '1006.22', '1006.30'])",
+        "answer cites ['1006.14', '1006.22'], expected one of ['1006.18']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.666,
+      "latency_s": 64.93,
+      "cost_usd": 0.15828,
+      "input_tokens": 36758,
+      "output_tokens": 8947,
+      "llm_calls": 7,
+      "response": "We're sorry you received a voicemail like this; a threat of arrest and a demand for same-day payment can be frightening. Under Regulation F, a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person in connection with collecting a debt [R-1006.14#1]. A collector also must not use or threaten to use violence or other criminal means to harm a person's physical person, reputation, or property [R-1006.14#1]. Collectors must not use unfair or unconscionable means to collect a debt, and must not collect any amount unless it is expressly authorized by the agreement creating the debt or permitted by law [R-1006.22#1]. Regulation F also sets call-frequency rules. A collector is presumed to violate the harassment rule if it calls about a particular debt more than seven times within seven consecutive days, or within seven consecutive days after a telephone conversation about that debt [R-1006.14#1]. Some calls do not count toward those limits, such as calls not connected to the dialed number, or calls placed with consent given directly to the collector and only within seven consecutive days after receiving that consent [R-1006.14#1]. Our team will review the details of your situation, including the voicemail. It would help to keep the voicemail, note the date and time of each call, and save any letters. The sources we reviewed do not address how to dispute a debt, or give a timeframe for our review, so we cannot say how long it will take or what the outcome will be.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-collector-arrest-threat",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.714,
+      "latency_s": 16.07,
+      "cost_usd": 0.042,
+      "input_tokens": 12529,
+      "output_tokens": 2156,
+      "llm_calls": 3,
+      "response": "I'm sorry you received this voicemail. A message threatening arrest and demanding immediate payment is stressful, and we take it seriously. Under Regulation F, a debt collector must not use any false, deceptive, or misleading representation or means in connection with collecting a debt [R-1006.18#1]. A collector also must not represent or imply that nonpayment will result in arrest or imprisonment unless that action is lawful and the collector or creditor intends to take it [R-1006.18#1]. More generally, a collector must not threaten any action that cannot legally be taken or that is not intended to be taken [R-1006.18#1]. Collectors also must not falsely represent the character, amount, or legal status of a debt [R-1006.18#1]. Separately, a collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse a person, and must not use or threaten to use criminal means to harm a person's physical person, reputation, or property [R-1006.14#1]. Our team will review the voicemail and the surrounding details to assess how these rules apply. Next steps: please keep the voicemail, note the date, time, and number it came from, and save any letters or notices about the bill. We will review the information, and the evidence we have does not tell us how any particular review will end. The sources provided also do not set out how to dispute a debt or what verification you may request, so we cannot address those details here.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-collector-arrest-threat",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.658,
+      "latency_s": 18.14,
+      "cost_usd": 0.0432,
+      "input_tokens": 12106,
+      "output_tokens": 2446,
+      "llm_calls": 3,
+      "response": "We're sorry you received this voicemail. A message like that can be frightening, and we take it seriously. Here is how the rules generally work. Under Regulation F, a debt collector must not represent or imply that nonpayment of a debt will result in arrest or imprisonment unless that action is lawful and the collector or creditor intends to take it [R-1006.18#1]. A debt collector also must not threaten to take any action that cannot legally be taken or that is not intended to be taken [R-1006.18#1]. More broadly, collectors must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person [R-1006.14#1]. They also must not falsely represent the character, amount, or legal status of a debt [R-1006.18#1]. Our team will review the details of your voicemail and your account to understand what happened. We can't say in advance what the outcome will be. To help, please keep the voicemail, and note the date, time, and phone number of the call and the name of the caller or company. Please also keep any letters or notices you have received about this bill. The sources we reviewed do not address how to dispute a debt or how long our review will take, and we will follow up with that information separately.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-time-barred",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.744,
+      "latency_s": 13.98,
+      "cost_usd": 0.03215,
+      "input_tokens": 9068,
+      "output_tokens": 1863,
+      "llm_calls": 3,
+      "response": "We understand how stressful it is to be told you may be sued over an old credit card debt, and we're sorry you're dealing with this. Here is general information about the rules, based on the sources we have. Under Regulation F, a time-barred debt is one for which the statute of limitations, meaning the period set by applicable law for bringing a legal action to collect a debt, has expired [R-1006.26#1]. A debt collector must not bring or threaten to bring a legal action against a consumer to collect a time-barred debt. The one exception is proofs of claim filed in a bankruptcy proceeding [R-1006.26#1]. Regulation F also says a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse a person in connection with collecting a debt [R-1006.14#1]. If a collector does bring a legal action other than one to enforce an interest in real property, it must be brought only in the judicial district where you signed the contract or where you live when the action starts [R-1006.30#2]. Our team will review the details of your situation, including the collector's communications and the debt's history. The sources we have do not state how long the limitations period is for your debt or how it is calculated. We will also look at whether the collector's conduct complies with these rules. Please keep any letters, call records, or court papers you receive and share them with us.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-time-barred",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.751,
+      "latency_s": 17.21,
+      "cost_usd": 0.03598,
+      "input_tokens": 9031,
+      "output_tokens": 2270,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and we understand how stressful a lawsuit threat can be. Under Regulation F, a statute of limitations is the period set by applicable law for bringing a legal action to collect a debt, and a time-barred debt is one where that period has expired [R-1006.26#1]. A debt collector must not bring or threaten to bring a legal action to collect a time-barred debt. The one exception is a proof of claim filed in a bankruptcy proceeding [R-1006.26#1]. Whether this applies to your debt depends on the details, which our team will review.\n\nOther rules may also matter. A debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse someone [R-1006.14#1]. If a collector does bring a legal action other than one to enforce an interest in real property, it must file only where you signed the contract or where you live when the action starts [R-1006.30#2].\n\nNext steps: our team will review the collector's communications and the account history to see how these rules relate to what happened. Please keep any letters, call records, or court papers you receive. The sources we have do not say how long the limitation period is in your state, so we cannot tell you whether your debt is time-barred. This is general information, not legal advice.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-time-barred",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.744,
+      "latency_s": 15.39,
+      "cost_usd": 0.03636,
+      "input_tokens": 9390,
+      "output_tokens": 2225,
+      "llm_calls": 3,
+      "response": "We're sorry you are dealing with this threat; we understand how stressful it can be. Under Regulation F, a statute of limitations is the period set by applicable law for bringing a legal action to collect a debt, and a time-barred debt is one for which that period has expired [R-1006.26#1]. As a general rule, a debt collector must not bring or threaten to bring a legal action to collect a time-barred debt. That rule does not apply to proofs of claim filed in a bankruptcy proceeding [R-1006.26#1]. Separately, collectors must not engage in conduct whose natural consequence is to harass, oppress, or abuse a person, which includes repeated or continuous calls intended to annoy, abuse, or harass, and language that abuses the hearer or reader [R-1006.14#1]. If a collector does bring a legal action, it generally must do so only in the judicial district where the consumer signed the contract or lives when the action begins [R-1006.30#2]. Whether the statute of limitations has expired on your debt depends on applicable law and the facts, so our team will review the details of your account and the collector's communications. Next, please gather any letters, call logs, or court papers you have received so the team can review them. The sources we have do not state what the limitations period is for your debt or what happens if the collector files suit anyway.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-remittance-cancel",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.667,
+      "latency_s": 48.03,
+      "cost_usd": 0.09441,
+      "input_tokens": 17384,
+      "output_tokens": 6436,
+      "llm_calls": 5,
+      "response": "We're sorry you're dealing with this. A wrong-amount transfer to family is stressful.\n\nUnder the federal remittance transfer rules, a provider must follow the cancellation and refund procedures for an oral or written cancellation request only if it is received no later than 30 minutes after the sender makes payment [R-1005.34#1]. The request must let the provider identify the sender's name and address or telephone number and the particular transfer. The funds also must not yet have been picked up by the recipient or deposited into the recipient's account [R-1005.34#1]. When those conditions apply, the provider must refund the total amount the sender provided, including fees and, to the extent not prohibited by law, taxes, at no additional cost, within three business days of receiving the request [R-1005.34#1].\n\nSeparately, the rules define an \"error\" to include an incorrect amount paid by a sender in connection with a remittance transfer. The exception is where the disclosure stated an estimate and the difference results from the actual exchange rate, fees, and taxes [R-1005.33#1].\n\nNext steps: our team will review the details, including the timing of your payment and request, to see how these rules apply. Please send your name, your address or phone number, and the transfer details so the specific transfer can be identified. We can't promise a particular outcome, but we will walk you through the process.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-remittance-cancel",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": false,
+        "citation_hit": false
+      },
+      "reasons": [
+        "none of ['1005.34'] retrieved (got ['1005.33'])",
+        "answer cites ['1005.33'], expected one of ['1005.34']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.699,
+      "latency_s": 23.9,
+      "cost_usd": 0.05558,
+      "input_tokens": 13063,
+      "output_tokens": 3404,
+      "llm_calls": 3,
+      "response": "We're sorry about the stress of sending the wrong amount to your brother, and we understand why you want this sorted out quickly.\n\nUnder the federal remittance rules, an \"error\" includes an incorrect amount paid by a sender in connection with a remittance transfer, unless the disclosure stated an estimate and the difference results from the actual exchange rate, fees, and taxes [R-1005.33#1]. Our team will review the details to see how this applies to your transfer.\n\nYou can report a possible error by oral or written notice. It must reach the provider no later than 180 days after the disclosed date of availability. It should let the provider identify your name and phone number or address, your brother's name, and the transfer. It should also explain why you believe an error exists [R-1005.33#2]. Please send us these details as soon as you can.\n\nOnce a notice is received, the provider must investigate promptly and determine whether an error occurred within 90 days. It must report the results within three business days after completing its investigation [R-1005.33#2]. If an error is found, the provider must correct it as you designate, within one business day of or as soon as reasonably practicable after receiving your instructions. For the error types in this category, it does so by either refunding the appropriate amount or making the appropriate amount available to the recipient at no added cost [R-1005.33#2]. We can't promise a particular outcome.\n\nThe sources we have don't cover whether a sent transfer can be cancelled or recovered from the recipient, so we can't address that here.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-remittance-cancel",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.668,
+      "latency_s": 19.61,
+      "cost_usd": 0.03673,
+      "input_tokens": 8169,
+      "output_tokens": 2493,
+      "llm_calls": 3,
+      "response": "We're sorry you're dealing with this, especially with a transfer to your brother. Please act quickly, because the rule we describe below has a short time window.\n\nUnder federal remittance rules, a provider must follow a cancellation and refund process when it receives an oral or written request to cancel from the sender no later than 30 minutes after the sender makes payment [R-1005.34#1]. Two conditions apply. The request must let the provider identify the sender's name and address or telephone number and the particular transfer to cancel. The funds also must not yet have been picked up by the recipient or deposited into the recipient's account [R-1005.34#1]. If these conditions are met, the provider must refund the total amount the sender provided, including fees and, to the extent not prohibited by law, taxes, at no additional cost. The refund is due within three business days of receiving the cancellation request [R-1005.34#1].\n\nNext steps: send your cancellation request to the provider right away, in writing or by phone, with your name, your address or phone number, and the transfer details. Our team will review the details of your situation, including timing and whether the funds have been picked up. We cannot promise a particular outcome, but we will explain the process as we go.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-ambiguous",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.65,
+      "cost_usd": 0.00023,
+      "input_tokens": 1276,
+      "output_tokens": 210,
+      "llm_calls": 1,
+      "response": "Which product is affected (credit card, checking/savings, money transfer, prepaid card, or debt collection), and what specifically went wrong with your account?",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-ambiguous",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.25,
+      "cost_usd": 0.00023,
+      "input_tokens": 1276,
+      "output_tokens": 210,
+      "llm_calls": 1,
+      "response": "Which product is affected (credit card, checking or savings account, money transfer, prepaid card, or debt collection), and what specifically went wrong with your account?",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-ambiguous",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.27,
+      "cost_usd": 0.00022,
+      "input_tokens": 1276,
+      "output_tokens": 192,
+      "llm_calls": 1,
+      "response": "Which product is affected (credit card, checking/savings, money transfer, prepaid card, or debt collection), and what exactly is going wrong with the account?",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-oos-auto-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1290,
+      "output_tokens": 162,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns an auto loan, which is a product outside our covered scope (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-oos-auto-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1290,
+      "output_tokens": 155,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns an auto loan, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-oos-auto-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1290,
+      "output_tokens": 155,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns an auto loan, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-oos-student-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1282,
+      "output_tokens": 160,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a student loan, which is a product outside the covered scope (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-oos-student-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1282,
+      "output_tokens": 159,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a student loan, which is a product outside the scope of credit cards, bank accounts, money transfers, prepaid cards, and debt collection. Marked out of scope. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-oos-student-loan",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.05,
+      "cost_usd": 0.00021,
+      "input_tokens": 1282,
+      "output_tokens": 162,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a student loan, which is a product outside our covered scope (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is marked out of scope. Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.645,
+      "latency_s": 42.78,
+      "cost_usd": 0.1038,
+      "input_tokens": 24767,
+      "output_tokens": 5911,
+      "llm_calls": 5,
+      "response": "Thank you for contacting us, and we're sorry you're dealing with an unauthorized ATM withdrawal from your checking account. We understand how stressful this is.\n\nThis is general information about Regulation E, not a determination of your liability. Under the rule, a consumer may be held liable for an unauthorized electronic fund transfer only if the bank has provided certain required disclosures. If an access device was involved, it must be an accepted access device, and the bank must have provided a means to identify the consumer to whom it was issued [R-1005.6#1]. If a consumer notifies the bank within two business days after learning of the loss or theft of the access device, liability generally does not exceed the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1]. Different limits apply if notice is not given within that period [R-1005.6#1]. A transfer that appears on a periodic statement should be reported within 60 days of the statement being sent to avoid liability for later transfers [R-1005.6#1]. Notice can be given in person, by telephone, or in writing [R-1005.6#1]. If the delay was due to extenuating circumstances, the time limits are extended to a reasonable period [R-1005.6#1]. If state law or your agreement with the bank imposes less liability, your liability cannot exceed that amount [R-1005.6#2].\n\nNext steps: our team will review the details of your case, including the dates and how the transaction occurred, and will contact you about what we find. This letter does not decide the outcome, and we can't promise a particular result. This information doesn't set out investigation or response deadlines, so we can't state them here.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.74,
+      "latency_s": 37.11,
+      "cost_usd": 0.09054,
+      "input_tokens": 22345,
+      "output_tokens": 5067,
+      "llm_calls": 5,
+      "response": "I'm sorry to hear about the $400 ATM withdrawal you didn't make. That is stressful, and we want to explain how the rules generally work. Under Regulation E, a consumer may be held liable for an unauthorized electronic fund transfer only if the bank has provided certain required disclosures. If an access device was involved, it must be an accepted access device, and the bank must have provided a means to identify the consumer it was issued to [R-1005.6#1]. Where the rules on loss or theft of an access device apply, a consumer who notifies the bank within two business days after learning of the loss or theft generally has liability capped at the lesser of $50 or the amount of unauthorized transfers before notice [R-1005.6#1]. If notice isn't given within that window, the cap is generally the lesser of $500 or a sum defined in the rule [R-1005.6#1]. Notice can be given in person, by telephone, or in writing [R-1005.6#1]. If state law or your account agreement imposes less liability, your liability cannot exceed that lower amount [R-1005.6#2]. Our team will review the details of your report, including how and when notice was given and whether these rules apply to your situation. We cannot promise a particular outcome at this stage. The sources available to us don't cover investigation timelines or how the review will be communicated to you.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.645,
+      "latency_s": 49.62,
+      "cost_usd": 0.11067,
+      "input_tokens": 23196,
+      "output_tokens": 6908,
+      "llm_calls": 5,
+      "response": "We're sorry about the $400 withdrawal you don't recognize from an ATM you've never used. We understand how upsetting this is, and our team will review the details of your account and your report.\n\nUnder Regulation E, a consumer may be held liable for an unauthorized electronic transfer only if the bank provided certain required disclosures. If an access device was involved, it must be an accepted access device, and the bank must have provided a means to identify the consumer it was issued to [R-1005.6#1]. Where liability can apply, it depends on timing and the facts. If notice is given within two business days after learning of the loss or theft of the access device, liability does not exceed the lesser of $50 or the unauthorized transfers before notice. If it is not, the limit is the lesser of $500 or a sum calculated under the rule [R-1005.6#1]. Separate rules apply to transfers shown on a periodic statement, which must be reported within 60 days of the statement being sent [R-1005.6#1]. Time limits can be extended to a reasonable period for extenuating circumstances, and notice may be given in person, by phone, or in writing [R-1005.6#1]. If state law or your agreement imposes less liability, your liability shall not exceed that amount [R-1005.6#2].\n\nIf the ATM was run by a service provider that does not hold your account, the bank's obligations are narrower. It must provide statement information, supply documents needed for the investigation on request, and honor certain debits [R-1005.14#2].\n\nOur team will review the facts and contact you about next steps. We have not reached any conclusion about your case. The sources available to me do not state investigation timelines or whether a provisional credit applies.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-overdraft-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.751,
+      "latency_s": 20.21,
+      "cost_usd": 0.06074,
+      "input_tokens": 20848,
+      "output_tokens": 3013,
+      "llm_calls": 4,
+      "response": "Before charging an overdraft fee on an ATM withdrawal, a bank must get the consumer's affirmative opt-in to its overdraft service for ATM and one-time debit card transactions. Regulation E bars the fee unless the institution does all of the following [R-1005.17#1]:\n\n1. Gives a written notice (or electronic, if the consumer agrees), segregated from other information, describing the overdraft service [R-1005.17#1].\n2. Provides a reasonable opportunity to opt in [R-1005.17#1].\n3. Obtains the consumer's affirmative consent [R-1005.17#1].\n4. Confirms the consent in writing (or electronically, if the consumer agrees), including a statement of the right to revoke [R-1005.17#1].\n\nNotice content: The notice must be substantially similar to Model Form A-9. It must describe the service, state the fee amounts (the maximum fee if the amount varies), state the maximum number of fees per day or that there is no limit, explain the opt-in right and how to consent, and mention any Regulation Z credit line or linked-account transfer alternative [R-1005.17#2].\n\nTiming: For accounts opened on or after July 1, 2010, the bank must comply and obtain consent before assessing any such fee [R-1005.17#2]. For earlier accounts, the same condition applied to fees on or after August 15, 2010 [R-1005.17#2].\n\nOther limits: A bank cannot condition payment of other overdrafts (checks, ACH) on the consumer's consent, and must give non-consenting consumers the same account terms, conditions, and features [R-1005.17#1]. Consent lasts until revoked or the bank terminates the service [R-1005.17#3]. The team will review the specific facts.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-overdraft-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.75,
+      "latency_s": 21.73,
+      "cost_usd": 0.06847,
+      "input_tokens": 22837,
+      "output_tokens": 3382,
+      "llm_calls": 4,
+      "response": "Before charging an overdraft fee on an ATM withdrawal, a bank must get the consumer's affirmative opt-in. Under Regulation E, an institution may not assess a fee for paying an ATM or one-time debit card transaction under its overdraft service unless it does four things [R-1005.17#1]:\n\n1. Provides a written (or, if the consumer agrees, electronic) notice, segregated from other information, describing the overdraft service [R-1005.17#1].\n2. Provides a reasonable opportunity to affirmatively consent (opt in) [R-1005.17#1].\n3. Obtains the consumer's affirmative consent [R-1005.17#1].\n4. Provides written or electronic confirmation of the consent that includes a statement of the right to revoke it [R-1005.17#1].\n\nTiming: for accounts opened on or after July 1, 2010, this must be done before any such fee is assessed [R-1005.17#2]. For older accounts, no such fees could be assessed on or after August 15, 2010 without compliance and consent [R-1005.17#2].\n\nNotice content: it must be substantially similar to Model Form A-9 and describe the service, the fees (including the maximum fee where it varies), any daily limit on the number of fees, the right to opt in, and any alternative overdraft plans the institution offers [R-1005.17#2].\n\nRelated limits: the bank may not condition payment of other overdrafts (checks, ACH) on the ATM/debit opt-in, and must give non-consenting consumers the same account terms and features [R-1005.17#1]. Consent lasts until revoked or the service is terminated [R-1005.17#3], and revocation must be implemented as soon as reasonably practicable [R-1005.17#3].\n\nThese exclude overdrafts paid through certain credit lines or transfers from another account [R-1005.17#1]. The team will review the specific facts.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-overdraft-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.751,
+      "latency_s": 20.97,
+      "cost_usd": 0.06787,
+      "input_tokens": 22789,
+      "output_tokens": 3313,
+      "llm_calls": 4,
+      "response": "Before charging an overdraft fee on an ATM withdrawal, a bank must get the consumer's affirmative opt-in to its overdraft service for ATM and one-time debit card transactions. Under Regulation E, the institution must: (1) give a written (or, if the consumer agrees, electronic) notice, segregated from other information, describing the overdraft service; (2) give a reasonable opportunity to opt in; (3) obtain the consumer's affirmative consent; and (4) send written or, if the consumer agrees, electronic confirmation of the consent, including a statement of the right to revoke it [R-1005.17#1].\n\nTiming: for accounts opened on or after July 1, 2010, the bank must do this before assessing any such fee [R-1005.17#2]. For accounts opened before July 1, 2010, no such fees could be assessed on or after August 15, 2010, without compliance and consent [R-1005.17#2].\n\nThe notice must be substantially similar to Model Form A-9 and must include the applicable items, such as a description of the service, fee amounts (or the maximum fee), daily limits on fees, and an explanation of the opt-in right [R-1005.17#2].\n\nRelated conditions: the bank may not condition payment of other overdrafts (checks, ACH) on consent to ATM/debit coverage, and must give non-consenting consumers the same account terms, conditions, and features [R-1005.17#1]. Consent can be given at any time and revoked at any time, and the bank must implement a revocation as soon as reasonably practicable [R-1005.17#3]. Consent lasts until revoked or until the bank terminates the service [R-1005.17#3].\n\nThe definition of overdraft service excludes, for example, lines of credit subject to Regulation Z and transfers from another account of the consumer, such as savings [R-1005.17#1]. The team will review the details of any specific case.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-validation-notice",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.742,
+      "latency_s": 28.01,
+      "cost_usd": 0.07017,
+      "input_tokens": 20158,
+      "output_tokens": 4039,
+      "llm_calls": 4,
+      "response": "Under Regulation F, a collector must give the consumer the validation information required by \u00a7 1006.34(c). The excerpts provided cover timing fully but list only some of the required content.\n\nWhen:\n- The collector must send a validation notice in the initial communication or within five days of it. Alternatively, it may give the information orally in the initial communication [R-1006.34#1].\n- The five-day notice is not required if the consumer paid the debt before the notice would have been due [R-1006.34#1].\n- \"Initial communication\" means the first time the collector conveys information about the debt to the consumer, directly or indirectly. Formal pleadings in civil actions are excluded, as are certain notices unrelated to collection that are required by the Internal Revenue Code, Title V of Gramm-Leach-Bliley, or data-breach or privacy-risk laws [R-1006.34#1].\n\nContent shown in the excerpts:\n- The information must be clear and conspicuous [R-1006.34#3].\n- For debt tied to a consumer financial product or service, the notice must state that more information on consumer protections is available at www.cfpb.gov/debt-collection [R-1006.34#3].\n- If sent electronically, the notice must explain how to dispute the debt or request original-creditor information electronically [R-1006.34#3].\n- Consumer-response information must be segregated from the other validation information. It includes dispute prompts, a prompt to request the original creditor's name and address, and the consumer's and collector's mailing addresses [R-1006.34#3].\n- For certain residential mortgage debt, a special rule can excuse some items if the collector includes the latest Regulation Z periodic statement and refers to it on the notice [R-1006.34#3].\n- Other items, such as Spanish-language disclosures, are optional [R-1006.34#5].\n\nThe excerpts do not include the full list of items in \u00a7 1006.34(c)(1)\u2013(3) or the delivery rules in \u00a7 1006.42. The team will review the details.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-validation-notice",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.744,
+      "latency_s": 22.66,
+      "cost_usd": 0.06493,
+      "input_tokens": 24334,
+      "output_tokens": 3289,
+      "llm_calls": 5,
+      "response": "A validation notice must contain the \"validation information\" listed in 12 CFR 1006.34(c), and it must be given either in or shortly after the debt collector's first communication about the debt.\n\nWhen it must be provided: A debt collector must provide the validation information by sending a validation notice in the initial communication, or within five days of that initial communication. Alternatively, the collector may give the information orally in the initial communication [R-1006.34#1]. A collector who would otherwise have to send the notice within five days need not do so if the consumer has paid the debt before that time [R-1006.34#1].\n\nWhat it must include [R-1006.34#2]:\n- The debt collector communication disclosure required by \u00a7 1006.18(e).\n- Debt information: the collector's name and mailing address for disputes and original-creditor requests, the consumer's name and address, the account number (or a truncated version), the current creditor's name, the itemization date, the amount on that date, an itemization of interest, fees, payments and credits since then, and the current amount. For consumer financial product debts, it must also name the creditor on the itemization date.\n- Consumer-protection information: the date the collector will treat as the end of the validation period, with statements about dispute rights, original-creditor requests, and the assumption that the debt is valid unless disputed.\n\nAlso required [R-1006.34#3]:\n- For consumer financial product debts, a statement that more information is available at www.cfpb.gov/debt-collection.\n- If sent electronically, a statement explaining how to dispute or request original-creditor information electronically.\n- Consumer-response information, with dispute prompts, an original-creditor request prompt, and mailing addresses.\n\nThe information must be clear and conspicuous [R-1006.34#3]. A special rule applies to certain residential mortgage debt [R-1006.34#3].\n\nThe team will review the details of any specific situation.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-validation-notice",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.747,
+      "latency_s": 21.16,
+      "cost_usd": 0.06568,
+      "input_tokens": 22132,
+      "output_tokens": 3204,
+      "llm_calls": 4,
+      "response": "Under Regulation F, a debt collector must give the consumer the validation information in 12 CFR 1006.34(c), either in a validation notice or orally. Timing is tied to the \"initial communication.\"\n\n**When:** The collector must provide the validation information either (i) in a validation notice sent in the manner required by \u00a7 1006.42, in the initial communication or within five days of it, or (ii) orally in the initial communication [R-1006.34#1]. A collector who would otherwise send the notice within five days need not do so if the consumer has paid the debt before that notice would be due [R-1006.34#1]. The initial communication is the first time the collector conveys information about the debt to the consumer, subject to listed exclusions such as formal pleadings in a civil action [R-1006.34#1].\n\n**What it must include:**\n- The debt collector communication disclosure required by \u00a7 1006.18(e) [R-1006.34#2].\n- Information about the debt: the collector's name and address for disputes; the consumer's name and address; the creditor on the itemization date (for consumer financial product debts); the account number (or truncated version); the current creditor; the itemization date; the debt amount on that date; an itemization of the current amount reflecting interest, fees, payments and credits; and the current amount [R-1006.34#2].\n- Consumer-protection information: the validation period end date and statements on the dispute and original-creditor request rights, and that the debt will be assumed valid unless disputed by that date [R-1006.34#2]. For consumer financial product debts, a statement pointing to www.cfpb.gov/debt-collection [R-1006.34#3]. If sent electronically, a statement explaining how to dispute or request original-creditor information electronically [R-1006.34#3].\n- Consumer-response information: dispute prompts, an original-creditor information prompt, and mailing addresses [R-1006.34#3].\n\nThe information must be clear and conspicuous [R-1006.34#3]. A special rule applies to certain residential mortgage debt [R-1006.34#3].\n\nThe provided text does not cover the \u00a7 1006.42 delivery requirements.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-grace-period",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.632,
+      "latency_s": 39.63,
+      "cost_usd": 0.08273,
+      "input_tokens": 32689,
+      "output_tokens": 5604,
+      "llm_calls": 9,
+      "response": "Regulation Z restricts this for credit card accounts under open-end (not home-secured) consumer credit plans. A card issuer must not impose finance charges as a result of the loss of a grace period if those charges are based on balances for days in billing cycles that precede the most recent billing cycle, or on any portion of a balance subject to a grace period that was repaid before the grace period expired [R-1026.54#1].\n\nExceptions: the restriction does not apply to adjustments to finance charges resulting from the resolution of a dispute under \u00a7 1026.12 or \u00a7 1026.13, or from the return of a payment [R-1026.54#1].\n\nRelated context: a periodic statement must disclose the date by which the new balance, or a portion of it, must be paid to avoid additional finance charges, if a grace period is provided [R-1026.7#2]. For balances under a deferred interest program, the statement must show the date by which the balance must be paid in full to avoid finance charges on it [R-1026.7#7].\n\nWhether these rules apply to your situation depends on your account type, grace period terms, and payment history, which would need to be checked against the actual account records.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-grace-period",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "retrieval_hit": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.6,
+      "latency_s": 43.73,
+      "cost_usd": 0.09002,
+      "input_tokens": 27822,
+      "output_tokens": 6262,
+      "llm_calls": 8,
+      "response": "Escalated to a human analyst. The answer could not be verified against the sources:\n- Policy: The sentence \"A balance in such a program may therefore be treated differently from the situation described above\" is not among the numbered claims, and none of the cited text supports it. Nothing cited says deferred interest balances are exempt from or treated differently under \u00a71026.54. This could mislead the customer about whether the grace period limits apply to their balance.\n- Advisory: The deferred interest definition comes from the advertising rules in \u00a71026.16(h)(2), which scope it to that paragraph. The draft presents it as a general definition. Consider noting that it appears in the advertising provisions.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-grace-period",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.647,
+      "latency_s": 36.85,
+      "cost_usd": 0.08448,
+      "input_tokens": 32286,
+      "output_tokens": 5120,
+      "llm_calls": 9,
+      "response": "Regulation Z limits a card issuer's ability to charge interest on balances from earlier billing cycles that were already paid, but only in a specific situation: finance charges imposed as a result of the loss of a grace period. For a credit card account under an open-end (not home-secured) consumer credit plan, the issuer must not impose those finance charges if they are based on (i) balances for days in billing cycles that precede the most recent billing cycle, or (ii) any portion of a balance subject to a grace period that was repaid before the grace period expired [R-1026.54#1]. A grace period here means a period within which credit extended may be repaid without incurring a finance charge due to a periodic interest rate [R-1026.5#4].\n\nThere are two exceptions. The limit does not apply to adjustments to finance charges resulting from the resolution of a dispute under \u00a7 1026.12 or \u00a7 1026.13, or from the return of a payment [R-1026.54#1].\n\nThe sources provided do not say how this rule applies to your particular account, or address interest that is not tied to the loss of a grace period. The team will review the details of your account.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-prepaid-stats",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 13.49,
+      "cost_usd": 0.019,
+      "input_tokens": 11345,
+      "output_tokens": 2059,
+      "llm_calls": 5,
+      "response": "Our CFPB sample contains 743 prepaid card complaints for 2026-04-01 to 2026-07-29 [S-2]. The most frequent issues are: problem with a purchase or transfer (289), trouble using the card (228), problem getting a card or closing an account (114), unexpected or other fees (105), and advertising (7) [S-1]. These figures describe our sample of CFPB complaints, not the whole market. The evidence provided contains only complaint statistics, so it does not say what the regulations require for any of these issues.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-prepaid-stats",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 13.99,
+      "cost_usd": 0.02039,
+      "input_tokens": 11290,
+      "output_tokens": 2074,
+      "llm_calls": 5,
+      "response": "Our CFPB complaint sample contains 743 prepaid card complaints [S-2]. The most frequent issues are: problem with a purchase or transfer (289), trouble using the card (228), problem getting a card or closing an account (114), unexpected or other fees (105), and advertising (7) [S-1]. The top two issues, purchase/transfer problems and trouble using the card, account for the largest share of the issues listed [S-1]. These figures describe our sample of CFPB complaints, not the whole market.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-prepaid-stats",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 15.11,
+      "cost_usd": 0.02103,
+      "input_tokens": 11356,
+      "output_tokens": 2325,
+      "llm_calls": 5,
+      "response": "Our CFPB sample contains 743 prepaid card complaints [S-2]. The most frequent issues are: Problem with a purchase or transfer (289), Trouble using the card (228), Problem getting a card or closing an account (114), Unexpected or other fees (105), and Advertising (7) [S-1]. These figures describe our CFPB complaint sample, not the whole market [S-1][S-2].",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-collection-relief",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 8.29,
+      "cost_usd": 0.01362,
+      "input_tokens": 7602,
+      "output_tokens": 968,
+      "llm_calls": 4,
+      "response": "In our CFPB complaint sample, 23.3% of debt collection complaints were closed with relief (n=954), for complaints dated 2026-04-01 to 2026-07-29 [S-1]. This describes our sample only, not the whole market [S-1]. The metric is labeled \"% closed with relief\"; the evidence does not break out monetary relief separately from other forms of relief.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-collection-relief",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 7.54,
+      "cost_usd": 0.01331,
+      "input_tokens": 7758,
+      "output_tokens": 926,
+      "llm_calls": 4,
+      "response": "In our CFPB sample, 23.3% of debt collection complaints were closed with relief (n=954), for complaints dated 2026-04-01 to 2026-07-29 [S-1]. This describes our sample only, not the whole market [S-1]. The metric is labeled \"% closed with relief\"; the evidence does not say whether that is limited to monetary relief or also includes non-monetary relief.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-collection-relief",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 8.04,
+      "cost_usd": 0.01409,
+      "input_tokens": 7763,
+      "output_tokens": 968,
+      "llm_calls": 4,
+      "response": "In our CFPB complaint sample, 23.3% of debt collection complaints were closed with relief (n=954) for 2026-04-01 through 2026-07-29 [S-1]. The metric is labeled \"% closed with relief\"; the evidence does not specify whether that means monetary relief only or relief more broadly. This figure describes our sample, not the whole market [S-1].",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-oos-fcra",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.86,
+      "cost_usd": 0.00028,
+      "input_tokens": 2213,
+      "output_tokens": 113,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question asks about the Fair Credit Reporting Act (FCRA), which is outside the regulations available (Reg E, Reg F, Reg Z) and the complaint sample.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-oos-fcra",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.95,
+      "cost_usd": 0.00028,
+      "input_tokens": 2213,
+      "output_tokens": 116,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question asks about the Fair Credit Reporting Act (FCRA), which is outside the regulations available here (Reg E, Reg F, Reg Z) and outside the complaint sample.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-oos-fcra",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.81,
+      "cost_usd": 0.00027,
+      "input_tokens": 2213,
+      "output_tokens": 99,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question asks about the FCRA, which is outside the sources available (Reg E, Reg F, Reg Z, and the complaint sample).",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-missing-future",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.84,
+      "cost_usd": 0.00038,
+      "input_tokens": 2207,
+      "output_tokens": 318,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). March 2027 is in the future relative to today (2026-11-08) and outside the complaint sample range (2026-04-01 to 2026-07-29), so the data cannot answer this question.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-missing-future",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.36,
+      "cost_usd": 0.00033,
+      "input_tokens": 2207,
+      "output_tokens": 222,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). March 2027 is outside the complaint sample window (2026-04-01 to 2026-07-29), so the data cannot answer this question.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-missing-future",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.63,
+      "cost_usd": 0.00035,
+      "input_tokens": 2207,
+      "output_tokens": 251,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). March 2027 is in the future relative to today (2026-11-08) and outside the complaint sample's coverage (2026-04-01 to 2026-07-29), so the data cannot answer this question.",
+      "repeat": 2
+    },
+    {
+      "id": "ho-dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.605,
+      "latency_s": 19.29,
+      "cost_usd": 0.04931,
+      "input_tokens": 17688,
+      "output_tokens": 2817,
+      "llm_calls": 4,
+      "response": "No section of Regulation F in the evidence says debt collectors can call up to ten times a day, and the evidence contains no ten-calls-per-day limit. The call-frequency rule is in 12 CFR 1006.14(b), and it uses a seven-day measure. A debt collector is presumed to comply with the ban on repeated or continuous calls if it places calls to a particular person about a particular debt neither more than seven times within seven consecutive days, nor within seven consecutive days after having had a telephone conversation with the person about that debt [R-1006.14#1]. Calls exceeding either frequency are presumed to violate the rule, subject to the exclusions in paragraph (b)(3) [R-1006.14#1]. Those exclusions cover calls placed with the person's prior consent given directly to the collector (within seven consecutive days after the consent), calls not connected to the dialed number, and calls to certain persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1]. Separately, the general rule bars calls made repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1]. Timing rules in \u00a7 1006.6(b) also say that, absent contrary knowledge, before 8:00 a.m. and after 9:00 p.m. local time is inconvenient [R-1006.6#1]. The team will review the details of your situation.",
+      "repeat": 0
+    },
+    {
+      "id": "ho-dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.598,
+      "latency_s": 24.17,
+      "cost_usd": 0.05609,
+      "input_tokens": 17645,
+      "output_tokens": 3481,
+      "llm_calls": 4,
+      "response": "No section of Regulation F in the evidence says debt collectors can call up to ten times a day. The call-frequency provision is 12 CFR 1006.14(b), and it uses a seven-day limit, not a daily one. Under it, a collector is presumed to comply if it calls a particular person about a particular debt neither more than seven times within seven consecutive days, nor within seven consecutive days after having had a telephone conversation with the person about that debt [R-1006.14#1]. Calling in excess of either frequency is presumed to violate the rule [R-1006.14#1]. Certain calls do not count toward these frequencies, including calls placed with the person's prior consent given directly to the collector (within seven consecutive days after receiving consent), calls not connected to the dialed number, and calls to certain persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1]. Separately, 1006.14(b)(1) bars repeated or continuous calls made with intent to annoy, abuse, or harass [R-1006.14#1]. Section 1006.6(b) also bars communications at unusual or inconvenient times; absent contrary knowledge, before 8:00 a.m. and after 9:00 p.m. local time is inconvenient [R-1006.6#1]. The team will review the details of your situation.",
+      "repeat": 1
+    },
+    {
+      "id": "ho-dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.605,
+      "latency_s": 19.68,
+      "cost_usd": 0.05458,
+      "input_tokens": 18841,
+      "output_tokens": 2971,
+      "llm_calls": 4,
+      "response": "No section of Regulation F in the evidence says debt collectors may call up to ten times a day. The telephone-call provision is 12 CFR 1006.14(b), and it uses a weekly frequency presumption, not a daily limit. A collector is presumed to comply if it calls a particular person about a particular debt neither more than seven times within seven consecutive days, nor within seven consecutive days after having had a telephone conversation with the person about that debt [R-1006.14#1]. Calling in excess of either frequency is presumed to violate the rule [R-1006.14#1]. Some calls do not count toward these frequencies: calls placed with the person's prior consent given directly to the collector (within seven consecutive days of receiving it), calls not connected to the dialed number, and calls to certain persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1]. Separately, the general rule bars calls made repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1]. Timing rules also apply: absent contrary knowledge, before 8:00 a.m. and after 9:00 p.m. local time is inconvenient [R-1006.6#1]. If a consumer notifies a collector in writing that they refuse to pay or want communication to cease, the collector generally must not communicate further about that debt, subject to exceptions not shown in the evidence [R-1006.6#1]. The team will review the details of your situation.",
+      "repeat": 2
+    }
+  ]
+}
