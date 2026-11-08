@@ -98,7 +98,7 @@ PRODUCT_CATEGORIES = {
 # Cosine-similarity floors. text-embedding-3-small scores run lower than people
 # expect (relevant hits are often 0.35-0.6). CALIBRATE after ingestion with
 # `python -m eval.harness`, which reports the score distribution.
-REG_MIN_SCORE = float(os.getenv("REG_MIN_SCORE", "0.30"))
+REG_MIN_SCORE = float(os.getenv("REG_MIN_SCORE", "0.45"))
 CASE_MIN_SCORE = float(os.getenv("CASE_MIN_SCORE", "0.30"))
 HNSW_EF_SEARCH = 100
 
