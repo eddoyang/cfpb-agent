@@ -54,7 +54,9 @@ paraphrase is fine. Also list policy issues, each with a severity:
 - advisory: anything that is safe to send as written: wording, warmth, clarity, or a
   mild tone point. Advisory notes go to the human approver and do not stop the draft.
 If you are unsure whether an issue could mislead or harm the customer, mark it blocking.
-Do not report a claim's lack of support as a policy issue; the verdicts cover that."""
+Do not report a claim's lack of support as a policy issue; the verdicts cover that.
+If the response states a fact, number, deadline or right that is not among the
+numbered claims, report it as a blocking policy issue."""
 
 
 def judge_text(ev: dict, ctx) -> str:

@@ -20,6 +20,18 @@ def test_judge_sees_whole_regulation_chunk():
     assert v["passed"] and "PRIOR CONSENT RULE" in seen["user"]
 
 
+def test_judge_flags_facts_left_out_of_claims():
+    # A fact the drafter files as a "caveat" isn't in claims; the judge must still catch it.
+    seen = {}
+
+    def script(name, schema, system, user):
+        seen["system"] = system
+        return judge_all_supported()
+
+    verify(make_rt(script), Draft(**good_draft(ids=("R-1006.14#1",))), [REG_1006_14])
+    assert "not among the\nnumbered claims, report it as a blocking policy issue" in seen["system"]
+
+
 def test_judge_sees_narrative_clipped_like_the_drafter():
     long_case = {**CASE_1, "text": "word " * 2000 + "TAIL"}
     seen = {}
