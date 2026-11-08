@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "timestamp": "2026-11-08, 01:03",
+    "context": "lean",
+    "repeats": 5,
+    "fast_model": "claude-haiku-5-5",
+    "strong_model": "claude-sonnet-5-5",
+    "reg_min_score": 0.45
+  },
+  "summary": {
+    "runs": 5,
+    "cases": 1,
+    "pass": 5,
+    "metrics": {
+      "outcome": [
+        5,
+        5
+      ],
+      "product": [
+        5,
+        5
+      ],
+      "retrieval_hit": [
+        5,
+        5
+      ],
+      "citation_hit": [
+        5,
+        5
+      ],
+      "retrieval_all": [
+        0,
+        0
+      ],
+      "actions": [
+        0,
+        0
+      ],
+      "forbidden": [
+        0,
+        0
+      ]
+    },
+    "mean_supported_ratio": 1.0,
+    "verifier_caught": 2,
+    "latency_mean": 32.43,
+    "latency_p95": 43.9,
+    "cost_total": 0.3823,
+    "cost_per_run": 0.07646,
+    "tokens_in": 94850,
+    "tokens_out": 21594,
+    "consistency": 1.0,
+    "inconsistent_cases": []
+  },
+  "rows": [
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.67,
+      "latency_s": 23.85,
+      "cost_usd": 0.0508,
+      "input_tokens": 13765,
+      "output_tokens": 2784,
+      "llm_calls": 3,
+      "response": "We're sorry your $400 transfer to your mother has not arrived and that you haven't gotten answers. Three weeks is a long wait, and we understand how stressful this is. Our team will review the details of your transfer. We can't say yet what the outcome will be, but here is how the process works.\n\nUnder the remittance error rules, when an error of the type covered by paragraph (a)(1)(iv) occurs, the provider must either refund the amount provided for a transfer that was not properly transmitted, or make the appropriate amount available to the recipient at no added cost to you or her. The provider must also refund fees and, to the extent the law allows, taxes collected [R-1005.33#3]. If the error occurred because incorrect or insufficient information was provided, different timing and deductions can apply. The provider may deduct certain fees or taxes imposed on the first attempt, but not its own fee [R-1005.33#3].\n\nIf a provider finds that no error occurred, its report must include a written explanation that addresses your specific complaint. It must also tell you that you can request the documents it relied on, and it must promptly provide copies on request [R-1005.33#3]. Providers must also keep records of error notices and investigation findings [R-1005.33#4].\n\nNext, we will review your receipt and transfer records. The sources available to us do not state the investigation timeframe or the deadline for submitting a notice of error, so we will confirm those details with you directly.",
+      "repeat": 0
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.654,
+      "latency_s": 43.9,
+      "cost_usd": 0.1094,
+      "input_tokens": 26773,
+      "output_tokens": 6048,
+      "llm_calls": 5,
+      "response": "We're sorry your $400 transfer to your mother has not arrived after three weeks, and that you haven't been given answers about where the money is. We understand how stressful this is.\n\nThe remittance rules refer to a failure to make funds available by the disclosed date of availability as an alleged error under 12 CFR 1005.33(a)(1)(iv) [R-1005.33#4]. For that type of error, the remedies listed include either refunding the amount the sender provided or making the appropriate amount available to the recipient at no added cost, along with refunding fees and, where not prohibited by law, taxes [R-1005.33#3]. If an error resulted from incorrect or insufficient information from the sender, the rule sets different conditions, including limits on what a provider may deduct [R-1005.33#3].\n\nIf a provider finds that no error occurred, or a different error occurred, its report must include a written explanation of its findings that addresses your specific complaint. It must also note your right to request the documents it relied on, and it must promptly provide copies on request [R-1005.33#3]. Providers must keep written error-resolution procedures and retain error notices and investigation findings [R-1005.33#4].\n\nNext steps: our team will review the details of your transfer and the receipt. We are not able to say now what the outcome will be. The sources available to us do not state response deadlines or how to submit a formal notice of error, so we will confirm those details with you directly.",
+      "repeat": 1
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.67,
+      "latency_s": 38.19,
+      "cost_usd": 0.09588,
+      "input_tokens": 24411,
+      "output_tokens": 5180,
+      "llm_calls": 5,
+      "response": "Thank you for writing, and we are sorry for the worry this has caused you and your mother. You sent $400, were told it would arrive in two days, and after three weeks you still have no answer about where the money is. We understand how frustrating that is. Our team will review the details of your transfer, and we cannot say yet what the outcome will be.\n\nThis is how the rules work in general. If a remittance provider determines that an error occurred, the rules describe possible remedies. These include refunding the amount sent or making the appropriate amount available to the recipient, and refunding fees imposed [R-1005.33#3]. There is an exception where the sender gave an incorrect account number or recipient institution identifier. It applies only if the provider meets several listed conditions [R-1005.33#5].\n\nIf the provider finds that no error occurred, its report must include a written explanation of its findings that addresses your specific complaint. The report must also tell you that you may request the documents it relied on, and the provider must promptly provide copies if you ask [R-1005.33#3].\n\nDifferent rules may apply depending on how you paid, for example from a bank account or on credit [R-1005.33#4]. Our team will confirm which apply to you.\n\nNext, we will review your transfer details and the provider's records and update you on what we find.",
+      "repeat": 2
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.65,
+      "latency_s": 26.01,
+      "cost_usd": 0.06002,
+      "input_tokens": 14389,
+      "output_tokens": 3591,
+      "llm_calls": 3,
+      "response": "We're sorry your $400 transfer to your mother has not arrived after three weeks, and that you haven't been told where the money is. That is understandably distressing.\n\nUnder the remittance transfer error rules, a failure to make funds available by the disclosed date of availability is one type of error covered [R-1005.33#4]. If an error of that type is found, the general remedies are either refunding the amount provided or the amount appropriate to resolve the error, or making the appropriate amount available to the recipient at no added cost to the sender or recipient. The provider must also refund fees and, to the extent not prohibited by law, taxes [R-1005.33#3]. An exception exists where the provider can demonstrate the sender gave an incorrect account number or recipient institution identifier and meets several other listed conditions [R-1005.33#5].\n\nIf a provider decides that no error occurred, its report must include a written explanation of its findings that addresses your specific complaint. It must also note your right to request the documents it relied on, and it must promptly provide copies if you ask [R-1005.33#3]. Providers must keep written error-resolution procedures and retain error notices, documents you submit, and their investigation findings [R-1005.33#4].\n\nNext steps: our team will review your transfer details and whether these rules apply. We cannot promise a particular outcome. The sources we reviewed do not state the deadline for submitting an error notice or the investigation timeline, so we cannot confirm those here.",
+      "repeat": 3
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 30.21,
+      "cost_usd": 0.06618,
+      "input_tokens": 15512,
+      "output_tokens": 3991,
+      "llm_calls": 3,
+      "response": "We're sorry your $400 transfer to your mother has not arrived after three weeks, and that you have not been told where the money is. We understand how stressful that is.\n\nHere is how the rules work in general. Federal rules treat a failure to make funds available by the disclosed availability date as a type of error a sender can raise with the remittance provider [R-1005.33#4]. For that type of error, the provider's required remedies include either refunding the amount provided for a transfer that was not properly transmitted, or making the appropriate amount available to the recipient at no added cost to you or her. They also include refunding any fees and, to the extent not prohibited by law, taxes collected on the transfer [R-1005.33#3]. There are exceptions. Different rules apply if the error occurred because incorrect or insufficient information was provided [R-1005.33#3]. A separate exception covers an incorrect account number or recipient institution identifier, but only if specific conditions are met [R-1005.33#5].\n\nIf a provider decides no error occurred, its report must include a written explanation of its findings that addresses your specific complaint. It must also note your right to request the documents it relied on, and it must promptly provide copies if you ask [R-1005.33#3]. Providers must also keep written error-resolution policies and retain notices of error and their investigation findings [R-1005.33#4].\n\nNext steps: our team will review the details of your transfer, including your receipt and the disclosed availability date, to determine how these rules apply. We cannot say now what the outcome will be. The materials we reviewed do not state investigation deadlines or how to submit a notice of error, so we will confirm those with you directly.",
+      "repeat": 4
+    }
+  ]
+}
