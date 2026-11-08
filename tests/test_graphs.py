@@ -64,6 +64,13 @@ def test_static_ambiguous_clarifies():
     assert "credit card or a bank account" in r["response"]
 
 
+def test_static_clarification_wins_over_out_of_scope():
+    # The classifier sometimes marks a vague complaint both out of scope and unclear.
+    cls = classification(in_scope=False, product="other", needs_clarification=True)
+    r = run_static(make_rt(script_static(cls=cls)), "I need help with my account.")
+    assert r["outcome"] == "clarify" and r["path"] == ["classify", "clarify"]
+
+
 def test_static_redrafts_then_passes():
     r = run_static(make_rt(script_static(drafts=[bad_draft(), good_draft()])), COMPLAINT)
     assert r["outcome"] == "answer"

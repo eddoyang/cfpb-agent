@@ -200,10 +200,12 @@ def build_static_graph(rt):
         if s.get("failed"):
             return "escalate"
         c = s["classification"]
-        if not c["in_scope"]:
-            return "abstain"
+        # Clarify before abstaining: a vague complaint has an unknown product, which the
+        # classifier may also mark out of scope.
         if c["needs_clarification"]:
             return "clarify"
+        if not c["in_scope"]:
+            return "abstain"
         return "retrieve_regulations"
 
     def ok_then(nxt):

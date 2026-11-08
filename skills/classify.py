@@ -9,6 +9,8 @@ Classify the complaint. Rules:
   credit reports, crypto, insurance) and for non-US or non-complaint requests.
 - Set needs_clarification only when you genuinely cannot tell the product or problem
   (e.g. "the bank took my money"). If you can make a reasonable call, make it.
+- If the product is unknown, set in_scope true and needs_clarification true; only mark a
+  complaint out of scope when you can tell it is about a product we don't cover.
 - regulation_parts: credit cards -> 1026; debit cards, bank transfers, ATMs, prepaid cards,
   remittances -> 1005; third-party debt collectors -> 1006. A complaint can map to several."""
 
