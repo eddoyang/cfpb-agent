@@ -14,8 +14,8 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env                                  # add API keys and model prices (see Configuration)
 
-python -m pytest -q tests                             # 54 tests; DB tests need step 1 and use a separate cfpb_test DB
-python -m ingest.run --dry-run                        # fetch + chunk only, no cost
+python -m pytest -q tests                             # 53 tests; DB tests need step 1 and use a separate cfpb_test DB
+python -m ingest.run --dry-run                        # fetch regs, read archive, chunk; no cost
 python -m ingest.run --complaints-csv data/raw/cfpb_archive   # embed + load (see Data below)
 python preflight.py                                   # checks keys, models, data, retrieval
 

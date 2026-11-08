@@ -32,7 +32,6 @@ PG_DSN = (
 
 # --- Data sources ---------------------------------------------------------
 ECFR_BASE = "https://www.ecfr.gov/api/versioner/v1"
-CFPB_API = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/"
 
 # Regulations we ingest (Title 12 parts) -> short name
 REGULATIONS = {
@@ -54,6 +53,8 @@ PRODUCT_RULES = [
 COMPLAINTS_PER_PRODUCT = 1200
 COMPLAINTS_SINCE = "2023-01-01"
 COMPLAINTS_UNTIL = "2026-08-14"  # the CFPB stopped publishing narratives after this date
+# Narratives archive (CCDB_Export_*.zip); a CSV, ZIP of CSVs, or folder of either
+COMPLAINTS_SOURCE = RAW_DIR / "cfpb_archive"
 
 # --- Chunking -------------------------------------------------------------
 REG_CHUNK_MAX_TOKENS = 700  # regulation chunks, split on paragraph boundaries

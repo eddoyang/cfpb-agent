@@ -9,7 +9,7 @@ Sources, same output:
     1. Narratives archive (recommended): download one or more CCDB_Export_*.zip files into
         a folder and pass --complaints-csv <folder>. ZIPs are read directly.
     2. Any CSV, ZIP of CSVs, or folder of them that has a narrative column.
-    3. CFPB search API: kept for reference; it no longer returns narratives and may 403.
+The CFPB search API is not used: it no longer returns narratives.
 
 Data quality steps (the interview talking point):
   * Keep only complaints whose narrative the consumer consented to publish.
@@ -22,25 +22,13 @@ Data quality steps (the interview talking point):
 from __future__ import annotations
 
 import re
-import time
 import zipfile
 from pathlib import Path
 
 import pandas as pd
-import requests
 
 import config
 from ingest.tokens import count_tokens, truncate_tokens
-
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/json, text/plain, */*",
-    "Referer": "https://www.consumerfinance.gov/data-research/consumer-complaints/search/",
-}
-PAGE_SIZE = 100
 
 COLUMNS = [
     "complaint_id",
@@ -134,122 +122,6 @@ def clean_narrative(text: str) -> str:
     text = re.sub(r"(\[REDACTED\]\s*){2,}", "[REDACTED] ", text)
     text = re.sub(r"\{\$([\d,]+\.?\d*)\}", r"$\1", text)  # CFPB wraps amounts as {$500.00}
     return re.sub(r"\s+", " ", text).strip()
-
-
-def _find_buckets(obj, name: str):
-    """Aggregation JSON nests buckets a variable depth; find them by key name."""
-    if isinstance(obj, dict):
-        if name in obj and isinstance(obj[name], dict):
-            inner = obj[name]
-            if "buckets" in inner:
-                return inner["buckets"]
-            found = _find_buckets(inner, name)
-            if found is not None:
-                return found
-        for v in obj.values():
-            found = _find_buckets(v, name)
-            if found is not None:
-                return found
-    return None
-
-
-# ---------------------------------------------------------------- API source
-def _get(params: dict) -> dict:
-    for attempt in range(4):
-        try:
-            r = requests.get(config.CFPB_API, params=params, headers=HEADERS, timeout=90)
-        except requests.RequestException as e:
-            if attempt == 3:
-                raise
-            wait = 2**attempt
-            print(f"    Network error ({e}); retrying in {wait}s")
-            time.sleep(wait)
-            continue
-        if r.status_code in (401, 403):
-            raise RuntimeError(
-                f"CFPB API refused the request ({r.status_code}). Use the bulk file instead: "
-                "python -m ingest.run --only complaints "
-                "--complaints-csv data/raw/complaints.csv.zip (see README)"
-            )
-        if r.status_code >= 500 and attempt < 3:
-            wait = 2**attempt
-            print(f"    CFPB server error {r.status_code}; retrying in {wait}s")
-            time.sleep(wait)
-            continue
-        r.raise_for_status()
-        return r.json()
-    return {}
-
-
-def discover_products() -> list[str]:
-    data = _get(
-        {
-            "has_narrative": "true",
-            "date_received_min": config.COMPLAINTS_SINCE,
-            "size": 1,
-        }
-    )
-    buckets = _find_buckets(data.get("aggregations", {}), "product") or []
-    names = [b["key"] for b in buckets]
-    keep = [n for n in names if reg_hint_for(n)]
-    print(f"  CFPB products matched: {keep}")
-    return keep
-
-
-def fetch_product(product: str, limit: int) -> list[dict]:
-    rows, frm = [], 0
-    while len(rows) < limit:
-        data = _get(
-            {
-                "product": product,
-                "has_narrative": "true",
-                "date_received_min": config.COMPLAINTS_SINCE,
-                "size": PAGE_SIZE,
-                "frm": frm,
-                "sort": "created_date_desc",
-                "no_aggs": "true",
-            }
-        )
-        hits = data.get("hits", {}).get("hits", []) if isinstance(data, dict) else data
-        if not hits:
-            break
-        for h in hits:
-            s = h.get("_source", h)
-            rows.append(
-                {
-                    "complaint_id": s.get("complaint_id"),
-                    "date_received": s.get("date_received"),
-                    "product": s.get("product"),
-                    "sub_product": s.get("sub_product"),
-                    "issue": s.get("issue"),
-                    "sub_issue": s.get("sub_issue"),
-                    "company": s.get("company"),
-                    "state": s.get("state"),
-                    "submitted_via": s.get("submitted_via"),
-                    "company_response": s.get("company_response"),
-                    "timely": s.get("timely"),
-                    "narrative": s.get("complaint_what_happened"),
-                }
-            )
-        frm += PAGE_SIZE
-        time.sleep(0.3)  # be polite to a public API
-    return rows[:limit]
-
-
-def fetch_from_api(per_product: int) -> pd.DataFrame:
-    cache = config.RAW_DIR / f"cfpb_api_{config.COMPLAINTS_SINCE}_{per_product}.parquet"
-    if cache.exists():
-        print(f"  Using cached API pull {cache.name}")
-        return pd.read_parquet(cache)
-    rows = []
-    for product in discover_products():
-        got = fetch_product(product, per_product)
-        print(f"  {product}: {len(got)} complaints")
-        rows.extend(got)
-    df = pd.DataFrame(rows, columns=COLUMNS)
-    cache.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(cache, index=False)
-    return df
 
 
 # ---------------------------------------------------------------- CSV source
@@ -349,9 +221,14 @@ def clean_complaints(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_complaints(
-    per_product: int = config.COMPLAINTS_PER_PRODUCT, csv_path: Path | None = None
+    per_product: int = config.COMPLAINTS_PER_PRODUCT, csv_path: Path = config.COMPLAINTS_SOURCE
 ) -> pd.DataFrame:
-    df = load_from_csv(csv_path, per_product) if csv_path else fetch_from_api(per_product)
+    if not Path(csv_path).exists():
+        raise FileNotFoundError(
+            f"{csv_path} not found. Download CCDB_Export_*.zip files from the CFPB narratives "
+            "archive into data/raw/cfpb_archive/, or pass --complaints-csv <path> (see README)."
+        )
+    df = load_from_csv(csv_path, per_product)
     df = clean_complaints(df)
     out = config.PROCESSED_DIR / "complaints.parquet"
     out.parent.mkdir(parents=True, exist_ok=True)

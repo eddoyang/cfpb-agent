@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-from ingest.complaints import _find_buckets, clean_complaints, clean_narrative, reg_hint_for
+from ingest.complaints import clean_complaints, clean_narrative, reg_hint_for
 from ingest.regulations import chunk_section, parse_sections
 
 SAMPLE_XML = b"""<DIV5 N="1026" TYPE="PART"><HEAD>PART 1026-TRUTH IN LENDING</HEAD>
@@ -113,11 +113,6 @@ def test_clean_complaints_drops_short_and_duplicates():
     assert list(out["complaint_id"]) == [1]
     assert out.loc[0, "reg_hint"] == "1026"
     assert bool(out.loc[0, "timely"]) is True
-
-
-def test_find_buckets_handles_nesting():
-    aggs = {"product": {"doc_count": 10, "product": {"buckets": [{"key": "Credit card"}]}}}
-    assert _find_buckets(aggs, "product") == [{"key": "Credit card"}]
 
 
 # ---------------------------------------------------------------- CSV loading
