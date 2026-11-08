@@ -315,14 +315,17 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
 def write_results(rows, summary, meta) -> Path:
     # "2026-11-07, 16:00" -> "2026-11-07_16-00" (no commas, spaces or colons in paths)
     stamp = meta["timestamp"].replace(", ", "_").replace(":", "-")
-    out = RESULTS_DIR / f"{stamp}_{meta['context']}"
+    suite = Path(meta.get("cases_file", "cases.yaml")).stem
+    suffix = "" if suite == "cases" else f"_{suite}"
+    out = RESULTS_DIR / f"{stamp}_{meta['context']}{suffix}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "results.json").write_text(
         json.dumps({"meta": meta, "summary": summary, "rows": rows}, indent=2, default=str)
     )
     report = render_report(rows, summary, meta)
     (out / "report.md").write_text(report)
-    shutil.copy(out / "report.md", RESULTS_DIR / "latest.md")
+    if not suffix:  # latest.md always shows the development suite
+        shutil.copy(out / "report.md", RESULTS_DIR / "latest.md")
     return out
 
 
@@ -336,11 +339,13 @@ def main(argv=None) -> int:
     ap.add_argument("--category")
     ap.add_argument("--ids", help="comma-separated case ids")
     ap.add_argument("--fail-under", type=float, help="exit 1 if pass rate is below this")
+    ap.add_argument("--cases", default=str(CASES_PATH), help="case file (default: eval/cases.yaml)")
     args = ap.parse_args(argv)
 
     from runtime import build_runtime
 
     cases = load_cases(
+        Path(args.cases),
         ids=set(args.ids.split(",")) if args.ids else None,
         workflow=args.workflow,
         category=args.category,
@@ -356,6 +361,7 @@ def main(argv=None) -> int:
         "fast_model": config.FAST_MODEL,
         "strong_model": config.STRONG_MODEL,
         "reg_min_score": config.REG_MIN_SCORE,
+        "cases_file": Path(args.cases).name,
     }
     out = write_results(rows, summary, meta)
     rate = summary["pass"] / summary["runs"] if summary["runs"] else 0
