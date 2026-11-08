@@ -32,7 +32,7 @@ config.py            models, prices, thresholds, stopping conditions
 runtime.py           Claude clients (2 tiers) + call ledger (tokens, latency, cost)
 context.py           evidence packing under a token budget; history summary vs full
 retrieval/store.py   pgvector search (HNSW, cosine, metadata filters), read-only SQL
-skills/              classify, retrieve, stats, draft, verify (shared by both graphs)
+skills/              classify, retrieve, stats, draft, verify (written once, called by both graphs)
 graphs/static.py     fixed triage pipeline
 graphs/dynamic.py    supervisor-routed analyst workflow + policy guardrails
 graphs/runner.py     run_static / resume_static / run_dynamic -> one result format
@@ -45,14 +45,20 @@ docs/                graph diagrams, presentation notes
 ```
 
 ## Skills (reusable, framework-agnostic functions)
-| Skill | Uses | Input → output |
-|---|---|---|
-| `classify` | Claude fast tier | complaint → product, issue, regulation parts, priority, scope, clarity |
-| `retrieve_regulations` | pgvector | query (+ part filter) → cited chunks + best score + sufficiency |
-| `retrieve_cases` | pgvector | text (+ product filter) → similar real complaints |
-| `run_stats` | Postgres | structured `StatsRequest` → aggregate table (whitelisted SQL, read-only) |
-| `draft` | Claude strong tier | request + packed evidence → response with per-claim citations |
-| `verify` | rules + Claude strong tier | draft → supported/unsupported claims, policy issues, feedback |
+| Skill | Uses | Input → output | Static | Dynamic |
+|---|---|---|---|---|
+| `classify` | Claude fast tier | complaint → product, issue, regulation parts, priority, scope, clarity | yes | no |
+| `retrieve_regulations` | pgvector | query (+ part filter) → cited chunks + best score + sufficiency | yes | yes |
+| `retrieve_cases` | pgvector | text (+ product filter) → similar real complaints | yes | yes |
+| `run_stats` | Postgres | structured `StatsRequest` → aggregate table (whitelisted SQL, read-only) | no | yes |
+| `draft` | Claude strong tier | request + packed evidence → response with per-claim citations | yes | yes |
+| `verify` | rules + Claude strong tier | draft → supported/unsupported claims, policy issues, feedback | yes | yes |
+
+Each skill is a plain Python function, written once. The graphs only decide which skill runs
+and when: retrieval, drafting and verification are used by both workflows, `classify` only by
+the static one (the dynamic supervisor does its own routing) and `run_stats` only by the
+dynamic one. A fix to a shared skill reaches both workflows, and every skill can be tested on
+its own with a fake model.
 
 ## Workflows
 **Static (complaint triage):** classify → retrieve regulations → retrieve similar cases →
