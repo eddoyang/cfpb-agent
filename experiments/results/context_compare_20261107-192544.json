@@ -1,0 +1,85 @@
+{
+  "lean": [
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 7,
+      "evidence_in_context": 5,
+      "supported_ratio": 1.0,
+      "n_claims": 9,
+      "expected_cited": [
+        "1005.6",
+        "1026.13"
+      ],
+      "input_tokens": 25018,
+      "output_tokens": 4685,
+      "cost_usd": 0.10588,
+      "latency_s": 33.79,
+      "llm_calls": 7,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "**Short answer:** The evidence supports the debit/checking side (Reg E) in detail. It does not give the credit card liability cap or the Reg Z notice deadline, and the complaint data doesn't isolate card or checking fraud.\n\n**Debit card / checking (Reg E, 12 CFR 1005.6):**\n- Liability applies only if the institution gave the required 1005.7(b)(1)-(3) disclosures. For an access device, it must be an accepted device and the institution must have provided a means to identify the user [R-1005.6#1].\n- If the consumer notifies within two business days after learning of the loss or theft, liability is the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1].\n- If not, liability is capped at the lesser of $500 or the sum of the amounts in 1005.6(b)(2)(i)-(ii). Under (ii), later transfers count only if the institution establishes they would not have occurred with timely notice [R-1005.6#1].\n- Unauthorized transfers on a periodic statement must be reported within 60 days of transmittal to avoid liability for later transfers [R-1005.6#1].\n- Extenuating circumstances require a reasonable extension [R-1005.6#1].\n- Notice may be oral or written [R-1005.6#1].\n- A lower limit under state law or agreement controls [R-1005.6#2].\n\n**$700 card purchases (Reg Z):** The evidence covers only billing-error procedures, 1026.13(d)-(g). While a dispute is pending, the consumer need not pay the disputed amount, and the creditor may not collect it or make adverse credit reports over it [R-1026.13#2].\n\n**Complaint data:** In our sample, from 2026-04-01 to 2026-07-29, with the keyword \"unauthorized\", the only product group shown is money transfer, virtual currency, or money service, with 196 complaints [S-1]. This is our sample, not the whole market.",
+      "_desc": "top-k regs 3, cases 2, evidence budget 2500 tok, history summary"
+    },
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 10,
+      "evidence_in_context": 5,
+      "supported_ratio": 1.0,
+      "n_claims": 8,
+      "expected_cited": [
+        "1005.6"
+      ],
+      "input_tokens": 44974,
+      "output_tokens": 8528,
+      "cost_usd": 0.19266,
+      "latency_s": 58.73,
+      "llm_calls": 12,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 replan \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "**Debit card (checking account):** Reg E limits liability by how fast the customer reports. A consumer may be liable only if the institution gave the required disclosures, and if an access device was involved it must be an accepted device [R-1005.6#1]. Limits and deadlines:\n- Notice within two business days after learning of the loss or theft: liability is capped at the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1].\n- No notice within two business days: liability is capped at the lesser of $500 or the sum of (i) $50 or the transfers within the two days, whichever is less, and (ii) later transfers before notice that the institution establishes would not have occurred with timely notice [R-1005.6#1].\n- Unauthorized transfers on a periodic statement must be reported within 60 days of the statement's transmittal to avoid liability for later transfers [R-1005.6#1].\n- Extenuating circumstances require a reasonable extension of these times [R-1005.6#1].\n- Notice can be given in person, by phone, or in writing [R-1005.6#1].\n\n**$700 card purchases:** If these were on the debit card, the Reg E rules above apply. If they were on a credit card, the evidence provided has no Reg Z liability limits or deadlines, so I can't state them.\n\n**Our data:** The sample has 196 CFPB complaints with \"unauthorized\" in the issue from 2026-04-01 to 2026-07-29 [S-1]. This covers our sample only and doesn't separate debit from credit. One similar complaint describes a stolen debit card with $730 in charges, a prompt report to the bank, and the consumer saying the bank denied the claim twice [C-23141671]. Complaints are not legal authority."
+    }
+  ],
+  "rich": [
+    {
+      "config": "rich",
+      "outcome": "escalate",
+      "evidence_retrieved": 31,
+      "evidence_in_context": 17,
+      "supported_ratio": 0.929,
+      "n_claims": 14,
+      "expected_cited": [
+        "1005.11",
+        "1005.6",
+        "1026.13"
+      ],
+      "input_tokens": 78556,
+      "output_tokens": 11748,
+      "cost_usd": 0.33988,
+      "latency_s": 77.58,
+      "llm_calls": 11,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 replan \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 escalate",
+      "response": "Escalated to a human analyst. The answer could not be verified against the sources:\n- Unsupported claim: 'One checking-account complaint involved a disputed unauthorized debit ATM withdrawal, closed with ex' (The complaint text supports a disputed unauthorized debit ATM withdrawal, but it does not say the account was a checking account or that the complaint was closed with explanation.)",
+      "_desc": "top-k regs 10, cases 5, evidence budget 9000 tok, history full"
+    },
+    {
+      "config": "rich",
+      "outcome": "escalate",
+      "evidence_retrieved": 19,
+      "evidence_in_context": 19,
+      "supported_ratio": 0.917,
+      "n_claims": 12,
+      "expected_cited": [
+        "1005.11",
+        "1005.6",
+        "1026.13"
+      ],
+      "input_tokens": 71790,
+      "output_tokens": 10007,
+      "cost_usd": 0.31079,
+      "latency_s": 66.54,
+      "llm_calls": 10,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 replan \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 escalate",
+      "response": "Escalated to a human analyst. The answer could not be verified against the sources:\n- Policy: The heading \"Debit card (Reg E, assuming the $700 was on a credit card)\" contradicts itself and could mislead the customer about which rules apply to which card.\n- Policy: The short answer treats the Reg E liability limits as applying to this customer's specific situation, without noting that facts such as the type of account, the notice dates, and whether the disclosures were given are unconfirmed.\n- Policy: The draft states a complaint outcome (company closed with explanation) that no cited source supports.\n- Unsupported claim: 'A similar checking account complaint describes a lost or stolen card and unauthorized transactions, ' (The complaint describes a lost or stolen card and unauthorized transactions. It does not say the account was a checking account, and it says nothing about the company closing the complaint with an explanation. It only shows the consumer requesting an explanation.)"
+    }
+  ]
+}
