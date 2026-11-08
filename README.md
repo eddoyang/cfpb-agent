@@ -83,26 +83,33 @@ back to the supervisor once (re-plan), then abstains or escalates.
    main question can't be answered.
 2. **Deterministic checks:** every claim cited, every cited ID was actually in context, no
    promised refunds or outcomes (negation-aware, so "we can't guarantee a refund" passes).
-3. **LLM judge:** each claim is checked against the text of the evidence it cites (catches a
-   real citation attached to a wrong deadline). The judge sees each source exactly as the
-   drafter saw it, after the same context packing.
+3. **LLM judge:** each claim is checked against the evidence it cites (catches a real
+   citation attached to a wrong deadline). The judge sees each evidence block exactly as the
+   drafter saw it, citation header included. It also flags facts in the reply that aren't in
+   the claims list. Policy issues are **blocking** (promises, legal conclusions about this
+   customer, misleading statements, rude tone) or **advisory** (wording, warmth); only blocking
+   issues fail the draft, advisory notes go to the reviewer.
 4. **Act on failure:** redraft with feedback, re-plan, abstain, or escalate to a human.
 5. **Prompt injection:** customer text is wrapped and marked untrusted; eval cases test it.
 
-## Results (final run, 2026-11-07)
-`python -m eval.harness --repeats 3`, lean context, report in `eval/results/2026-11-07_20-12_lean/`:
+## Results (final run, 2026-11-08)
+`python -m eval.harness --repeats 3`, lean context, report in `eval/results/2026-11-08_03-36_lean/`:
 
 | Metric | Result |
 |---|---|
-| Pass rate | 76/84 (90%); 76/78 (97%) excluding the two known-failure cases |
+| Pass rate | 78/84 (93%); 78/78 (100%) excluding the two known-failure cases |
 | Consistency across repeats | 0.988 |
-| Cost per run | $0.050 |
-| p95 latency | 55.8 s |
+| Cost per run | $0.048 |
+| p95 latency | 54.2 s (mean 20.7 s) |
+| Verifier-forced redrafts or re-plans | 14 of 84 runs |
 
-Baseline was 17/28 (61%, one run per case). The 8 failed runs: `st-multi-product` 0/3 and
-`dy-commentary` 0/3 (both known failures), `st-injection` 2/3 (a correct refusal quoted the
-demand and tripped the forbidden-phrase check) and `st-remittance` 2/3 (the verifier blocked a
-legal conclusion about the customer and the run escalated).
+Progression: 17/28 (61%, baseline, one run per case) → 74/84 (88%) → 76/84 (90%) → 78/84
+(93%). The only failures left are the two known-failure cases: `st-multi-product` (one search
+query for a two-issue complaint misses both liability sections) and `dy-commentary` (the Reg Z
+commentary isn't ingested; the reply says so and answers from the regulation text instead of
+abstaining). The last round of fixes: the drafter no longer repeats demands from ignored
+instructions, states rights as general rules with their exceptions, and doesn't list caveats
+as claims; the judge sees each complaint's header and sorts policy issues by severity.
 
 **Context comparison** (`python -m experiments.context_compare`, same query, two runs each):
 lean (top 3 rules / 2 cases, 2,500-token budget, summarized history) used 5 evidence items,
