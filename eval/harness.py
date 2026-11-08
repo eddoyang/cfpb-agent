@@ -6,7 +6,7 @@
     python -m eval.harness --ids st-unauth-credit,dy-oos-reg-dd
     python -m eval.harness --fail-under 0.7        # non-zero exit for CI
 
-Writes eval/results/<timestamp>_<context>/results.json and report.md, and copies the
+Writes eval/results/<YYYY-MM-DD_HH-MM>_<context>/results.json and report.md, and copies the
 report to eval/results/latest.md. Same cases + temperature 0 = comparable runs.
 """
 
@@ -301,7 +301,9 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
 
 
 def write_results(rows, summary, meta) -> Path:
-    out = RESULTS_DIR / f"{meta['timestamp']}_{meta['context']}"
+    # "2026-11-07, 16:00" -> "2026-11-07_16-00" (no commas, spaces or colons in paths)
+    stamp = meta["timestamp"].replace(", ", "_").replace(":", "-")
+    out = RESULTS_DIR / f"{stamp}_{meta['context']}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "results.json").write_text(
         json.dumps({"meta": meta, "summary": summary, "rows": rows}, indent=2, default=str)
@@ -336,7 +338,7 @@ def main(argv=None) -> int:
     rows = run_cases(rt, cases, repeats=args.repeats)
     summary = summarize(rows)
     meta = {
-        "timestamp": datetime.now().strftime("%Y%m%d-%H%M%S"),
+        "timestamp": datetime.now().strftime("%Y-%m-%d, %H:%M"),
         "context": args.context,
         "repeats": args.repeats,
         "fast_model": config.FAST_MODEL,

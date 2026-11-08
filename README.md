@@ -84,7 +84,7 @@ back to the supervisor once (re-plan), then abstains or escalates.
 5. **Prompt injection:** customer text is wrapped and marked untrusted; eval cases test it.
 
 ## Results (final run, 2026-11-07)
-`python -m eval.harness --repeats 3`, lean context, report in `eval/results/20261107-201248_lean/`:
+`python -m eval.harness --repeats 3`, lean context, report in `eval/results/2026-11-07_20-12_lean/`:
 
 | Metric | Result |
 |---|---|

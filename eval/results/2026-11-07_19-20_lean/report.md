@@ -1,4 +1,4 @@
-# Evaluation report: 20261107-192031
+# Evaluation report: 2026-11-07, 19:20
 
 Context config **lean**, repeats 3, models `claude-haiku-5-5` (classify/route) and `claude-sonnet-5-5` (draft/verify). Cost uses the prices in config.py; confirm them before quoting.
 
