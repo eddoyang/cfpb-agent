@@ -1,5 +1,6 @@
 """Skill and runtime tests that don't need a graph."""
 
+from context import pack_evidence
 from runtime import Runtime
 from skills import verify
 from skills.schemas import Draft, HistorySummary
@@ -29,6 +30,20 @@ def test_judge_sees_narrative_clipped_like_the_drafter():
 
     verify(make_rt(script), Draft(**good_draft(ids=("C-111",))), [long_case])
     assert "TAIL" not in seen["user"]
+
+
+def test_judge_sees_evidence_rendered_like_the_drafter():
+    # The citation header carries a complaint's product, issue and company response;
+    # claims drawn from it must not look unsupported to the judge.
+    evidence = [REG_1006_14, CASE_1]
+    rt = make_rt(lambda name, schema, system, user: seen.update(user=user) or judge_all_supported())
+    seen = {}
+
+    block, used, _ = pack_evidence(evidence, rt.ctx)
+    verify(rt, Draft(**good_draft(ids=("R-1006.14#1", "C-111"))), used)
+    for drafter_block in block.split("\n\n---\n\n"):
+        assert drafter_block in seen["user"]
+    assert "Closed with monetary relief" in seen["user"]
 
 
 def test_structured_output_uses_json_schema():

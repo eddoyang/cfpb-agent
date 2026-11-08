@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import re
 
-from ingest.tokens import truncate_tokens
+from context import render_evidence
 from skills.schemas import Draft, JudgeOutput
 
 PROMISE_PATTERNS = [
@@ -52,12 +52,10 @@ conclusions about this specific customer as certain, or an inappropriate tone.""
 
 
 def judge_text(ev: dict, ctx) -> str:
-    """The evidence text exactly as the drafter saw it. Regulation chunks go in whole
-    (already capped at REG_CHUNK_MAX_TOKENS); narratives are clipped as in pack_evidence.
-    Showing the judge less than the drafter makes correct claims look unsupported."""
-    if ev["kind"] == "complaint":
-        return truncate_tokens(ev["text"], ctx.max_case_tokens)
-    return ev["text"]
+    """The evidence block exactly as the drafter saw it, citation header included (a
+    complaint's product, issue and company response live there). Showing the judge less
+    than the drafter makes correct claims look unsupported."""
+    return render_evidence(ev, ctx)
 
 
 def deterministic_checks(d: Draft, evidence: list[dict]) -> list[str]:
@@ -89,9 +87,7 @@ def verify(rt, d: Draft, evidence: list[dict]) -> dict:
         blocks = []
         for i, c in enumerate(d.claims):
             sources = (
-                "\n".join(
-                    f"  [{x}] {judge_text(by_id[x], rt.ctx)}" for x in c.citations if x in by_id
-                )
+                "\n".join(f"  {judge_text(by_id[x], rt.ctx)}" for x in c.citations if x in by_id)
                 or "  (no valid sources)"
             )
             blocks.append(f"Claim {i}: {c.text}\nCited evidence:\n{sources}")

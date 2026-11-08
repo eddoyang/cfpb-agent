@@ -53,7 +53,7 @@ def get_context_config(name: str, **overrides) -> ContextConfig:
 
 
 # ---------------------------------------------------------------- evidence
-def _render(ev: dict, cfg: ContextConfig) -> str:
+def render_evidence(ev: dict, cfg: ContextConfig) -> str:
     text = ev["text"]
     if ev["kind"] == "complaint":
         text = truncate_tokens(text, cfg.max_case_tokens)
@@ -78,7 +78,7 @@ def pack_evidence(evidence: list[dict], cfg: ContextConfig) -> tuple[str, list[d
 
     parts, used, tokens = [], [], 0
     for ev in ordered:
-        block = _render(ev, cfg)
+        block = render_evidence(ev, cfg)
         t = count_tokens(block)
         if tokens + t > cfg.max_evidence_tokens:
             continue
