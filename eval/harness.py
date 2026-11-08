@@ -161,6 +161,11 @@ def _pct(n, d):
     return f"{100 * n / d:.0f}%" if d else "n/a"
 
 
+def _clip(text, n):
+    text = (text or "").strip()
+    return text if len(text) <= n else text[:n].rstrip() + "…"
+
+
 def summarize(rows: list[dict]) -> dict:
     lat = [r["latency_s"] for r in rows if r["actual"] != "crash"]
     by_case = defaultdict(list)
@@ -274,7 +279,9 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
             f"- Path: {' → '.join(r['path'])}",
             *[f"- {x}" for x in r["reasons"]],
             *[f"- Policy override: {o}" for o in r["overrides"]],
-            f"- Response: {r['response'][:400]!r}",
+            "- Response:",
+            "",
+            *[f"  > {line}".rstrip() for line in _clip(r["response"], 400).splitlines()],
             "",
         ]
 
@@ -297,7 +304,7 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
         L.append(
             f"- Out-of-scope runs that reached retrieval: {', '.join(f'{s:.3f}' for s in oos)}"
         )
-    inscope = sorted(r["best_reg_score"] for r in rows 
+    inscope = sorted(r["best_reg_score"] for r in rows
                     if r["category"] != "out_of_scope" and r["best_reg_score"])
     if inscope:
         L.append(f"- Lowest best score among in-scope runs: {inscope[0]:.3f} "
