@@ -56,7 +56,6 @@ class Draft(BaseModel):
         default_factory=list,
         description="Details the request asks about that the evidence does not cover.",
     )
-    internal_notes: str = Field(description="Notes for the human reviewer.")
 
 
 class ClaimVerdict(BaseModel):

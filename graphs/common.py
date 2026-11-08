@@ -35,11 +35,3 @@ def traced(name: str):
         return wrapper
 
     return deco
-
-
-def evidence_summary(ev: list[dict]) -> dict:
-    return {
-        "n": len(ev),
-        "best_score": round(max((e["score"] for e in ev), default=0.0), 3),
-        "ids": [e["id"] for e in ev],
-    }

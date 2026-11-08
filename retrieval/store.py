@@ -28,8 +28,6 @@ class PgStore:
         self._embedder = embedder
         self._conn = None
         self._date_range = None
-        self.embed_calls = 0
-        self.embed_tokens = 0
 
     # ------------------------------------------------------------ plumbing
     @property
@@ -176,8 +174,6 @@ _EMBED_CACHE: dict[tuple[int, str], np.ndarray] = {}
 def _cached_embed(store: PgStore, text: str) -> np.ndarray:
     key = (id(store), text)
     if key not in _EMBED_CACHE:
-        store.embed_calls += 1
-        store.embed_tokens += max(1, len(text) // 4)
         _EMBED_CACHE[key] = np.array(store.embedder.embed_query(text), dtype=np.float32)
         if len(_EMBED_CACHE) > 2048:
             _EMBED_CACHE.pop(next(iter(_EMBED_CACHE)))

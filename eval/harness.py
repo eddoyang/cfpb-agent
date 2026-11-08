@@ -7,7 +7,8 @@
     python -m eval.harness --fail-under 0.7        # non-zero exit for CI
 
 Writes eval/results/<YYYY-MM-DD_HH-MM>_<context>/results.json and report.md, and copies the
-report to eval/results/latest.md. Same cases + temperature 0 = comparable runs.
+report to eval/results/latest.md. Models run at default sampling, so use --repeats to
+measure run-to-run variation.
 """
 
 from __future__ import annotations

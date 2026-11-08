@@ -108,9 +108,9 @@ def resolve_columns(header) -> dict[str, str]:
 # ---------------------------------------------------------------- helpers
 def reg_hint_for(product: str) -> str | None:
     p = (product or "").lower()
-    for rule in config.PRODUCT_RULES:
-        if rule["keyword"] in p:
-            return rule["reg_hint"]
+    for cat in config.PRODUCT_CATEGORIES.values():
+        if cat["keyword"] and cat["keyword"] in p:
+            return cat["parts"][0]
     return None
 
 

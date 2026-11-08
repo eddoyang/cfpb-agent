@@ -150,7 +150,6 @@ def good_draft(ids=("R-1026.12#1",)):
             {"text": "Liability for unauthorized use is limited to $50.", "citations": list(ids)}
         ],
         "insufficient_evidence": False,
-        "internal_notes": "",
     }
 
 
@@ -159,7 +158,6 @@ def bad_draft():
         "response": "We will refund you in full within 5 days [R-9999.1#1].",
         "claims": [{"text": "Refund within 5 days.", "citations": ["R-9999.1#1"]}],
         "insufficient_evidence": False,
-        "internal_notes": "",
     }
 
 

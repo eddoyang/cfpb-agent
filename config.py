@@ -40,16 +40,17 @@ REGULATIONS = {
     "1026": "Regulation Z (Truth in Lending)",
 }
 
-# Complaint products we keep, matched by keyword against CFPB product names
-# (CFPB has renamed products over time, so we match loosely), and the
-# regulation each one most often maps to.
-PRODUCT_RULES = [
-    {"keyword": "credit card", "reg_hint": "1026"},
-    {"keyword": "checking or savings", "reg_hint": "1005"},
-    {"keyword": "money transfer", "reg_hint": "1005"},
-    {"keyword": "prepaid", "reg_hint": "1005"},
-    {"keyword": "debt collection", "reg_hint": "1006"},
-]
+# Classifier product -> keyword matched against CFPB product names (CFPB has renamed
+# products over time, so we match loosely) and the regulation parts it maps to.
+# Ingest keeps only complaints whose product matches a keyword.
+PRODUCT_CATEGORIES = {
+    "credit_card": {"keyword": "credit card", "parts": ["1026"]},
+    "checking_savings": {"keyword": "checking or savings", "parts": ["1005"]},
+    "money_transfer": {"keyword": "money transfer", "parts": ["1005"]},
+    "prepaid_card": {"keyword": "prepaid", "parts": ["1005"]},
+    "debt_collection": {"keyword": "debt collection", "parts": ["1006"]},
+    "other": {"keyword": None, "parts": []},
+}
 COMPLAINTS_PER_PRODUCT = 1200
 COMPLAINTS_SINCE = "2023-01-01"
 COMPLAINTS_UNTIL = "2026-08-14"  # the CFPB stopped publishing narratives after this date
@@ -82,17 +83,6 @@ MODEL_PRICES = {
         float(os.getenv("STRONG_PRICE_IN", "3.00")),
         float(os.getenv("STRONG_PRICE_OUT", "15.00")),
     ),
-}
-EMBED_PRICE_PER_1M = float(os.getenv("EMBED_PRICE", "0.02"))
-
-# --- Product taxonomy (classifier output -> data filters) -----------------
-PRODUCT_CATEGORIES = {
-    "credit_card": {"keyword": "credit card", "parts": ["1026"]},
-    "checking_savings": {"keyword": "checking or savings", "parts": ["1005"]},
-    "money_transfer": {"keyword": "money transfer", "parts": ["1005"]},
-    "prepaid_card": {"keyword": "prepaid", "parts": ["1005"]},
-    "debt_collection": {"keyword": "debt collection", "parts": ["1006"]},
-    "other": {"keyword": None, "parts": []},
 }
 
 # --- Retrieval ------------------------------------------------------------

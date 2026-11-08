@@ -18,7 +18,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
 import config
-from graphs.common import evidence_summary, traced
+from graphs.common import traced
 from skills import classify, draft, retrieve_cases, retrieve_regulations, verify
 from skills.schemas import Draft
 
@@ -64,11 +64,7 @@ def build_static_graph(rt):
         return {
             "evidence": res["evidence"],
             "retrieval": {
-                "regs": {
-                    **evidence_summary(res["evidence"]),
-                    "best_score": res["best_score"],
-                    "sufficient": res["sufficient"],
-                }
+                "regs": {"best_score": res["best_score"], "sufficient": res["sufficient"]}
             },
             "_detail": f"{res['n_kept']}/{res['n_retrieved']} chunks above floor, "
             f"best={res['best_score']}",
@@ -85,7 +81,7 @@ def build_static_graph(rt):
             exclude_id=s.get("exclude_complaint_id"),
         )
         retrieval = dict(s.get("retrieval", {}))
-        retrieval["cases"] = {**evidence_summary(res["evidence"]), "best_score": res["best_score"]}
+        retrieval["cases"] = {"best_score": res["best_score"]}
         return {
             "evidence": s["evidence"] + res["evidence"],
             "retrieval": retrieval,

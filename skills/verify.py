@@ -79,13 +79,13 @@ def deterministic_checks(d: Draft, evidence: list[dict]) -> list[str]:
     return issues
 
 
-def verify(rt, d: Draft, evidence: list[dict], use_judge: bool = True) -> dict:
+def verify(rt, d: Draft, evidence: list[dict]) -> dict:
     issues = deterministic_checks(d, evidence)
     by_id = {e["id"]: e for e in evidence}
     unsupported: list[dict] = []
     verdicts: list[dict] = []
 
-    if use_judge and d.claims:
+    if d.claims:
         blocks = []
         for i, c in enumerate(d.claims):
             sources = (
