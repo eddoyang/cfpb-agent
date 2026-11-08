@@ -212,7 +212,7 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
         (
             f"Context config **{meta['context']}**, repeats {meta['repeats']}, models "
             f"`{config.FAST_MODEL}` (classify/route) and `{config.STRONG_MODEL}` (draft/verify). "
-            f"Cost uses the prices in config.py."
+            f"Cost uses the prices in .env."
         ),
         "",
         "## Summary",
