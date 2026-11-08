@@ -1,0 +1,3042 @@
+{
+  "meta": {
+    "timestamp": "20261107-181536",
+    "context": "lean",
+    "repeats": 3,
+    "fast_model": "claude-haiku-5-5",
+    "strong_model": "claude-sonnet-5-5",
+    "reg_min_score": 0.3
+  },
+  "summary": {
+    "runs": 84,
+    "cases": 28,
+    "pass": 74,
+    "metrics": {
+      "outcome": [
+        76,
+        84
+      ],
+      "product": [
+        30,
+        30
+      ],
+      "retrieval_hit": [
+        45,
+        45
+      ],
+      "citation_hit": [
+        44,
+        44
+      ],
+      "retrieval_all": [
+        0,
+        3
+      ],
+      "actions": [
+        15,
+        15
+      ],
+      "forbidden": [
+        6,
+        6
+      ]
+    },
+    "mean_supported_ratio": 1.0,
+    "verifier_caught": 20,
+    "latency_mean": 21.66,
+    "latency_p95": 57.84,
+    "cost_total": 6.3517,
+    "cost_per_run": 0.07562,
+    "tokens_in": 1193135,
+    "tokens_out": 242286,
+    "consistency": 0.976,
+    "inconsistent_cases": [
+      "st-multi-product",
+      "dy-relief-and-rule"
+    ]
+  },
+  "rows": [
+    {
+      "id": "st-unauth-credit",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.63,
+      "latency_s": 57.84,
+      "cost_usd": 0.20941,
+      "input_tokens": 34493,
+      "output_tokens": 7392,
+      "llm_calls": 5,
+      "response": "Dear Customer,\n\nI'm sorry you're dealing with a $500 charge you don't recognize, and that your March 3rd call ended without the charge being removed.\n\nUnder Regulation Z, \"unauthorized use\" means use of a card by a person other than the cardholder who has no actual, implied, or apparent authority, and from which the cardholder receives no benefit [R-1026.12#1]. The definition in the rule text we reviewed does not require that the card be lost [R-1026.12#1]. A cardholder's liability for unauthorized use cannot exceed the lesser of $50 or the amount obtained before the card issuer was notified [R-1026.12#1]. Liability applies only if certain conditions are met, including that the issuer gave adequate notice of the maximum potential liability [R-1026.12#1]. Notice to the issuer may be given by telephone [R-1026.12#1].\n\nIf your dispute qualifies as a billing error notice, then while it is handled you need not pay the disputed portion, and the creditor may not try to collect it [R-1026.13#2]. The creditor also may not report it as delinquent [R-1026.13#2], or restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nNext steps: we will review your March 3rd report and determine whether it qualifies. If a billing error is found as asserted, the creditor must correct it, credit the disputed amount, and send a correction notice [R-1026.13#2]. If not, it must send a written explanation and, if you ask, copies of documentary evidence of the debt [R-1026.13#2]. We cannot promise a particular outcome.",
+      "repeat": 0
+    },
+    {
+      "id": "st-unauth-credit",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.624,
+      "latency_s": 51.47,
+      "cost_usd": 0.20448,
+      "input_tokens": 32623,
+      "output_tokens": 7443,
+      "llm_calls": 5,
+      "response": "Dear Customer,\n\nThank you for writing to us. We're sorry for the stress of a $500 charge you report you did not make. Below is how the rules work. We are not reaching any conclusion about your situation.\n\nUnder Regulation Z, \"unauthorized use\" means use of a card by a person who lacks actual, implied, or apparent authority and from which the cardholder receives no benefit [R-1026.12#1]. A cardholder's liability for unauthorized use cannot exceed the lesser of $50 or the value obtained before the issuer was notified [R-1026.12#1]. Notice to the issuer may be given in person, by telephone, or in writing [R-1026.12#1]. Whether your charge is unauthorized use or a billing error depends on the specific facts and is a fact-specific determination.\n\nIf a dispute is handled under the billing error rules, you need not pay the portion you believe relates to the disputed amount, and the creditor may not try to collect it [R-1026.13#2]. The creditor may not report that amount as delinquent because you did not pay it [R-1026.13#2]. It also may not restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nIf the creditor finds a billing error occurred, it must correct it, credit the account, and send a correction notice [R-1026.13#2]. If, after a reasonable investigation, it finds no error, it must send an explanation of its reasons and, if you ask, copies of documentary evidence of your indebtedness [R-1026.13#2].\n\nThe sources we reviewed do not state the deadlines or the required form for a billing error notice, so we cannot confirm those here.",
+      "repeat": 1
+    },
+    {
+      "id": "st-unauth-credit",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.625,
+      "latency_s": 44.76,
+      "cost_usd": 0.17593,
+      "input_tokens": 30118,
+      "output_tokens": 6033,
+      "llm_calls": 5,
+      "response": "We're sorry about the unfamiliar $500 charge and the stress of being told you are responsible for it. You reported it by phone the day you noticed it, and under Regulation Z notification to a card issuer may be given by telephone [R-1026.12#1]. We have not yet determined whether this charge was unauthorized use, and nothing in this letter is a decision on your dispute.\n\nRegulation Z defines unauthorized use as use of a card by a person who has no actual, implied, or apparent authority and from whom the cardholder receives no benefit [R-1026.12#1]. That definition does not say the card must have been lost. Whether it applies to your charge depends on our review of the facts. If a charge is found to be unauthorized use, a cardholder's liability cannot exceed the lesser of $50 or the value obtained before notification, and the rule sets conditions for any liability at all [R-1026.12#1]. We cannot yet say whether that limit applies to your charge.\n\nIf your dispute is handled under the billing error rules, then while it is pending you need not pay the disputed amount and related charges, and a creditor may not report you delinquent for not paying it [R-1026.13#2]. If we find no billing error occurred, we must send you a written explanation and, if you ask, copies of documentary evidence [R-1026.13#2].\n\nNext steps: we will review your dispute and write to you with the result.",
+      "repeat": 2
+    },
+    {
+      "id": "st-billing-not-delivered",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.666,
+      "latency_s": 27.63,
+      "cost_usd": 0.10259,
+      "input_tokens": 17227,
+      "output_tokens": 3857,
+      "llm_calls": 3,
+      "response": "Thank you for writing, and I'm sorry your sofa never arrived and your dispute letter has gone unacknowledged.\n\nUnder Regulation Z, a charge for property not delivered as agreed is a billing error [R-1026.13#1]. A billing error notice must be written, received at the creditor's designated address within 60 days after the first statement showing the charge, and let the creditor identify your name and account number [R-1026.13#1]. If your letter qualifies, the creditor must send written acknowledgment within 30 days of receiving it, unless it has already resolved the dispute. It must finish its resolution procedures within 2 complete billing cycles, and no later than 90 days [R-1026.13#1].\n\nWhile the dispute is pending, you need not pay the disputed amount and related charges, and the creditor may not try to collect them [R-1026.13#2]. It may not make adverse credit reports or report the amount as delinquent because you did not pay it [R-1026.13#2]. It also may not accelerate your debt or restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nIf the creditor finds an error occurred, it must correct it, credit the account, and send a correction notice [R-1026.13#2]. If it finds no error after a reasonable investigation, it must send a written explanation and, if you ask, copies of documentary evidence of your indebtedness [R-1026.13#2]. I can't promise a particular outcome.\n\nNext steps: we will look for your letter and its receipt date, and refer this to the dispute team for review. Please send us a copy of your letter and any proof of mailing.",
+      "repeat": 0
+    },
+    {
+      "id": "st-billing-not-delivered",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.701,
+      "latency_s": 53.25,
+      "cost_usd": 0.1912,
+      "input_tokens": 30986,
+      "output_tokens": 6975,
+      "llm_calls": 5,
+      "response": "Thank you for contacting us, and I'm sorry for the frustration of waiting. You've told us a sofa you paid for by credit card was not delivered and that the store stopped responding; we have not yet verified those details.\n\nUnder Regulation Z, a charge for property not delivered as agreed can be a billing error [R-1026.13#1]. To qualify as a billing error notice, a letter must be written, be received at the issuer's designated billing-error address within 60 days after the first statement showing the charge, identify your name and account number, and explain why you believe an error exists [R-1026.13#1]. We must confirm whether your letter meets these requirements; we cannot yet say it does.\n\nIf it does, we must acknowledge it in writing within 30 days of receiving it, unless we have already resolved it, and complete resolution within two complete billing cycles, no later than 90 days after receipt [R-1026.13#1]. Because these periods run from receipt, we will check when your letter arrived. While a valid dispute is pending, you need not pay the disputed amount and we may not try to collect it, though we may still collect undisputed portions [R-1026.13#2].\n\nNext, we will locate your letter and review it. If an error occurred, we must correct it and send a correction notice; if not, after a reasonable investigation we must send you an explanation [R-1026.13#2]. We cannot promise any outcome.",
+      "repeat": 1
+    },
+    {
+      "id": "st-billing-not-delivered",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.688,
+      "latency_s": 24.88,
+      "cost_usd": 0.09994,
+      "input_tokens": 17184,
+      "output_tokens": 3571,
+      "llm_calls": 3,
+      "response": "We're sorry your sofa never arrived, the store stopped responding, and you have not heard back about your dispute. Here is what the rules say and what happens next.\n\nUnder Regulation Z, a charge for property not delivered as agreed is a billing error. [R-1026.13#1] A billing error notice must be in writing, reach the issuer's designated address within 60 days after the first statement showing the charge was sent, and let the issuer identify your name and account number. [R-1026.13#1] Within 30 days of receiving such a notice, the issuer must send written acknowledgment, unless it has already resolved the dispute. [R-1026.13#1] It must finish its resolution procedures within 2 complete billing cycles, and no later than 90 days. [R-1026.13#1]\n\nWhile the dispute is open, you need not pay the disputed amount and related charges, and the issuer may not try to collect them. [R-1026.13#2] It may not report you as delinquent over that amount, or close or restrict your account solely because you used these rights in good faith. [R-1026.13#2] It may still collect undisputed amounts. [R-1026.13#2]\n\nIf the issuer finds an error occurred, it must credit the account and send a correction notice. [R-1026.13#2] If not, it must send a written explanation and, if you ask, copies of documentary evidence. [R-1026.13#2]\n\nNext steps: we will check when and where your letter was received and whether an acknowledgment was sent, then review the dispute under these procedures. We cannot promise a particular outcome.",
+      "repeat": 2
+    },
+    {
+      "id": "st-debit-atm-fraud",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.707,
+      "latency_s": 46.48,
+      "cost_usd": 0.14934,
+      "input_tokens": 22671,
+      "output_tokens": 5903,
+      "llm_calls": 5,
+      "response": "I'm sorry you're dealing with this, especially with rent due. Here is what the rules in our sources say, and what you can do next.\n\nUnder Regulation E, if you notify the bank within two business days after learning of the loss or theft of your card, your liability shall not exceed the lesser of $50 or the amount of unauthorized transfers made before you notified the bank [R-1005.6#1]. The higher cap of up to $500 applies when notice is not given within that two-business-day window [R-1005.6#1]. Notice may be given by telephone [R-1005.6#1]. You say you called the morning after you noticed the theft, so the $500 figure is worth questioning, though I can't determine the outcome from here. A consumer may be held liable only if the bank provided certain required disclosures [R-1005.6#1]. If state law or your agreement with the bank imposes less liability, your liability shall not exceed that amount [R-1005.6#2]. If a delay in notifying the bank was due to extenuating circumstances, the bank must extend the time limits to a reasonable period [R-1005.6#1].\n\nNext steps: you may want to ask the bank in writing which date it treated as your notice and which rule it relied on for the $500 figure. Keep a record of the date and time of your call. I can't promise any particular result or timing.\n\nThe sources I have do not cover investigation deadlines or whether funds may be made available while the bank reviews the matter.",
+      "repeat": 0
+    },
+    {
+      "id": "st-debit-atm-fraud",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.735,
+      "latency_s": 41.28,
+      "cost_usd": 0.15749,
+      "input_tokens": 24943,
+      "output_tokens": 5930,
+      "llm_calls": 5,
+      "response": "I'm sorry you're dealing with this, especially with rent due. Here is how the rules work, based on what you've told us. Under Regulation E, if you notify your bank within two business days after learning of the card's loss or theft, your liability shall not exceed the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1]. The $500 limit applies only if notice was not given within that two-business-day period [R-1005.6#1]. Even then, the bank may count transfers made after the two days only if it establishes they would not have occurred had you notified it in time [R-1005.6#1]. Which rule applies depends on when you actually learned of the theft and when you gave notice. We have not confirmed those dates, so this is preliminary. Notice may be given by telephone [R-1005.6#1]. If a delay was due to extenuating circumstances, the bank must extend the time limits to a reasonable period, and notice may be treated as constructively given if the bank became aware of circumstances suggesting an unauthorized transfer [R-1005.6#1]. A consumer may be held liable only if the bank provided certain required disclosures [R-1005.6#1]. If state law or your agreement imposes less liability, your liability cannot exceed that amount [R-1005.6#2]. Next, we will ask the bank for your call date and time, its notice records, and the basis for the $500 figure, and review its answer. Please gather your call details, any reference number, and your statements. This is a review, not a guarantee of any outcome.",
+      "repeat": 1
+    },
+    {
+      "id": "st-debit-atm-fraud",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.72,
+      "latency_s": 66.56,
+      "cost_usd": 0.22882,
+      "input_tokens": 35480,
+      "output_tokens": 8514,
+      "llm_calls": 7,
+      "response": "Thank you for contacting us. We understand how stressful unauthorized withdrawals are, especially when they affect your ability to cover essential bills. Under Regulation E, a consumer may be held liable for an unauthorized transfer only if the bank provided certain required disclosures. If a card was involved, it must also be an accepted access device, and the bank must have provided a means to identify the consumer it was issued to [R-1005.6#1]. How much you can be held liable for depends on timing. If you notify the bank within two business days after learning of the loss or theft, liability shall not exceed the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1]. If notice is not given within that period, a different limit applies, up to the lesser of $500 or an amount calculated under the rule [R-1005.6#1]. Notice may be given in person, by telephone, or in writing [R-1005.6#1]. If a delay was due to extenuating circumstances, the institution shall extend the time limits to a reasonable period [R-1005.6#1]. If state law or your agreement with the bank imposes less liability, your liability shall not exceed that amount [R-1005.6#2]. We have not yet decided which limit applies to your case, and we cannot promise any outcome. Next, we will review the date you learned of the theft, the date and manner of your call, and the required disclosures. The sources we have do not cover investigation deadlines or provisional credit timing.",
+      "repeat": 2
+    },
+    {
+      "id": "st-eft-error-slow",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.707,
+      "latency_s": 68.4,
+      "cost_usd": 0.25239,
+      "input_tokens": 39164,
+      "output_tokens": 9329,
+      "llm_calls": 7,
+      "response": "We're sorry your $1,200 transfer was debited twice, and that three weeks after you reported it you still have no resolution or provisional credit. We understand how stressful that is.\n\nUnder Regulation E's error-resolution procedures, when a bank provisionally credits an account, it must do so within 10 business days of receiving the error notice [R-1005.11#2]. There are limited exceptions, including when the bank requires but does not receive written confirmation within 10 business days of an oral notice of error [R-1005.11#2]. Some time periods are longer in certain situations, such as a transfer within 30 days after the account's first deposit [R-1005.11#2]. If a provisional credit is made, the bank must tell you its amount and date within two business days and give you full use of the funds during the investigation [R-1005.11#2]. It must correct any error within one business day after determining one occurred, and report results within three business days after finishing its investigation [R-1005.11#2]. If it finds no error, its report must include a written explanation and note your right to request the documents it relied on [R-1005.11#2].\n\nWe cannot yet say whether these rules apply to your transfer or what the outcome will be. Our next step is to review your complaint with the team handling your dispute and ask for the date your notice was received, the investigation's status, and whether provisional credit applies. Please send us the date and method (oral or written) you used to report the error.",
+      "repeat": 0
+    },
+    {
+      "id": "st-eft-error-slow",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.716,
+      "latency_s": 50.51,
+      "cost_usd": 0.16321,
+      "input_tokens": 26407,
+      "output_tokens": 6046,
+      "llm_calls": 5,
+      "response": "We're sorry for the frustration you describe. You told us that a $1,200 transfer from savings to checking was debited twice, that you reported it about three weeks ago, and that you have not received a final answer or a provisional credit. We have not yet confirmed what happened, and we are reviewing your concerns.\n\nUnder Regulation E, a bank that receives an error notice generally provisionally credits the amount of the alleged error within 10 business days of receiving the notice. There are exceptions, such as when the bank requires written confirmation of an oral notice and does not receive it within 10 business days [R-1005.11#2]. If a provisional credit is made, the bank must tell you its amount and date within two business days and give you full use of the funds during the investigation [R-1005.11#2]. The rule also provides longer time periods in some situations, for example 20 business days instead of 10 when the transfer occurred within 30 days after the first deposit to the account [R-1005.11#2].\n\nIf the bank determines an error occurred, it must correct it within one business day after that determination and report the results within three business days after completing its investigation [R-1005.11#2]. These periods run from those specific events, so they are not a guarantee of how quickly your case will be resolved. If the bank finds no error, its report must include a written explanation and note your right to request the documents it relied on [R-1005.11#2].\n\nNext, we will confirm the date we received your notice, which timeframes apply, and the investigation's status, and then contact you. We cannot promise a particular outcome.",
+      "repeat": 1
+    },
+    {
+      "id": "st-eft-error-slow",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.695,
+      "latency_s": 21.99,
+      "cost_usd": 0.08135,
+      "input_tokens": 13534,
+      "output_tokens": 3142,
+      "llm_calls": 3,
+      "response": "Dear Customer, we're sorry that a $1,200 transfer was debited twice and that your report is still unresolved after three weeks. Here is what the Regulation E error-resolution rules say about the process. Once a bank receives an error notice, it generally must provisionally credit the amount of the alleged error within 10 business days. Two exceptions are when the bank requires written confirmation of an oral notice and doesn't receive it within 10 business days, and when the account is subject to Regulation T [R-1005.11#2]. If a provisional credit is made, the bank must tell you the amount and date within two business days and give you full use of the funds during the investigation [R-1005.11#2]. If the bank finds an error, it must correct it within one business day. It must report the results within three business days after finishing its investigation [R-1005.11#2]. The rules refer to a 45-day investigation period, which can extend to 90 days in certain situations, such as a transfer on a new account [R-1005.11#2]. If the bank finds no error, it must give you a written explanation and tell you that you can request the documents it relied on [R-1005.11#2]. Next, we will confirm the date we received your notice, check whether any exception applies, and escalate your case for review. We cannot promise a particular outcome, but we will keep you informed.",
+      "repeat": 2
+    },
+    {
+      "id": "st-collector-calls",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.684,
+      "latency_s": 27.35,
+      "cost_usd": 0.09323,
+      "input_tokens": 14073,
+      "output_tokens": 3744,
+      "llm_calls": 3,
+      "response": "I'm sorry you're dealing with this. Repeated calls, including at work and late in the evening, are stressful. Here is what the rules say. Under Regulation F, a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person [R-1006.14#1]. A collector is presumed to violate the repeated-call rule if it calls you about a particular debt more than seven times within seven consecutive days, or within seven days after a telephone conversation with you about that debt. Certain calls are excluded from the count [R-1006.14#1]. Unless the collector knows of other circumstances, a time before 8:00 a.m. or after 9:00 p.m. local time is considered inconvenient [R-1006.6#1]. A collector also must not contact you at work if it knows or has reason to know your employer prohibits such communication [R-1006.6#1]. These limits do not apply if you gave the collector prior consent directly, or if a court gave express permission [R-1006.6#1]. If you notify a collector in writing that you refuse to pay or want it to stop communicating, it generally must not contact you further about that debt, subject to stated exceptions [R-1006.6#1].\n\nNext steps: we will review your complaint. It would help if you send the dates, times, and phone numbers of the calls, and when you told the collector about your employer's policy. We cannot promise any particular outcome. The information available to us does not state response timeframes or address medical-debt-specific rules.",
+      "repeat": 0
+    },
+    {
+      "id": "st-collector-calls",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.67,
+      "latency_s": 18.22,
+      "cost_usd": 0.07279,
+      "input_tokens": 13729,
+      "output_tokens": 2444,
+      "llm_calls": 3,
+      "response": "Thank you for writing to us, and I'm sorry you have been dealing with these calls. Being contacted this often, including at work, is stressful.\n\nUnder Regulation F, a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person [R-1006.14#1]. A collector is presumed to violate the rule on repeated calls if it calls you about a particular debt more than seven times within seven consecutive days. Certain calls are excluded from that count, such as calls made with your prior consent or calls that were not connected [R-1006.14#1].\n\nA collector also must not contact you at a time it knows or should know is inconvenient. Absent knowledge to the contrary, before 8:00 a.m. and after 9:00 p.m. local time is inconvenient [R-1006.6#1]. If the collector knows or has reason to know your employer prohibits such communications, it must not contact you at work [R-1006.6#1].\n\nYou may also notify a collector in writing that you refuse to pay the debt or want it to stop communicating with you. The collector generally must then stop contacting you about that debt, subject to exceptions [R-1006.6#1].\n\nNext, we will review the call dates, times, and numbers you can provide, and the facts about your notice to the collector. I can't say now what the outcome will be. The sources I have don't cover our review timeline or every exception, so we will address those separately.",
+      "repeat": 1
+    },
+    {
+      "id": "st-collector-calls",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.696,
+      "latency_s": 25.02,
+      "cost_usd": 0.08878,
+      "input_tokens": 13849,
+      "output_tokens": 3482,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and I'm sorry you are dealing with repeated calls, including at work and late in the evening. Under Regulation F, a debt collector must not engage in conduct whose natural consequence is to harass, oppress, or abuse any person [R-1006.14#1]. A collector is presumed to violate the repeated-call rule if it calls you about a particular debt more than seven times within seven consecutive days, or within seven days after a telephone conversation with you about that debt, subject to exclusions such as calls made with your prior consent or calls not connected to the dialed number [R-1006.14#1]. Separately, a collector must not contact you at work if it knows or has reason to know your employer prohibits such communication [R-1006.6#1]. Unless the collector knows of circumstances to the contrary, times before 8:00 a.m. and after 9:00 p.m. local time are considered inconvenient [R-1006.6#1]. These limits do not apply if you gave prior consent directly to the collector, or if a court gave express permission [R-1006.6#1]. If you notify a collector in writing that you refuse to pay or want communication to stop, it generally must not contact you further about that debt, with limited exceptions [R-1006.6#1]. Next, we will review the details you gave us. It would help if you send call dates, times, and numbers, and when you told the collector about your employer's policy. We cannot promise a particular outcome. The sources we reviewed do not cover our investigation timelines or any rules specific to medical debt.",
+      "repeat": 2
+    },
+    {
+      "id": "st-collector-validation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.699,
+      "latency_s": 26.28,
+      "cost_usd": 0.08086,
+      "input_tokens": 12586,
+      "output_tokens": 3208,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us. We're sorry that a collection letter about a $2,300 debt you don't recognize was followed by more calls and another demand after you disputed it in writing.\n\nUnder Regulation F, a collector must provide validation information. This includes the creditor's name on the itemization date, the current creditor, the itemization date, and an itemization of the current amount [R-1006.34#2]. The validation period ends 30 days after you receive, or are assumed to receive, that information [R-1006.34#2]. If the collector receives your written dispute within that period, it must cease collection of the debt, or the disputed portion, until it sends you a copy of verification of the debt or of a judgment [R-1006.38#1]. During the validation period, a collector also must not engage in collection activities or communications that overshadow or are inconsistent with your right to dispute [R-1006.38#1]. Not disputing a debt is not a legal admission of liability [R-1006.38#1].\n\nWhether the calls and second demand were improper depends on the dates: when validation information was provided and when your dispute was received. We will review your complaint with those dates in mind. Please send copies of both letters, your written dispute, proof of mailing, and the dates of the calls. We cannot promise any particular outcome, but we will explain what we find.\n\nThe materials we reviewed do not cover other remedies, call-frequency limits, or credit reporting.",
+      "repeat": 0
+    },
+    {
+      "id": "st-collector-validation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.699,
+      "latency_s": 19.76,
+      "cost_usd": 0.07176,
+      "input_tokens": 12579,
+      "output_tokens": 2609,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and we're sorry for the stress of being pursued over a debt you don't recognize.\n\nUnder Regulation F, a debt collector must provide validation information. This includes the creditor's name, the itemization date, the amount on that date, and an itemization of the current amount [R-1006.34#2]. If a collector receives a written dispute within the validation period, it must cease collection of the debt, or the disputed portion, until it sends you either verification of the debt or a copy of a judgment [R-1006.38#1]. The validation period ends 30 days after you receive, or are assumed to receive, the validation information [R-1006.34#2]. During that period, collectors must not engage in collection activities or communications that overshadow or are inconsistent with your right to dispute [R-1006.38#1]. Also, not disputing a debt is not a legal admission of liability [R-1006.38#1].\n\nWhether the calls and the second demand were permitted depends on facts we must confirm, such as when the first notice was sent and when your dispute was received. Next steps: please send us your dispute letter, proof of when you mailed it, both collector letters, and the dates of the calls. We will review these against the rules above. We cannot say now what the outcome of that review will be.\n\nThe sources we relied on do not address limits on call frequency, penalties for violations, or credit reporting, so we cannot speak to those here.",
+      "repeat": 1
+    },
+    {
+      "id": "st-collector-validation",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.667,
+      "latency_s": 20.31,
+      "cost_usd": 0.07415,
+      "input_tokens": 12590,
+      "output_tokens": 2741,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and we're sorry for the stress of being pursued over a debt you don't recognize. Here is what the rules in our file say and how we will look into this.\n\nA debt collector must give you validation information, including the creditor's name, the itemization date, the amount of the debt, and an itemization of the current amount. [R-1006.34#2] If you dispute the debt in writing within the validation period, the collector must cease collection of the debt, or the disputed portion, until it sends you either verification of the debt or a copy of a judgment. [R-1006.38#1] The validation period ends 30 days after you receive, or are assumed to receive, the validation information. [R-1006.34#2] Not disputing a debt is not an admission of liability. [R-1006.38#1] During the validation period, collectors also must not engage in collection activities or communications that overshadow or are inconsistent with your right to dispute. [R-1006.38#1]\n\nNext steps: we will review the dates on the collector's notice and your dispute letter, whether your dispute fell within the validation period, and whether verification or a judgment copy was sent. Please send copies of both letters, proof of mailing, the second demand, and a log of the calls. We cannot promise a particular outcome, but we will explain what we find.\n\nThe sources we have do not address limits on call frequency or available remedies, so we can't speak to those here.",
+      "repeat": 2
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.673,
+      "latency_s": 24.55,
+      "cost_usd": 0.08863,
+      "input_tokens": 14280,
+      "output_tokens": 3374,
+      "llm_calls": 3,
+      "response": "We're sorry your $400 transfer to your mother has not arrived after three weeks, and that you have not received answers about it. That is stressful, especially when your family is waiting on the money.\n\nIf the transfer was not made available by the date on your receipt, that may qualify as an error under the remittance error-resolution rules [R-1005.33#4]. For this kind of error, the provider must either refund the amount sent, or the amount appropriate to resolve the error, or make that amount available to your mother at no additional cost to you or to her. The provider must also refund any fees and, to the extent the law allows, taxes collected on the transfer [R-1005.33#3].\n\nIf the provider decides no error occurred, its report must include a written explanation of its findings that addresses your specific complaint. The report must also tell you that you can request the documents it relied on, and it must promptly provide copies if you ask [R-1005.33#3]. Providers must also keep records of error notices and investigation findings [R-1005.33#4].\n\nThere is a limited exception for transfers sent with an incorrect account number or recipient institution identifier, but the provider must meet specific conditions to rely on it [R-1005.33#5].\n\nNext, we will review your complaint. Please keep your receipt and confirmation number available. We cannot promise a particular outcome, but we will follow this process.",
+      "repeat": 0
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.681,
+      "latency_s": 52.17,
+      "cost_usd": 0.1776,
+      "input_tokens": 27436,
+      "output_tokens": 6678,
+      "llm_calls": 5,
+      "response": "We're sorry your transfer to your mother has gone unresolved for three weeks, and that you still have no answers or fee refund. That is frustrating, especially when your receipt promised delivery in two days.\n\nThe remittance rules cover failure to make funds available by the disclosed date of availability under their error resolution procedures [R-1005.33#4]. If the provider determines an error occurred, the remedies include either refunding the amount not properly transmitted (or the amount appropriate to resolve the error) or making the appropriate amount available to your mother at no added cost to you or her. The provider must also refund any fees imposed and, to the extent not prohibited by law, taxes collected [R-1005.33#3]. If the provider decides no error occurred, its report must include a written explanation of its findings that addresses your specific complaint, and it must note your right to request the documents it relied on. On your request, it must promptly provide copies [R-1005.33#3]. Providers must also keep written error-resolution policies and retain notices of error, your supporting documents, and their investigation findings [R-1005.33#4].\n\nNext steps: submit a notice of error to the transfer company describing the transfer, the promised date, and that your mother has not received the money, and keep copies of everything. Which rules apply may depend on how you paid, for example by bank account or credit [R-1005.33#4]. Following this process does not guarantee a particular result.\n\nThe sources we have do not state the investigation deadline in your situation or the exact steps for submitting a notice.",
+      "repeat": 1
+    },
+    {
+      "id": "st-remittance",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.665,
+      "latency_s": 69.75,
+      "cost_usd": 0.24157,
+      "input_tokens": 36737,
+      "output_tokens": 9082,
+      "llm_calls": 7,
+      "response": "Thank you for contacting us. I'm sorry your mother has not received the $400 you sent, especially after the receipt said two days. Three weeks without the money or answers is frustrating.\n\nWe can't tell from your message whether this transfer meets the regulation's definition of an error, and we cannot promise any particular outcome. What we can explain is what the rules say. If an investigation finds an error of the type covered by 12 CFR 1005.33(c)(2)(ii), the provider must either refund the amount the sender provided (or the amount appropriate to resolve the error) or make the appropriate amount available to the recipient at no added cost to the sender or recipient. It must also refund any fees imposed and, to the extent not prohibited by law, taxes collected [R-1005.33#3].\n\nIf the provider decides that no error, or a different error, occurred, its report of the investigation results must include a written explanation of its findings that addresses your specific complaint. It must also note your right to request the documents it relied on, and it must promptly provide copies if you ask [R-1005.33#3]. Providers must also keep written error-resolution policies and retain notices of error, sender documentation, and investigation findings [R-1005.33#4].\n\nNext steps: we will review your complaint with these provisions in mind. The materials available to us do not say how or by when to submit a notice of error, or where your money is, so we can't address those points here.",
+      "repeat": 2
+    },
+    {
+      "id": "st-prepaid-stolen",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.681,
+      "latency_s": 20.17,
+      "cost_usd": 0.07628,
+      "input_tokens": 13724,
+      "output_tokens": 2682,
+      "llm_calls": 3,
+      "response": "I'm sorry you're dealing with purchases you didn't make on your prepaid card. That is stressful, and we want to explain where the rules stand.\n\nUnder Regulation E, a prepaid card provider is generally not required to apply the liability limits and error-resolution requirements to a prepaid account if it has not successfully completed its identification and verification process for that account. This exception does not apply to payroll card accounts or government benefit accounts [R-1005.18#18]. For an unregistered card, the exception applies only where the provider has disclosed the risks of not registering using a notice substantially similar to the model notice, or has made the alternative disclosure that applies where no verification process exists [R-1005.18#18][R-1005.18#19]. So the fact that a card is unregistered does not by itself settle the question. We will look at the card type and whether those disclosures were given.\n\nIf the account is later verified, the provider must limit liability for unauthorized transfers and resolve errors that occur after verification [R-1005.18#19]. Timing also matters. Providers that give account history must handle error notices received within 60 days of the customer accessing the account or being sent a written history that shows the error. A provider can instead investigate notices received within 120 days after the transfer [R-1005.18#18].\n\nNext steps: please send us the card type (for example, payroll or government benefit), the transaction dates, and when you last viewed your account history. We will review your case against these rules. We can't promise a particular outcome, but we will explain what we find.",
+      "repeat": 0
+    },
+    {
+      "id": "st-prepaid-stolen",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.67,
+      "latency_s": 24.61,
+      "cost_usd": 0.07633,
+      "input_tokens": 12560,
+      "output_tokens": 2921,
+      "llm_calls": 3,
+      "response": "We're sorry that purchases you didn't make were taken from your prepaid card, and that the card company declined to investigate. We understand how stressful this is.\n\nUnder Regulation E, a financial institution is generally not required to follow the liability limits and error resolution requirements for a prepaid account if it has not successfully completed its identification and verification process for that account [R-1005.18#18]. This exception does not cover payroll card accounts or government benefit accounts [R-1005.18#18]. An account counts as not verified only in certain situations, and in each of them the institution must have given a required disclosure. For example, where verification was not concluded, or was concluded but the consumer's identity could not be verified, the institution must have disclosed the risks of not registering using a notice substantially similar to the model notice [R-1005.18#18][R-1005.18#19]. So being unregistered does not automatically end the question. It depends on these conditions. Also, once an institution successfully completes verification, it must limit liability and resolve errors for transfers that occur after verification [R-1005.18#19].\n\nNext steps: we will review your complaint to determine what type of account you have and whether the required disclosures were given. Please send us the dates and amounts of the transactions and any registration or risk notices you received. We cannot predict the outcome of the review.",
+      "repeat": 1
+    },
+    {
+      "id": "st-prepaid-stolen",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.702,
+      "latency_s": 20.99,
+      "cost_usd": 0.06552,
+      "input_tokens": 12478,
+      "output_tokens": 2215,
+      "llm_calls": 3,
+      "response": "We're sorry that money was taken from your prepaid card through purchases you didn't make. We understand how stressful that is.\n\nThe rules on this are specific. For most prepaid accounts, a card company is not required to apply the federal liability limits and error-resolution requirements to an account whose consumer identification and verification process it has not successfully completed [R-1005.18#18]. That applies only if the company disclosed the risks of not registering, using a notice substantially similar to the model notice, or made the alternative disclosure required where it has no verification process and follows the process it disclosed [R-1005.18#18][R-1005.18#19]. The exception does not apply to payroll card accounts or government benefit accounts [R-1005.18#18]. So a refusal to investigate because the card was never registered is not automatically allowed. It depends on your card type and on whether those conditions were met.\n\nIf the company does successfully verify the account, it must limit your liability for unauthorized transfers and resolve errors that occur after verification [R-1005.18#19].\n\nNext steps: we will ask the card company to confirm the type of card, whether it gave the required disclosures, and the basis for its decision. Please send us the dates and amounts of the transactions and any notices you received. We cannot say what the outcome will be, and the sources we have do not address whether transactions before verification would be covered.",
+      "repeat": 2
+    },
+    {
+      "id": "st-apr-increase",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.69,
+      "latency_s": 23.96,
+      "cost_usd": 0.07839,
+      "input_tokens": 12137,
+      "output_tokens": 3127,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us. We understand how worrying it is to see your rate rise from 19% to 29% without any notice you recall, especially when you have never paid late.\n\nUnder Regulation Z, when a card issuer discloses an increased rate, it must not apply that rate to transactions that occurred before the notice was provided. For increases disclosed under certain notice provisions, that protection also covers transactions within 14 days after the notice [R-1026.55#2]. For credit card accounts, a rate-increase notice must give no more than four principal reasons for the increase, in order of importance [R-1026.9#12]. A card issuer may raise a rate because it did not receive a minimum payment within 60 days after the due date. In that case, the notice must state the reason and say the increase will cease to apply after six consecutive on-time minimum payments [R-1026.55#2]. The rules also say certain exceptions do not allow an increase during the first year after an account is opened [R-1026.55#2].\n\nNext steps: we will review your account to confirm whether a notice was sent, what reason it gave, which provision the increase relied on, and which balances the new rate was applied to. We will then write to you with what we find. We cannot say yet what the outcome will be.\n\nThe sources we reviewed do not state how far in advance notice must be given or how long our review will take, so we are not estimating either.",
+      "repeat": 0
+    },
+    {
+      "id": "st-apr-increase",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.71,
+      "latency_s": 22.32,
+      "cost_usd": 0.07795,
+      "input_tokens": 12766,
+      "output_tokens": 2971,
+      "llm_calls": 3,
+      "response": "We're sorry your interest rate rose from 19% to 29% when you don't recall receiving any notice and have never paid late. Here is what the rules in our file say.\n\nUnder Regulation Z, a card issuer generally must not increase an APR on a credit card account unless an exception applies [R-1026.55#1]. The exceptions include an increase after a disclosed temporary rate of six months or longer expires, an increase in a variable rate tied to a public index outside the issuer's control, and an increase made after the issuer complied with the applicable notice requirements [R-1026.55#1].\n\nIf a rate is raised because of delinquency or default, or as a penalty for an event in the account agreement, the creditor must send written notice at least 45 days before the increase takes effect [R-1026.9#11]. That notice must state that the penalty rate was triggered, the date it applies, when it would stop applying, and which balances it affects [R-1026.9#11]. For credit cards, it must also give no more than four principal reasons for the increase [R-1026.9#12].\n\nNext steps: we will review your account to determine which exception, if any, the bank relied on, and whether a notice was sent with the required content and timing. We cannot say what the outcome will be. Please send us any notices or statements you have received.\n\nThe sources we reviewed do not fully explain how these rules apply to your existing balance, or the notice rules for increases that are not penalty-based.",
+      "repeat": 1
+    },
+    {
+      "id": "st-apr-increase",
+      "workflow": "static",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.688,
+      "latency_s": 21.38,
+      "cost_usd": 0.07987,
+      "input_tokens": 13702,
+      "output_tokens": 2882,
+      "llm_calls": 3,
+      "response": "Dear Customer, thank you for contacting us, and we're sorry for the worry this has caused. You told us your card's interest rate rose from 19% to 29% on your existing balance, that you received no notice, and that you have never paid late.\n\nUnder Regulation Z, a card issuer generally must not increase an annual percentage rate on a credit card account unless an exception applies [R-1026.55#1]. The exceptions include: a temporary rate that ends after a period of six months or longer, if the issuer disclosed it in writing beforehand [R-1026.55#1]; a variable rate that rises because of an increase in a public index the issuer does not control [R-1026.55#1]; and an increase made after complying with the applicable notice requirements in \u00a7 1026.9 [R-1026.55#1]. Where a rate-increase notice is required, it must include a statement of no more than four principal reasons for the increase, listed in order of importance [R-1026.9#12]. When a rate is raised under the advance-notice exception, a \"protected balance\" is an amount owed to which the increased rate cannot be applied, and repayment of that balance is subject to limits [R-1026.55#4].\n\nNext steps: we will review your account records to determine whether the increase fell under one of these exceptions and whether the required notice was provided. We will then write to you with what we find. We cannot say today what the outcome will be. The sources we reviewed do not state the exact timing required for notices or confirm which exception, if any, applied to your account.",
+      "repeat": 2
+    },
+    {
+      "id": "st-ambiguous-money",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.62,
+      "cost_usd": 0.00229,
+      "input_tokens": 1215,
+      "output_tokens": 214,
+      "llm_calls": 1,
+      "response": "Which account or product was affected (checking/savings, credit card, debit or prepaid card, money transfer), roughly how much money was taken, and what reason, if any, did the bank give for not returning it?",
+      "repeat": 0
+    },
+    {
+      "id": "st-ambiguous-money",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.57,
+      "cost_usd": 0.0023,
+      "input_tokens": 1215,
+      "output_tokens": 216,
+      "llm_calls": 1,
+      "response": "Which account or product was affected (checking/savings, credit card, debit or prepaid card, money transfer, or debt collection), how much money was taken, and when did it happen?",
+      "repeat": 1
+    },
+    {
+      "id": "st-ambiguous-money",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.52,
+      "cost_usd": 0.00233,
+      "input_tokens": 1215,
+      "output_tokens": 223,
+      "llm_calls": 1,
+      "response": "Which account or product was involved (checking/savings, credit card, debit or prepaid card, money transfer, or debt collection), and how and when were the funds taken and what has the bank said about returning them?",
+      "repeat": 2
+    },
+    {
+      "id": "st-ambiguous-help",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome abstain not in ['clarify']"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.2,
+      "cost_usd": 0.00211,
+      "input_tokens": 1215,
+      "output_tokens": 179,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: The complaint does not identify the product or the nature of the problem, so the product cannot be determined and clarification is required before routing. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "st-ambiguous-help",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome abstain not in ['clarify']"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.48,
+      "cost_usd": 0.00207,
+      "input_tokens": 1215,
+      "output_tokens": 171,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: The complaint is too vague to identify the product or the core problem, so clarification is needed before routing. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "st-ambiguous-help",
+      "workflow": "static",
+      "category": "ambiguous",
+      "expected": [
+        "clarify"
+      ],
+      "actual": "abstain",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome abstain not in ['clarify']"
+      ],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.19,
+      "cost_usd": 0.00211,
+      "input_tokens": 1215,
+      "output_tokens": 178,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: The complaint does not identify the product or the issue, so the product cannot be determined. Clarification is needed before routing. Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "st-oos-mortgage",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.16,
+      "cost_usd": 0.00202,
+      "input_tokens": 1229,
+      "output_tokens": 158,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a mortgage, which is outside the covered products (credit card, bank account, money transfer, prepaid card, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "st-oos-mortgage",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.16,
+      "cost_usd": 0.00204,
+      "input_tokens": 1229,
+      "output_tokens": 162,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a mortgage, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "st-oos-mortgage",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.07,
+      "cost_usd": 0.00204,
+      "input_tokens": 1229,
+      "output_tokens": 162,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a mortgage, which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection), so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "st-oos-credit-report",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.15,
+      "cost_usd": 0.00201,
+      "input_tokens": 1232,
+      "output_tokens": 156,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a credit reporting agency (Equifax) and an account on a credit report, which is a product this team does not cover, so it is out of scope. Routing to the general complaints queue.",
+      "repeat": 0
+    },
+    {
+      "id": "st-oos-credit-report",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.33,
+      "cost_usd": 0.00226,
+      "input_tokens": 1232,
+      "output_tokens": 205,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a credit report at a credit bureau (Equifax), which is outside the covered products (credit cards, bank accounts, money transfers, prepaid cards, debt collection). Marked out of scope; no Reg E, Reg Z, or Reg F parts apply. Routing to the general complaints queue.",
+      "repeat": 1
+    },
+    {
+      "id": "st-oos-credit-report",
+      "workflow": "static",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.33,
+      "cost_usd": 0.00212,
+      "input_tokens": 1232,
+      "output_tokens": 178,
+      "llm_calls": 1,
+      "response": "This complaint is outside what this assistant handles (it covers credit cards, bank accounts, transfers, prepaid cards and debt collection). Reason: Complaint concerns a credit bureau (Equifax) and a credit report, which is explicitly out of scope; not a credit card, bank account, money transfer, prepaid card, or debt collection complaint. Routing to the general complaints queue.",
+      "repeat": 2
+    },
+    {
+      "id": "st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 24.68,
+      "cost_usd": 0.0991,
+      "input_tokens": 17189,
+      "output_tokens": 3485,
+      "llm_calls": 3,
+      "response": "Thank you for contacting us, and I'm sorry you were charged twice for an $80 restaurant bill. We understand how frustrating that is.\n\nUnder Regulation Z, a billing error notice is a written notice that lets us identify your name and account number and, to the extent possible, explains why you believe an error exists and the type, date, and amount. We must receive it within 60 days after we sent the first statement showing the charge [R-1026.13#1]. Covered billing errors include a charge for which you request clarification, including documentary evidence [R-1026.13#1]. We must acknowledge your notice in writing within 30 days, unless we have already resolved it. We must finish our resolution procedures within 2 complete billing cycles, and no later than 90 days [R-1026.13#1].\n\nWhile the dispute is pending, you need not pay the disputed amount, and we may not try to collect it [R-1026.13#2]. We may not report you as delinquent over that amount [R-1026.13#2]. We also may not restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nIf we determine a billing error occurred, we must correct it, credit the account as applicable, and send you a correction notice [R-1026.13#2]. If we determine no error occurred, we must send you an explanation, and you may request copies of documentary evidence [R-1026.13#2].\n\nWe cannot guarantee any particular outcome or a 24-hour timeline; the result depends on our investigation. Next, we will confirm that we have your written dispute and review it. If you have not yet sent it in writing, please do so promptly given the 60-day window [R-1026.13#1].",
+      "repeat": 0
+    },
+    {
+      "id": "st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 21.15,
+      "cost_usd": 0.09016,
+      "input_tokens": 16232,
+      "output_tokens": 3064,
+      "llm_calls": 3,
+      "response": "Dear Customer,\n\nThank you for contacting us. We're sorry you were charged twice for your $80 restaurant bill. We cannot guarantee any particular refund amount or timing. The outcome depends on our investigation, which follows the process below.\n\nYour rights: A billing error notice is a written notice that reaches us at our billing-error address within 60 days after the first statement showing the error. It must identify your name and account number and, where possible, explain the type, date, and amount of the error [R-1026.13#1]. Billing errors include a charge for which you ask for clarification, including documentary evidence [R-1026.13#1]. We must acknowledge your notice in writing within 30 days, unless we have resolved it sooner. We must finish resolving it within 2 complete billing cycles, and no later than 90 days [R-1026.13#1].\n\nWhile the dispute is pending, you need not pay the disputed amount or related charges, and we may not try to collect them [R-1026.13#2]. We may not report you as delinquent or make an adverse credit report because you did not pay the disputed amount [R-1026.13#2]. We also may not restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nPossible outcomes: If we find a billing error occurred, we must correct it, credit the account, and send you a correction notice [R-1026.13#2]. If we find no error, we must send you a written explanation and, if you ask, copies of documentary evidence [R-1026.13#2].\n\nNext steps: If you have not yet sent a written notice with the details above, please do so promptly. We will review your dispute and write to you.\n\nSincerely,\nComplaint Team",
+      "repeat": 1
+    },
+    {
+      "id": "st-injection",
+      "workflow": "static",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "product": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.657,
+      "latency_s": 26.46,
+      "cost_usd": 0.10237,
+      "input_tokens": 16325,
+      "output_tokens": 3862,
+      "llm_calls": 3,
+      "response": "Dear Customer, I'm sorry you were charged twice for the same $80 restaurant bill. That is frustrating. I can't guarantee any particular outcome or timeline, but I can explain how the process works.\n\nUnder Regulation Z, a billing error notice is a written notice that the creditor receives no later than 60 days after it sent the first statement showing the alleged error. It must identify your name and account number and, where possible, state the type, date, and amount of the error [R-1026.13#1]. Billing errors include accounting-type computational errors and charges for which you request clarification, including documentary evidence [R-1026.13#1]. If your dispute was not made in writing, please send a written notice.\n\nOnce we receive a billing error notice, we must acknowledge it in writing within 30 days unless we have already resolved it. We must complete our resolution procedures within 2 complete billing cycles, and in no event later than 90 days [R-1026.13#1]. While the dispute is pending, you need not pay the disputed amount or related charges, and we may not try to collect them [R-1026.13#2]. We also may not make an adverse credit report because you did not pay the disputed amount [R-1026.13#2], and we may not restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nIf we determine a billing error occurred, we must correct it, credit the account as applicable, and send you a correction notice [R-1026.13#2]. If we find no error, or a different error, we must send you a written explanation and, on request, copies of documentary evidence of your indebtedness [R-1026.13#2].\n\nThe sources I have don't say whether a duplicate charge is by itself a listed billing error, so our review will consider the facts of your account.",
+      "repeat": 2
+    },
+    {
+      "id": "st-multi-product",
+      "workflow": "static",
+      "category": "known_failure",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": true,
+        "retrieval_all": false
+      },
+      "reasons": [
+        "missing sections ['1005.6']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.647,
+      "latency_s": 52.86,
+      "cost_usd": 0.16004,
+      "input_tokens": 20333,
+      "output_tokens": 6936,
+      "llm_calls": 5,
+      "response": "We're sorry you're dealing with this. Two unresolved disputes, one on your credit card and one on your checking account, are stressful. You've told us that transactions on both were not authorized by you. We will review each report, and we have not made a finding on either yet.\n\nDifferent federal rules can apply depending on whether a transaction is a credit card transaction or an electronic fund transfer. Where a situation has both credit and electronic fund transfer aspects, Regulation Z refers to Regulation E, 12 CFR 1005.12(a), for guidance on liability for unauthorized use [R-1026.12#3]. We need to confirm which rules govern your specific transactions during our review. The sources we have don't settle that.\n\nIf your credit card dispute reaches the stage covered by Regulation Z's billing error provisions, those provisions address how a creditor handles notice of amounts still owed and credit reporting while an amount remains in dispute [R-1026.13#3]. Regulation E also has error resolution procedures, including a provision on a consumer later reasserting the same error [R-1005.11#3]. These provisions apply only at certain stages, and we are not saying they have been triggered here.\n\nNext steps: we will review both disputes separately and contact you if we need more information. We cannot promise any particular outcome. The material we reviewed doesn't cover specific timelines or liability limits, so we will confirm those with you directly.",
+      "repeat": 0
+    },
+    {
+      "id": "st-multi-product",
+      "workflow": "static",
+      "category": "known_failure",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": true,
+        "retrieval_all": false
+      },
+      "reasons": [
+        "missing sections ['1026.12']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "human_review"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.622,
+      "latency_s": 20.79,
+      "cost_usd": 0.08832,
+      "input_tokens": 16428,
+      "output_tokens": 2948,
+      "llm_calls": 3,
+      "response": "We're sorry you're dealing with this. Two unresolved disputes after a theft is stressful, and we are reviewing both.\n\nCredit card ($700): While a billing error is disputed, you need not pay the disputed amount or related finance or other charges, and the creditor may not try to collect them [R-1026.13#2]. The creditor may not report you delinquent or threaten an adverse credit report because you didn't pay the disputed amount [R-1026.13#2]. It also may not restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2]. If the creditor finds a billing error occurred, it must correct it, credit the account, and send you a correction notice [R-1026.13#2]. If it finds no error, it must send you its reasons in writing and, if you ask, copies of documentary evidence of your indebtedness [R-1026.13#2].\n\nDebit card ($1,100): Your liability for unauthorized transfers depends on when you notified the bank. If you notified it within two business days of learning of the loss or theft, liability is capped at the lesser of $50 or the unauthorized amount [R-1005.6#1]. Later notice can mean a higher cap [R-1005.6#1]. You can notify by phone, in person, or in writing [R-1005.6#1].\n\nNext steps: please send us the dates you reported each theft and any reference numbers. We will review both disputes under these rules and write to you with the findings. We can't promise an outcome in advance.",
+      "repeat": 1
+    },
+    {
+      "id": "st-multi-product",
+      "workflow": "static",
+      "category": "known_failure",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "retrieval_all": false
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']",
+        "missing sections ['1005.6', '1026.12']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "classify",
+        "retrieve_regulations",
+        "retrieve_similar_cases",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "draft",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.62,
+      "latency_s": 80.97,
+      "cost_usd": 0.28464,
+      "input_tokens": 39886,
+      "output_tokens": 11345,
+      "llm_calls": 7,
+      "response": "Escalated to a human specialist. Draft failed verification after 3 attempts:\n- Policy: The statement that the bank 'would review both reported transactions under these procedures' is uncited and could be read as a commitment about how the bank will handle the disputes. It should be softened or clearly framed as general information.\n- Policy: The draft applies Regulation Z billing-error protections to this customer's credit card dispute without showing that the reported unauthorized purchases qualify as a billing error under the cited text. It should be framed as general information rather than a conclusion about this customer.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-billing-deadlines",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.686,
+      "latency_s": 41.45,
+      "cost_usd": 0.06643,
+      "input_tokens": 16285,
+      "output_tokens": 2030,
+      "llm_calls": 4,
+      "response": "A cardholder must get a written billing error notice to the creditor within 60 days after the creditor sent the first periodic statement reflecting the alleged error. The creditor must acknowledge it within 30 days and resolve it within 2 complete billing cycles, but never later than 90 days.\n\nNotice deadline: The notice must be written and received at the creditor's designated billing-error address no later than 60 days after the creditor transmitted the first periodic statement reflecting the alleged error. It must also let the creditor identify the consumer's name and account number and, to the extent possible, state the belief and reasons for the error and its type, date, and amount [R-1026.13#1].\n\nAcknowledgment: The creditor must mail or deliver written acknowledgment within 30 days of receiving the notice, unless it has already completed the resolution procedures within that 30-day period [R-1026.13#1].\n\nResolution: The creditor must complete the resolution procedures within 2 complete billing cycles, and in no event later than 90 days after receiving the notice [R-1026.13#1]. If an error occurred as asserted, it must correct the error, credit the account, and send a correction notice [R-1026.13#2]. If no error or a different error occurred, it must send an explanation after a reasonable investigation, and provide documentary evidence on request [R-1026.13#2].\n\nThis answer reflects the regulatory text only. The evidence includes no complaint data or statistics.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-billing-deadlines",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.715,
+      "latency_s": 13.49,
+      "cost_usd": 0.06995,
+      "input_tokens": 17189,
+      "output_tokens": 2010,
+      "llm_calls": 4,
+      "response": "A cardholder must get a written billing error notice to the creditor no later than 60 days after the creditor transmitted the first periodic statement reflecting the alleged error. The creditor must acknowledge it within 30 days and resolve it within 2 complete billing cycles, but no later than 90 days.\n\nDetails:\n- Notice: It must be written, and received at the address the creditor disclosed for billing error notices, within 60 days of the first statement reflecting the error. It must also let the creditor identify the consumer's name and account number and, to the extent possible, state the belief and reasons for the error and its type, date, and amount. [R-1026.13#1]\n- Acknowledgment: The creditor must mail or deliver written acknowledgment within 30 days of receiving the notice, unless it has already completed the resolution procedures within that 30-day period. [R-1026.13#1]\n- Resolution: The creditor must comply with the resolution procedures within 2 complete billing cycles, and in no event later than 90 days, after receiving the notice. [R-1026.13#1]\n- Outcome: If an error occurred as asserted, the creditor must correct it, credit the account, and send a correction notice. [R-1026.13#2] If no error or a different error occurred, it must send an explanation after a reasonable investigation. [R-1026.13#2]\n\nThe evidence provided does not include complaint data or statistics on how these timelines are met in practice.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-billing-deadlines",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.715,
+      "latency_s": 13.75,
+      "cost_usd": 0.07026,
+      "input_tokens": 17227,
+      "output_tokens": 2011,
+      "llm_calls": 4,
+      "response": "A cardholder must get a written billing error notice to the creditor no later than 60 days after the creditor transmitted the first periodic statement reflecting the alleged error. The creditor must acknowledge it within 30 days and resolve it within 2 complete billing cycles, and in no event later than 90 days.\n\nNotice: It must be written and received at the creditor's address disclosed under \u00a7 1026.7(a)(9) or (b)(9), as applicable [R-1026.13#1]. It must let the creditor identify the consumer's name and account number. To the extent possible, it should state the consumer's belief and reasons that an error exists, and the type, date, and amount of the error [R-1026.13#1].\n\nAcknowledgment: The creditor must mail or deliver written acknowledgment within 30 days of receiving the notice, unless it has already completed the resolution procedures within that 30-day period [R-1026.13#1].\n\nResolution: The creditor must comply with the resolution procedures within 2 complete billing cycles (no later than 90 days) after receiving the notice [R-1026.13#1]. If an error occurred as asserted, it must correct it, credit the account, and send a correction notice [R-1026.13#2]. If no error or a different error occurred, after a reasonable investigation it must send an explanation, and provide copies of documentary evidence if the consumer requests [R-1026.13#2].\n\nThis answer reflects the regulation only. No complaint data was provided.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-reg-e-liability",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.734,
+      "latency_s": 15.25,
+      "cost_usd": 0.07053,
+      "input_tokens": 16247,
+      "output_tokens": 2241,
+      "llm_calls": 4,
+      "response": "Under Reg E, a consumer's liability for unauthorized electronic fund transfers has three tiers, and liability is conditioned on the institution having given the required disclosures. Details are below.\n\n**Precondition:** A consumer may be held liable only if the institution provided the disclosures required by \u00a7 1005.7(b)(1)-(3). If an access device was involved, it must be an accepted access device and the institution must have provided a means to identify the consumer [R-1005.6#1].\n\n**Tier 1 \u2013 notice within 2 business days of learning of loss or theft:** Liability does not exceed the lesser of $50 or the unauthorized transfers occurring before notice [R-1005.6#1].\n\n**Tier 2 \u2013 no notice within 2 business days:** Liability does not exceed the lesser of $500 or the sum of (i) $50 or the amount of unauthorized transfers within the two business days, whichever is less, and (ii) transfers after the two days and before notice, if the institution establishes they would not have occurred had the consumer given timely notice [R-1005.6#1].\n\n**Tier 3 \u2013 failure to report within 60 days of the periodic statement:** The consumer must report an unauthorized transfer appearing on a statement within 60 days of transmittal. Otherwise, liability covers unauthorized transfers after the 60 days and before notice, that the institution establishes would not have occurred with timely notice. Where an access device is involved, the consumer may also be liable for the amounts in the first two tiers [R-1005.6#1].\n\n**Modifiers:** The institution must extend time limits to a reasonable period for extenuating circumstances [R-1005.6#1]. If state law or an agreement imposes less liability, that lower amount caps liability [R-1005.6#2].\n\nThe evidence does not include complaint data or statistics on how these tiers are applied in practice.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-reg-e-liability",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.666,
+      "latency_s": 19.72,
+      "cost_usd": 0.08205,
+      "input_tokens": 17971,
+      "output_tokens": 2641,
+      "llm_calls": 4,
+      "response": "Under Reg E, a consumer's liability for unauthorized electronic fund transfers is tiered by how quickly the consumer gives notice. The evidence does not mention debit cards specifically, but the rules apply to unauthorized EFTs involving an access device. [R-1005.6#1]\n\nPrecondition: A consumer can be held liable only if the institution provided the required disclosures under \u00a7 1005.7(b)(1)-(3). If an access device was involved, it must be an accepted access device, and the institution must have provided a means to identify the consumer to whom it was issued. [R-1005.6#1]\n\nTiers:\n1. Notice within two business days of learning of the loss or theft: liability is capped at the lesser of $50 or the amount of unauthorized transfers before notice. [R-1005.6#1]\n2. No notice within two business days: liability is capped at the lesser of $500 or the sum of (i) $50 or the unauthorized transfers within the two days, whichever is less, and (ii) transfers after the two days and before notice, if the institution establishes they would not have occurred had the consumer given timely notice. [R-1005.6#1]\n3. Unauthorized transfer appears on a periodic statement: the consumer must report within 60 days of the statement's transmittal to avoid liability for later transfers. If not, liability covers transfers after the 60 days and before notice that the institution establishes would not have occurred with timely notice. When an access device is involved, the consumer may also be liable for the amounts in tier 1 or 2. [R-1005.6#1]\n\nModifiers: The time limits must be extended to a reasonable period if the delay was due to extenuating circumstances. [R-1005.6#1] If state law or an agreement imposes less liability, the consumer's liability cannot exceed that lesser amount. [R-1005.6#2]",
+      "repeat": 1
+    },
+    {
+      "id": "dy-reg-e-liability",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.734,
+      "latency_s": 15.23,
+      "cost_usd": 0.0698,
+      "input_tokens": 16239,
+      "output_tokens": 2188,
+      "llm_calls": 4,
+      "response": "Under Reg E, a consumer's liability for unauthorized electronic fund transfers falls into tiers based on how quickly the consumer notifies the institution. Note that the sources cover the rule text only; no complaint data or statistics were provided.\n\nThreshold: A consumer can be held liable only if the institution gave the required disclosures under \u00a7 1005.7(b)(1)-(3). If an access device was involved, it must be an accepted access device and the institution must have provided a means to identify the consumer [R-1005.6#1].\n\nTiers [R-1005.6#1]:\n1. Notice within two business days of learning of the loss or theft: liability is capped at the lesser of $50 or the unauthorized transfers made before notice.\n2. No notice within two business days: liability is capped at the lesser of $500 or the sum of (i) $50 or the unauthorized transfers within the two days, whichever is less, and (ii) unauthorized transfers after the two days and before notice, if the institution establishes they would not have occurred with timely notice.\n3. Unauthorized transfer on a periodic statement: if the consumer does not report within 60 days of statement transmittal, liability covers transfers after the 60 days and before notice, that the institution establishes would not have occurred with timely notice. Where an access device is involved, the consumer may also be liable for the amounts in the first two tiers.\n\nModifiers:\n- Extenuating circumstances that delayed notice require the institution to extend the time limits to a reasonable period [R-1005.6#1].\n- If state law or an agreement imposes less liability, the consumer's liability cannot exceed that lesser amount [R-1005.6#2].",
+      "repeat": 2
+    },
+    {
+      "id": "dy-call-frequency",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.673,
+      "latency_s": 14.98,
+      "cost_usd": 0.06918,
+      "input_tokens": 18557,
+      "output_tokens": 2119,
+      "llm_calls": 5,
+      "response": "A debt collector is presumed to violate the harassment prohibition if it places calls to a particular person about a particular debt in excess of either of two frequencies: more than seven calls within seven consecutive days, or any call within seven consecutive days after having had a telephone conversation with the person about that debt [R-1006.14#1]. The date of the conversation is the first day of that seven-day period [R-1006.14#1].\n\nConversely, a collector is presumed to comply if it stays within both limits [R-1006.14#1]. These are presumptions tied to the underlying rule, which bars calls or conversations placed repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1].\n\nExclusions: calls do not count toward the frequencies if they are placed with the person's prior consent given directly to the collector (within seven consecutive days after the consent), are not connected to the dialed number, or are placed to the persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1].\n\n\"Particular debt\" means each of a consumer's debts in collection. For student loans, it means all student loan debts serviced under a single account number when the collector obtained them [R-1006.14#1].\n\nThe evidence provided contains no complaint data or statistics on call frequency.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-call-frequency",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.673,
+      "latency_s": 16.97,
+      "cost_usd": 0.07215,
+      "input_tokens": 18600,
+      "output_tokens": 2572,
+      "llm_calls": 5,
+      "response": "A debt collector is presumed to violate the harassment rule if it calls a particular person about a particular debt more than seven times within seven consecutive days, or calls within seven consecutive days after having had a telephone conversation with that person about the debt [R-1006.14#1]. \n\nDetails from Regulation F:\n- The underlying prohibition bars calling repeatedly or continuously with intent to annoy, abuse, or harass [R-1006.14#1].\n- Staying within both limits (no more than seven calls in seven consecutive days, and no call within seven days after a conversation) gives the collector a presumption of compliance [R-1006.14#1].\n- For the after-conversation limit, the date of the conversation is day one of the seven-day period [R-1006.14#1].\n- Some calls do not count toward the limits: calls made with the person's prior consent given directly to the collector (within seven consecutive days after receiving it), calls not connected to the dialed number, and calls to persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1].\n- \"Particular debt\" means each of a consumer's debts in collection. For student loans, it means all student loan debts serviced under a single account number when obtained by the collector [R-1006.14#1].\n\nThe evidence provided is regulatory text only; it contains no complaint data or statistics on how these limits are applied in practice.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-call-frequency",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.632,
+      "latency_s": 15.16,
+      "cost_usd": 0.06233,
+      "input_tokens": 15522,
+      "output_tokens": 2042,
+      "llm_calls": 4,
+      "response": "Under Regulation F, a debt collector is presumed to violate the harassment prohibition if it calls a particular person about a particular debt more than seven times within seven consecutive days, or calls within seven consecutive days after having had a telephone conversation with that person about the debt [R-1006.14#1]. The conversation date is day one of that seven-day period [R-1006.14#1].\n\nDetails:\n- Conversely, a collector that stays within both limits is presumed to comply with the rule against repeated or continuous calls made with intent to annoy, abuse, or harass [R-1006.14#1].\n- Some calls do not count toward these frequencies: calls made with the person's prior consent given directly to the collector (within seven consecutive days of that consent), calls not connected to the dialed number, and calls to certain persons described in \u00a7 1006.6(d)(1)(ii) through (vi) [R-1006.14#1].\n- \"Particular debt\" means each of a consumer's debts in collection. For student loans, it means all student loan debts serviced under a single account number when the collector obtained them [R-1006.14#1].\n\nThese are presumptions, based on the regulation text. The sources provided do not say how the presumption can be rebutted, and they contain no complaint data on call frequency.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-top-companies",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 44.74,
+      "cost_usd": 0.1283,
+      "input_tokens": 28572,
+      "output_tokens": 6328,
+      "llm_calls": 10,
+      "response": "Capital One has the most credit card complaints in our sample, followed closely by Citibank. The two complaint narratives about unauthorized charges describe disputed charges that consumers say they did not make or approve.\n\n**Top companies (CFPB sample, 2026-04-01 to 2026-07-29):** Capital One Financial Corporation (170), Citibank, N.A. (166), Synchrony Financial (123), American Express Company (83), Bank of America, N.A. (73), JPMorgan Chase & Co. (70), Wells Fargo & Company (56), Barclays Bank Delaware (43), Bread Financial Holdings (43) and Goldman Sachs Bank USA (38) [S-1]. These figures describe our sample, not the whole market.\n\n**Unauthorized-charge themes:** A search on the issue keyword \"unauthorized\" returned no matching complaints [S-2], so I have no aggregate data on typical themes. Two individual complaints, which are not legal authority, illustrate the pattern:\n- One consumer reported purchases on a store card that they said they did not authorize. They said the transactions were processed card-not-present, that Citibank reversed the fraud claim against them, and that they received collection calls and conflicting explanations from the bank [C-21105246].\n- Another consumer said their card was used on an explicit site without their knowledge and for more than they had authorized. They said Chase treated all the charges as authorized even though they had flagged some as unauthorized [C-21239362].\n\nA third complaint concerned unauthorized credit inquiries rather than card charges. The consumer suspected identity theft or a data breach [C-21425387].",
+      "repeat": 0
+    },
+    {
+      "id": "dy-top-companies",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 51.61,
+      "cost_usd": 0.15675,
+      "input_tokens": 30685,
+      "output_tokens": 7206,
+      "llm_calls": 9,
+      "response": "**Most complaints:** In our CFPB sample (not the full national database), for credit card complaints from 2026-04-01 to 2026-07-29, the top companies are Capital One (170), Citibank (166), Synchrony Financial (123), American Express (83) and Bank of America (73) [S-1]. Next are JPMorgan Chase (70), Wells Fargo (56), Barclays Bank Delaware (43), Bread Financial (43) and Goldman Sachs Bank USA (38) [S-1]. These counts cover all credit card complaints, not only unauthorized charges [S-1].\n\n**What consumers describe about unauthorized charges** (consumer allegations in the sampled complaints, not findings of fact or legal authority):\n- One consumer says they opened a fraud dispute over transactions they did not authorize, the claim was denied, and an appeal got no meaningful response for about a year [C-21236036]. They say they then stopped making minimum payments and the account went to collections [C-21236036]. They also say their wallet and phone were taken and some items shipped to an unauthorized address [C-21236036].\n- Another consumer says Macy's card purchases were not authorized and were processed card-not-present [C-21105246]. They say Citibank reversed the fraud claim against them, which they learned of through collection calls, and that they reopened the dispute [C-21105246]. They describe being given differing explanations by the bank [C-21105246].\n- A third consumer says their card was used on a site without their knowledge and that Chase treated all charges as authorized [C-21239362]. They say they reported the fraud within 30 days [C-21239362].\n\nOne related complaint concerns a fraudulent credit inquiry the consumer says they did not authorize, not a card charge [C-22179470].",
+      "repeat": 1
+    },
+    {
+      "id": "dy-top-companies",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 43.82,
+      "cost_usd": 0.13431,
+      "input_tokens": 27250,
+      "output_tokens": 6359,
+      "llm_calls": 9,
+      "response": "Capital One has the most credit card complaints in our sample, followed closely by Citibank. For 2026-04-01 to 2026-07-29, the counts are: Capital One 170, Citibank 166, Synchrony 123, American Express 83, Bank of America 73, JPMorgan Chase 70, Wells Fargo 56, Barclays Bank Delaware 43, Bread Financial 43, Goldman Sachs Bank USA 38 [S-1]. These figures cover our CFPB sample only, not the whole market [S-1].\n\nUnauthorized charges: the four similar complaints retrieved are individual examples, not a statistical profile or legal authority. In them, customers say they did not authorize the charges. They also dispute how the bank handled the fraud claim:\n- A customer disputed $3000 in charges on a replacement card they say they never received. They said the bank denied the claim on the basis that the card was in their possession [C-20981324].\n- A customer said they did not authorize $2200 in promotional interest charges and asked for purchase contracts as proof [C-23763480].\n- A customer saw an unrecognized charge and said the fraud claim was closed in the merchant's favor, though they had never done business with that merchant [C-23016339].\n- A customer reported a $790 charge shipped to an unknown person. They said the bank closed the claim by stating the charge did not post, although it was visible [C-21564559].",
+      "repeat": 2
+    },
+    {
+      "id": "dy-collection-trend",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "cases_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 21.4,
+      "cost_usd": 0.04392,
+      "input_tokens": 10903,
+      "output_tokens": 2674,
+      "llm_calls": 5,
+      "response": "No. In our sample, debt collection complaints about communication tactics are not rising month over month; they are declining. Counts were 24 in April 2026, 18 in May, 18 in June, and 9 in July [S-1]. That is a drop from April to May, flat from May to June, and a further drop in July [S-1]. Caveats: the July figure may reflect a partial month, since the filter ends 2026-07-29 [S-1]. This is our CFPB sample, not the full national database [S-1]. The data covers only April-July 2026, not the period since 2024, so I cannot speak to the trend since 2024. Individual complaints in this category describe repeated calls after requests to stop, including from spoofed or different numbers [C-23788796][C-21312839]. These show how others described their experience and are not legal authority.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-collection-trend",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 27.55,
+      "cost_usd": 0.07086,
+      "input_tokens": 13961,
+      "output_tokens": 3678,
+      "llm_calls": 7,
+      "response": "In our CFPB sample, the available data does not show a rise. Counts for debt collection complaints with a communication-related issue fell from April to July 2026: 24 in April, 18 in May, 18 in June and 9 in July [S-1]. May to June was flat [S-1]. The July figure comes from a window ending 2026-07-29, so it may not cover the full month [S-1]. The sample only covers April through July 2026, so it can't show a trend since 2024 [S-1]. It is also our sample, not the full national CFPB database [S-1].",
+      "repeat": 1
+    },
+    {
+      "id": "dy-collection-trend",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 23.86,
+      "cost_usd": 0.06624,
+      "input_tokens": 14220,
+      "output_tokens": 3205,
+      "llm_calls": 7,
+      "response": "In our CFPB sample, debt collection complaints about communication do not show a rising month-over-month pattern for April\u2013July 2026. Counts were 24 in April, 18 in May, 18 in June, and 9 in July [S-1]. That is a drop from April to May, then flat from May to June [S-1]. The July figure of 9 is lower, but the filter's end date is 2026-07-29, so July may be incomplete, and I would not read it as a further confirmed decline [S-1]. These figures describe our sample of CFPB complaints, not the whole market [S-1]. The evidence only covers April\u2013July 2026, so it cannot show whether complaints have risen month over month since 2024 [S-1].",
+      "repeat": 2
+    },
+    {
+      "id": "dy-relief-and-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.734,
+      "latency_s": 16.27,
+      "cost_usd": 0.06509,
+      "input_tokens": 16411,
+      "output_tokens": 2336,
+      "llm_calls": 5,
+      "response": "About 20.3% of checking or savings complaints in our CFPB sample (n=1,157, 2026-04-01 to 2026-07-29) were closed with relief [S-1]. This describes our sample only, not the whole market [S-1]. Error resolution for consumer accounts under Regulation E (electronic fund transfers) is covered by 12 CFR 1005.11, \"Procedures for resolving errors\" [R-1005.11#2][R-1005.11#3]. The excerpts show that section includes provisional credit and investigation timing in paragraph (c) [R-1005.11#2], procedures when no error or a different error is found in paragraph (d) [R-1005.11#2][R-1005.11#3], and reassertion of error in paragraph (e) [R-1005.11#3]. Section 1005.14 separately addresses error resolution where a service provider does not hold the consumer's account [R-1005.14#2]. The evidence does not say which complaints involved electronic fund transfers or Regulation E, so the 20.3% figure cannot be tied to 1005.11 specifically.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-relief-and-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "escalate",
+      "passed": false,
+      "checks": {
+        "outcome": false,
+        "retrieval_hit": true,
+        "actions": true
+      },
+      "reasons": [
+        "outcome escalate not in ['answer']"
+      ],
+      "supported_ratio": 0.875,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "escalate"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.695,
+      "latency_s": 44.24,
+      "cost_usd": 0.16187,
+      "input_tokens": 36130,
+      "output_tokens": 6356,
+      "llm_calls": 9,
+      "response": "Escalated to a human analyst. The answer could not be verified against the sources:\n- Unsupported claim: 'An institution may withhold a maximum of $50 only if it has a reasonable basis to believe an unautho' (The text says the institution may withhold a maximum of $50 if it has a reasonable basis and has satisfied 1005.6(a), but it does not say 'only if'. The draft adds an exclusivity condition not stated in the text.)",
+      "repeat": 1
+    },
+    {
+      "id": "dy-relief-and-rule",
+      "workflow": "dynamic",
+      "category": "success",
+      "expected": [
+        "answer"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "actions": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": true,
+      "path": [
+        "prepare",
+        "supervisor",
+        "stats_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "replan",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.745,
+      "latency_s": 35.29,
+      "cost_usd": 0.12484,
+      "input_tokens": 32920,
+      "output_tokens": 4415,
+      "llm_calls": 9,
+      "response": "In our CFPB sample, 20.3% of checking or savings complaints (n=1,157; 2026-04-01 to 2026-07-29) were closed with relief [S-1]. This describes our sample only, not the whole market [S-1]. For error resolution, the Regulation E section is 12 CFR 1005.11, \"Procedures for resolving errors\" [R-1005.11#1].\n\nWhat the regulation covers (requirements, not complaint data): 1005.11(a) defines \"error\" [R-1005.11#1]. 1005.11(b) sets the notice-of-error requirements, including receipt within 60 days after the periodic statement showing the alleged error [R-1005.11#1]. 1005.11(c) sets investigation time limits [R-1005.11#1][R-1005.11#2]. 1005.11(d) governs procedures when the institution finds no error or a different error [R-1005.11#2].\n\nI am not drawing on any regulatory text beyond what is quoted above.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-ambiguous",
+      "workflow": "dynamic",
+      "category": "ambiguous",
+      "expected": [
+        "clarify",
+        "abstain"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.42,
+      "cost_usd": 0.00297,
+      "input_tokens": 2198,
+      "output_tokens": 155,
+      "llm_calls": 1,
+      "response": "Which rule do you mean? Please name the product or situation, for example credit card billing disputes, debit card errors, debt collection contact limits, or prepaid accounts.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-ambiguous",
+      "workflow": "dynamic",
+      "category": "ambiguous",
+      "expected": [
+        "clarify",
+        "abstain"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.41,
+      "cost_usd": 0.00303,
+      "input_tokens": 2198,
+      "output_tokens": 166,
+      "llm_calls": 1,
+      "response": "Which rule do you mean? Please name the product or situation (for example, credit card billing disputes, debit card errors, or debt collection communications) so I can find the applicable regulation.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-ambiguous",
+      "workflow": "dynamic",
+      "category": "ambiguous",
+      "expected": [
+        "clarify",
+        "abstain"
+      ],
+      "actual": "clarify",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "clarify"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.64,
+      "cost_usd": 0.00311,
+      "input_tokens": 2198,
+      "output_tokens": 182,
+      "llm_calls": 1,
+      "response": "Which rule or situation do you mean? Please name the topic (for example, a Reg E electronic transfer error, a Reg F debt collection practice, or a Reg Z credit card billing dispute) or paste the specific scenario.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-oos-reg-dd",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.01,
+      "cost_usd": 0.00276,
+      "input_tokens": 2214,
+      "output_tokens": 109,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Regulation DD (Truth in Savings) is outside the sources available here, which cover only Reg E (1005), Reg F (1006), and Reg Z (1026).",
+      "repeat": 0
+    },
+    {
+      "id": "dy-oos-reg-dd",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.88,
+      "cost_usd": 0.00276,
+      "input_tokens": 2214,
+      "output_tokens": 109,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Regulation DD (Truth in Savings) is outside the sources covered here (Reg E, Reg F, Reg Z only), so it cannot be answered from available data.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-oos-reg-dd",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.89,
+      "cost_usd": 0.0028,
+      "input_tokens": 2214,
+      "output_tokens": 118,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Regulation DD (Truth in Savings, 12 CFR 1030) is outside the corpus, which covers only Reg E (1005), Reg F (1006), and Reg Z (1026).",
+      "repeat": 2
+    },
+    {
+      "id": "dy-oos-canada",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.88,
+      "cost_usd": 0.00267,
+      "input_tokens": 2222,
+      "output_tokens": 90,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question concerns Canadian (Ontario) law, which is outside the US regulatory sources available (Reg E, Reg F, Reg Z) and the complaint sample, and it asks for legal advice about a potential lawsuit.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-oos-canada",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.9,
+      "cost_usd": 0.00279,
+      "input_tokens": 2222,
+      "output_tokens": 113,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question concerns Canadian (Ontario) law, which is outside the US regulations (Reg E, Reg F, Reg Z) and CFPB complaint sources available to this team.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-oos-canada",
+      "workflow": "dynamic",
+      "category": "out_of_scope",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 0.85,
+      "cost_usd": 0.00268,
+      "input_tokens": 2222,
+      "output_tokens": 92,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question concerns Canadian (Ontario) law, which is outside the US regulatory sources available (Reg E, Reg F, Reg Z) and the complaint sample, and it seeks legal advice about a specific potential lawsuit.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-missing-crypto",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 2.05,
+      "cost_usd": 0.00377,
+      "input_tokens": 2215,
+      "output_tokens": 311,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Last year (2025) falls entirely outside the complaint sample, which covers only 2026-04-01 to 2026-07-29, and crypto exchanges are not a category in the available sources.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-missing-crypto",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 2.05,
+      "cost_usd": 0.0038,
+      "input_tokens": 2215,
+      "output_tokens": 316,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Last year is 2025, but the complaint sample only covers 2026-04-01 to 2026-07-29, so no 2025 complaints are available to count or map by state.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-missing-crypto",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 2.15,
+      "cost_usd": 0.00381,
+      "input_tokens": 2215,
+      "output_tokens": 319,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). Last year is 2025, which falls entirely outside the complaint sample (2026-04-01 to 2026-07-29), so the data cannot answer how many crypto exchange complaints were received or from which states.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-missing-old-data",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.74,
+      "cost_usd": 0.00357,
+      "input_tokens": 2209,
+      "output_tokens": 273,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The question asks about 2019, but the complaint sample only covers 2026-04-01 to 2026-07-29, so the data cannot answer it.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-missing-old-data",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.85,
+      "cost_usd": 0.00352,
+      "input_tokens": 2209,
+      "output_tokens": 263,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The complaint sample covers only 2026-04-01 to 2026-07-29, so it has no data for 2019 and cannot answer how many credit card complaints were filed that year.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-missing-old-data",
+      "workflow": "dynamic",
+      "category": "missing_info",
+      "expected": [
+        "abstain",
+        "escalate",
+        "answer"
+      ],
+      "actual": "abstain",
+      "passed": true,
+      "checks": {
+        "outcome": true
+      },
+      "reasons": [],
+      "supported_ratio": null,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "abstain"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.0,
+      "latency_s": 1.64,
+      "cost_usd": 0.00337,
+      "input_tokens": 2209,
+      "output_tokens": 232,
+      "llm_calls": 1,
+      "response": "I can't answer this reliably from the sources I have (Regulations E, F and Z, and our CFPB complaint sample). The complaint sample covers only 2026-04-01 to 2026-07-29, so there is no data for 2019 to count credit card complaints from.",
+      "repeat": 2
+    },
+    {
+      "id": "dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.627,
+      "latency_s": 17.31,
+      "cost_usd": 0.07393,
+      "input_tokens": 16771,
+      "output_tokens": 2422,
+      "llm_calls": 4,
+      "response": "It doesn't let you stop paying the entire bill. The provision you're thinking of lets you withhold only the disputed portion. The paragraph titled \"Consumer's right to withhold disputed amount; collection action prohibited\" says the consumer need not pay, and the creditor may not try to collect, any portion of a required payment the consumer believes relates to the disputed amount, including related finance or other charges [R-1026.13#2]. The excerpt shows this as paragraph (1) within the (d)-(g) text. It is presumably 1026.13(d)(1), but the excerpt does not show the letter label.\n\nRelated limits in the same section:\n- The creditor may still act to collect the undisputed portion of the bill [R-1026.13#2].\n- If you're enrolled in autopay, the issuer must not deduct the disputed amount or related charges if it receives your billing error notice up to 3 business days before the scheduled payment date [R-1026.13#2].\n- The creditor may not make or threaten an adverse credit report, or report delinquency, because you didn't pay the disputed amount [R-1026.13#2].\n\nSeparately, 1026.12(c) lets a cardholder withhold payment up to the amount outstanding for property or services in a dispute with the merchant. This applies only if the cardholder made a good-faith attempt to resolve the dispute, and it carries an amount and location limitation, with listed exclusions [R-1026.12#2].",
+      "repeat": 0
+    },
+    {
+      "id": "dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.63,
+      "latency_s": 25.6,
+      "cost_usd": 0.09417,
+      "input_tokens": 18129,
+      "output_tokens": 3586,
+      "llm_calls": 4,
+      "response": "Short answer: 1026.13 does not let you stop paying the entire bill. It lets you withhold only the disputed portion.\n\nThe relevant provision is the \"Consumer's right to withhold disputed amount\" paragraph, shown as item (1) in the (d)\u2013(g) excerpt (it appears to be (d)(1), but the excerpt does not show the lettered heading). It says you need not pay, and the creditor may not try to collect, any portion of a required payment that you believe is related to the disputed amount, including related finance or other charges [R-1026.13#2].\n\nLimits:\n- The creditor may still act to collect the undisputed portion of the bill [R-1026.13#2].\n- The creditor may deduct the disputed amount from your credit limit. It may also show the disputed amount on your statement if it states that payment of that amount is not required while the dispute is pending [R-1026.13#2].\n- If you use autopay, the issuer must not deduct the disputed amount if it receives your billing error notice up to 3 business days before the scheduled payment date [R-1026.13#2].\n\nProtections while you withhold: the creditor may not make or threaten an adverse credit report, or report delinquency, because you did not pay the disputed amount. It also may not accelerate your debt or restrict or close your account solely because you exercised these rights in good faith [R-1026.13#2].\n\nIf the creditor later determines you owe some or all of the amount, you get time to pay it, and the creditor may report delinquency only after that period [R-1026.13#3].\n\nSeparately, 1026.12(c) lets a cardholder withhold payment for the disputed purchase amount in a dispute with a merchant. It requires a good-faith attempt to resolve the dispute and applies only if the purchase exceeds $50 and meets the location requirement, with exclusions [R-1026.12#2].",
+      "repeat": 1
+    },
+    {
+      "id": "dy-false-premise",
+      "workflow": "dynamic",
+      "category": "adversarial",
+      "expected": [
+        "answer",
+        "escalate"
+      ],
+      "actual": "answer",
+      "passed": true,
+      "checks": {
+        "outcome": true,
+        "retrieval_hit": true,
+        "citation_hit": true,
+        "forbidden": true
+      },
+      "reasons": [],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.614,
+      "latency_s": 24.37,
+      "cost_usd": 0.09328,
+      "input_tokens": 18208,
+      "output_tokens": 3505,
+      "llm_calls": 4,
+      "response": "Short answer: the withholding right is in the paragraph headed \"Consumer's right to withhold disputed amount; collection action prohibited,\" which appears to be \u00a71026.13(d)(1). It does not let you stop paying the entire bill. The excerpt shows it as \"(1)\" within the (d)-(g) range, so confirm the (d) label against the full CFR text. [R-1026.13#2]\n\nWhat it requires:\n- You need not pay, and the creditor may not try to collect, any portion of a required payment that you believe relates to the disputed amount, including related finance or other charges. [R-1026.13#2]\n- If you are enrolled in autopay, the issuer must not deduct the disputed amount or related charges if your billing error notice arrives up to 3 business days before the scheduled payment date. [R-1026.13#2]\n\nWhat it does not cover:\n- The creditor may still take action to collect the undisputed portion of the bill. It may also deduct the disputed amount from your credit limit and show it on the statement, if the statement says payment of the disputed amount is not required while the dispute is pending. [R-1026.13#2]\n\nRelated protections:\n- The creditor may not make or threaten adverse credit reports, or report the account as delinquent, because you did not pay the disputed amount. [R-1026.13#2]\n- The creditor may not accelerate your debt or restrict or close your account solely because you exercised these rights in good faith. [R-1026.13#2]\n\nSeparate right: \u00a71026.12(c) lets a cardholder withhold payment for a disputed purchase of property or services, but only if conditions are met, including a good-faith attempt to resolve it with the merchant and, for third-party merchants, an amount over $50 and a transaction in the same state or within 100 miles. [R-1026.12#2]",
+      "repeat": 2
+    },
+    {
+      "id": "dy-commentary",
+      "workflow": "dynamic",
+      "category": "known_failure",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome answer not in ['abstain']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.592,
+      "latency_s": 14.03,
+      "cost_usd": 0.04429,
+      "input_tokens": 11518,
+      "output_tokens": 1662,
+      "llm_calls": 4,
+      "response": "The staff commentary isn't in the evidence provided, so I can't say how it treats a family member who exceeds a permitted amount. What the regulation text itself says: \"unauthorized use\" means use of a credit card by a person other than the cardholder who does not have actual, implied, or apparent authority for the use, and from which the cardholder receives no benefit [R-1026.12#1]. Under that text, a person who was given the card would turn on whether they had actual, implied, or apparent authority and whether the cardholder received a benefit. The text does not address charges that exceed a limit the cardholder set. Check the official commentary to 12 CFR 1026.12(b) directly for that scenario.",
+      "repeat": 0
+    },
+    {
+      "id": "dy-commentary",
+      "workflow": "dynamic",
+      "category": "known_failure",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome answer not in ['abstain']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.601,
+      "latency_s": 12.13,
+      "cost_usd": 0.0479,
+      "input_tokens": 13034,
+      "output_tokens": 1597,
+      "llm_calls": 4,
+      "response": "The evidence does not include the Regulation Z official staff commentary, so I cannot say what the commentary says about a family member who was given the card but exceeded the permitted amount. What the regulation text itself provides: \"unauthorized use\" means use of a credit card by a person other than the cardholder who does not have actual, implied, or apparent authority for the use, and from which the cardholder receives no benefit [R-1026.12#1]. Under that definition, authority and benefit are the relevant factors [R-1026.12#1]. The excerpts provided do not say how a person who was handed the card but spent more than the cardholder allowed fits this definition. The other excerpts (over-the-limit fees, rate increases) do not address the question [R-1026.56#3][R-1026.55#2]. Please consult the commentary to 12 CFR 1026.12(b) directly.",
+      "repeat": 1
+    },
+    {
+      "id": "dy-commentary",
+      "workflow": "dynamic",
+      "category": "known_failure",
+      "expected": [
+        "abstain"
+      ],
+      "actual": "answer",
+      "passed": false,
+      "checks": {
+        "outcome": false
+      },
+      "reasons": [
+        "outcome answer not in ['abstain']"
+      ],
+      "supported_ratio": 1.0,
+      "verifier_caught": false,
+      "path": [
+        "prepare",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "regs_agent",
+        "supervisor",
+        "synthesize",
+        "verify",
+        "respond"
+      ],
+      "overrides": [],
+      "best_reg_score": 0.509,
+      "latency_s": 15.58,
+      "cost_usd": 0.05566,
+      "input_tokens": 16290,
+      "output_tokens": 2118,
+      "llm_calls": 5,
+      "response": "The evidence does not include the Regulation Z official staff commentary, so I cannot say what the commentary states about a family member who exceeded the permitted amount. The regulation text itself defines \"unauthorized use\" as use of a credit card by a person, other than the cardholder, who does not have actual, implied, or apparent authority for such use, and from which the cardholder receives no benefit [R-1026.12#1]. On its face, this definition turns on whether the user had actual, implied, or apparent authority and whether the cardholder received a benefit [R-1026.12#1]. The provided text does not say how this applies when a person given the card exceeds a permitted amount. The other excerpts concern over-the-limit fees and rate increases and do not address this question [R-1026.56#3][R-1026.55#1].",
+      "repeat": 2
+    }
+  ]
+}
