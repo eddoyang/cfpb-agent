@@ -1,0 +1,88 @@
+{
+  "lean": [
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 14,
+      "evidence_in_context": 6,
+      "supported_ratio": 1.0,
+      "n_claims": 11,
+      "expected_cited": [
+        "1005.11",
+        "1005.6",
+        "1026.13"
+      ],
+      "input_tokens": 33797,
+      "output_tokens": 6374,
+      "cost_usd": 0.07591,
+      "latency_s": 47.06,
+      "llm_calls": 9,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "The evidence does not give the numeric liability caps for either product, so I can't state the dollar limits. It does cover the dispute deadlines, and our sample has complaint counts.\n\n**Liability limits (gap):** For the debit transfers, Reg E says that if state law or an agreement with the institution imposes less liability than the section provides, the consumer's liability cannot exceed that lower amount [R-1005.6#2]. For the card purchases, Reg Z treats a charge not made by the consumer or someone with actual, implied, or apparent authority as a billing error [R-1026.13#1]. While a billing error is pending, the consumer need not pay the disputed amount, and the creditor may not try to collect it [R-1026.13#2].\n\n**Deadlines, Reg Z (card):**\n- The written billing error notice must be received within 60 days after the first statement showing the error was sent [R-1026.13#1].\n- The creditor must acknowledge the notice within 30 days, unless it has already resolved the error [R-1026.13#1].\n- The creditor must resolve the error within 2 complete billing cycles, and in no event later than 90 days [R-1026.13#1].\n\n**Deadlines, Reg E (debit):**\n- Oral or written notice must be received within 60 days after the statement showing the error was sent [R-1005.11#1].\n- The institution may require written confirmation within 10 business days of an oral notice [R-1005.11#1].\n- The institution must determine whether an error occurred within 10 business days, report results within 3 business days after finishing, and correct within 1 business day after finding an error [R-1005.11#1].\n- If it cannot finish in 10 business days, it may take up to 45 days if it meets certain conditions [R-1005.11#1]. The evidence only partly shows those conditions.\n\n**Complaint data:** Our CFPB sample has 373 complaints with the keyword \"fraud\" from 2026-04-01 to 2026-07-29 [S-1]. This is not split by debit versus credit and is not market-wide.\n\nThe team will review the customer's details.",
+      "_desc": "top-k regs 3, cases 2, evidence budget 2500 tok, history summary"
+    },
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 5,
+      "evidence_in_context": 5,
+      "supported_ratio": 1.0,
+      "n_claims": 11,
+      "expected_cited": [
+        "1005.6",
+        "1026.12"
+      ],
+      "input_tokens": 27097,
+      "output_tokens": 5300,
+      "cost_usd": 0.06779,
+      "latency_s": 34.79,
+      "llm_calls": 7,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "Different limits apply to the credit card and the debit card, and the team will review the details of this customer's case.\n\n**Credit card (Reg Z, 1026.12(b)):** Cardholder liability for unauthorized use cannot exceed the lesser of $50 or the value of what the thief obtained before the issuer was notified [R-1026.12#1]. Liability applies only if the card is an accepted card, the issuer gave adequate notice of maximum liability and how to report loss, and the issuer provided a means to identify the cardholder [R-1026.12#1]. A lesser liability under state law or the agreement governs [R-1026.12#1]. Notice can be given in person, by phone or in writing [R-1026.12#1].\n\n**Debit card (Reg E, 1005.6(b)):** If the consumer notifies the institution within two business days after learning of the loss or theft, liability is capped at the lesser of $50 or the unauthorized transfers made before notice [R-1005.6#1]. Without timely notice, liability is capped at the lesser of $500 or a sum defined in the rule [R-1005.6#1]. Unauthorized transfers shown on a periodic statement must be reported within 60 days of the statement's transmittal to avoid liability for later transfers [R-1005.6#1]. The institution must extend these time limits to a reasonable period if extenuating circumstances caused the delay [R-1005.6#1]. A lower liability under state law or agreement also controls [R-1005.6#2].\n\n**Complaint data:** Our CFPB sample shows 196 complaints with the keyword \"unauthorized\" for 2026-04-01 to 2026-07-29, all in the money transfer, virtual currency or money service product group [S-1]. This is a sample, not the whole market [S-1].\n\n**Not covered:** The evidence gives no Reg Z deadline for reporting billing errors. It has no complaint counts for credit card or checking/debit products."
+    }
+  ],
+  "rich": [
+    {
+      "config": "rich",
+      "outcome": "answer",
+      "evidence_retrieved": 21,
+      "evidence_in_context": 18,
+      "supported_ratio": 1.0,
+      "n_claims": 11,
+      "expected_cited": [
+        "1005.6",
+        "1026.12",
+        "1026.13"
+      ],
+      "input_tokens": 37697,
+      "output_tokens": 4976,
+      "cost_usd": 0.09211,
+      "latency_s": 33.9,
+      "llm_calls": 6,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "Credit card (Reg Z) and debit card (Reg E) have different limits. This assumes the $700 was on a credit card, which the request doesn't say.\n\n**Credit card:** Liability for unauthorized use cannot exceed the lesser of $50 or the value obtained before notice to the issuer [R-1026.12#1]. Liability exists only if the card was accepted, the issuer gave adequate notice of the liability limit and how to report, and the issuer provided a means to identify the cardholder [R-1026.12#1]. A lesser limit under state law or agreement governs [R-1026.12#1]. Deadlines: a written billing error notice must be received within 60 days after the first statement showing the error was transmitted [R-1026.13#1]. The creditor must acknowledge within 30 days and resolve within 2 complete billing cycles, and in no event later than 90 days [R-1026.13#1].\n\n**Debit card:** If the consumer notifies within two business days of learning of the loss or theft, liability is capped at the lesser of $50 or the unauthorized transfers before notice [R-1005.6#1]. Without timely notice, the cap is the lesser of $500 or a stated sum, which adds later transfers only if the institution shows they would not have occurred with timely notice [R-1005.6#1]. Unauthorized transfers shown on a periodic statement must be reported within 60 days of transmittal to avoid liability for later transfers [R-1005.6#1]. Time limits extend for extenuating circumstances [R-1005.6#1], and a lesser limit under state law or agreement applies [R-1005.6#2]. Liability also depends on the required disclosures having been given [R-1005.6#1].\n\n**Our data:** Our CFPB sample shows 196 complaints with \"unauthorized\" in the issue, for money transfer, virtual currency or money service products, from 2026-04-01 to 2026-07-29 [S-1]. It describes our sample only, not the market [S-1].\n\nThe team will review the specific facts.",
+      "_desc": "top-k regs 10, cases 5, evidence budget 9000 tok, history full"
+    },
+    {
+      "config": "rich",
+      "outcome": "answer",
+      "evidence_retrieved": 23,
+      "evidence_in_context": 16,
+      "supported_ratio": 1.0,
+      "n_claims": 13,
+      "expected_cited": [
+        "1005.11",
+        "1005.6",
+        "1026.12",
+        "1026.13"
+      ],
+      "input_tokens": 44059,
+      "output_tokens": 6779,
+      "cost_usd": 0.11002,
+      "latency_s": 44.63,
+      "llm_calls": 7,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "**Short answer:** The evidence gives the Regulation E debit-card liability limits and the Regulation Z billing-error deadlines. It does not include the Regulation Z credit card liability cap (\u00a71026.12(b)), so I can't state that limit.\n\n**Debit/checking (Reg E)**\n- A consumer can be held liable only if the institution gave the required disclosures. If an access device was involved, it must be an accepted device and the institution must have provided a means to identify the consumer [R-1005.6#1].\n- Liability is capped at the lesser of $50 or the unauthorized transfers made before notice if the consumer notifies within two business days after learning of the loss or theft [R-1005.6#1].\n- If the consumer misses that window, liability is capped at the lesser of $500 or the sum of the amounts described in \u00a71005.6(b)(2) [R-1005.6#1].\n- The consumer must report an unauthorized transfer shown on a periodic statement within 60 days of the statement's transmittal to avoid liability for later transfers [R-1005.6#1].\n- Delay caused by extenuating circumstances extends these times to a reasonable period. A lower state-law or agreement limit controls [R-1005.6#1][R-1005.6#2].\n- Error notice is timely if received within 60 days after the statement showing the error is sent. The institution may require written confirmation within 10 business days of an oral notice [R-1005.11#1].\n- The institution must determine whether an error occurred within 10 business days. If it cannot, it may take up to 45 days, provided it meets the further conditions in \u00a71005.11(c)(2), which the excerpt cuts off [R-1005.11#1].\n\n**Credit card (Reg Z)**\n- An extension of credit to someone without actual, implied, or apparent authority is a billing error [R-1026.13#1].\n- The written notice must reach the creditor within 60 days after the first statement showing the error [R-1026.13#1].\n- The creditor must acknowledge within 30 days and resolve within two billing cycles, and no later than 90 days [R-1026.13#1].\n- While the error is pending, the consumer need not pay the disputed amount, and adverse credit reporting on it is prohibited [R-1026.13#2].\n- For cases involving both credit and electronic fund transfers, \u00a71026.12(g) points to Regulation E \u00a71005.12(a) on liability for unauthorized use [R-1026.12#3].\n\n**Our data:** Our CFPB sample shows 196 complaints with the keyword \"unauthorized\" from 2026-04-01 to 2026-07-29 [S-1]. It is not split by product or card type and does not represent the whole market.\n\nThe team will review how these rules apply to this customer."
+    }
+  ]
+}
