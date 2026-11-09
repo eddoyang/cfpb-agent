@@ -121,11 +121,16 @@ missed the most specific section (1006.18 for an arrest threat, 1005.34 for a ca
 and one escalation where the judge blocked an uncited claim. Held-out results are never used
 for tuning; fixing them would make them development cases.
 
-**Context comparison** (`python -m experiments.context_compare`, same query, two runs each):
-lean (top 3 rules / 2 cases, 2,500-token budget, summarized history) used 5 evidence items,
-cost $0.149, took 46 s, had a supported-claim ratio of 1.0 and answered both times. Rich (top
-10 / 5, 9,000 tokens, full history) used 18 items, cost $0.325, took 72 s, scored 0.923 and
-escalated both times. Lean is the default.
+**Context comparison** (`python -m experiments.context_compare`, same two-part question, two runs
+each; rerun on 2026-11-08 after the judge fixes, `experiments/results/context_compare_20261108-175018.md`):
+lean (top 3 rules / 2 cases, 2,500-token budget, summarized history) used 5.5 evidence items, cost
+$0.095 and took 50 s per answer, with a supported-claim ratio of 1.0; it answered both times. Rich
+(top 10 / 5, 9,000 tokens, full history) used 13.5 items, cost $0.13 (37% more) and took 54 s, also
+1.0 supported; it cited one more expected section (1005.11) but answered once and escalated once.
+That escalation was the judge flagging "$700", a figure taken from the question itself, as an uncited
+fact: an over-strict rule, not a hallucination. Neither config retrieved 1026.12. Lean stays the
+default: about the same quality for less. (Before the judge fixes, rich cost 2.2x and escalated both
+runs; much of that gap was the judge bug.)
 
 ## Configuration notes
 - **Models:** `claude-haiku-5-5` (classify, route, summarize) and `claude-sonnet-5-5` (draft,

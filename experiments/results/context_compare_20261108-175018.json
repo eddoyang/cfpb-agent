@@ -1,0 +1,83 @@
+{
+  "lean": [
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 7,
+      "evidence_in_context": 7,
+      "supported_ratio": 1.0,
+      "n_claims": 10,
+      "expected_cited": [
+        "1005.6"
+      ],
+      "input_tokens": 44424,
+      "output_tokens": 9723,
+      "cost_usd": 0.13015,
+      "latency_s": 69.81,
+      "llm_calls": 11,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 replan \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "**Short answer:** The evidence supports the Regulation E limits for the unauthorized electronic fund transfers. It does not include the credit card liability rules, so I can't state those limits.\n\n**Regulation E (electronic fund transfers, 12 CFR 1005.6):**\n- Liability applies only if the institution gave the required disclosures. If an access device was involved, it must be an accepted access device and the institution must have provided a means to identify the consumer. [R-1005.6#1]\n- Notice within two business days of learning of the loss or theft: liability is capped at the lesser of $50 or the unauthorized transfers made before notice. [R-1005.6#1]\n- No notice within two days: liability is capped at the lesser of $500 or a sum defined in the rule. Transfers after day two count only if the institution establishes they would not have occurred with timely notice. [R-1005.6#1]\n- A consumer must report an unauthorized transfer shown on a periodic statement within 60 days of the statement's transmittal to avoid liability for later transfers. [R-1005.6#1]\n- Delay caused by extenuating circumstances requires a reasonable extension. [R-1005.6#1]\n- If state law or the account agreement imposes less liability, that lower amount governs. [R-1005.6#2]\n\n**Complaint data:** Our sample shows 196 complaints with the keyword 'unauthorized' (1 April\u201329 July 2026), all in the money transfer, virtual currency, or money service product group. [S-1] It does not break out debit or credit card cases, so it doesn't answer how common this scenario is. Individual complaints, such as a debit card compromise [C-21758920] and a credit card dispute [C-21388840], show how others were treated but are not legal authority.\n\nThe team will review the customer's accounts and facts to determine which rules apply.",
+      "_desc": "top-k regs 3, cases 2, evidence budget 2500 tok, history summary"
+    },
+    {
+      "config": "lean",
+      "outcome": "answer",
+      "evidence_retrieved": 4,
+      "evidence_in_context": 4,
+      "supported_ratio": 1.0,
+      "n_claims": 8,
+      "expected_cited": [
+        "1005.6"
+      ],
+      "input_tokens": 20960,
+      "output_tokens": 4501,
+      "cost_usd": 0.06022,
+      "latency_s": 30.77,
+      "llm_calls": 6,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "Only the debit/checking side is covered by the evidence I have. The credit card limits under Regulation Z are not in the sources provided.\n\n**Debit card / checking (Reg E, 12 CFR 1005.6):**\n- A consumer can be held liable only if the institution provided the required disclosures. If an access device was involved, it must be an accepted access device and the institution must have provided a means to identify the consumer. [R-1005.6#1]\n- If the consumer notifies the institution within two business days after learning of the loss or theft, liability is capped at the lesser of $50 or the unauthorized transfers made before notice. [R-1005.6#1]\n- If notice is not given within two business days, liability is capped at the lesser of $500 or a sum defined in the rule. That sum includes post-two-day transfers only if the institution establishes they would not have occurred with timely notice. [R-1005.6#1]\n- A consumer must report an unauthorized transfer shown on a periodic statement within 60 days of the statement's transmittal to avoid liability for later transfers. [R-1005.6#1]\n- The institution must extend these time limits to a reasonable period if extenuating circumstances caused the delay. [R-1005.6#1]\n- Notice can be given in person, by phone, or in writing. [R-1005.6#1]\n- If state law or the account agreement imposes less liability, that lower amount governs. [R-1005.6#2]\n\n**Complaint data:** In our CFPB sample, filtered for \"unauthorized\" issues from 2026-04-01 to 2026-07-29, there were 196 complaints under \"Money transfer, virtual currency, or money service.\" [S-1] This is a sample, not the whole market, and it does not break out debit or credit card complaints.\n\nThe team will review the specific facts to determine how these rules apply."
+    }
+  ],
+  "rich": [
+    {
+      "config": "rich",
+      "outcome": "escalate",
+      "evidence_retrieved": 16,
+      "evidence_in_context": 16,
+      "supported_ratio": 1.0,
+      "n_claims": 11,
+      "expected_cited": [
+        "1005.11",
+        "1005.6"
+      ],
+      "input_tokens": 57003,
+      "output_tokens": 10825,
+      "cost_usd": 0.17513,
+      "latency_s": 74.79,
+      "llm_calls": 9,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 replan \u2192 supervisor \u2192 cases_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 escalate",
+      "response": "Escalated to a human analyst. The answer could not be verified against the sources:\n- Policy: The draft refers to 'the $700 card purchases', a figure that is not in any numbered claim or cited evidence. It could mislead if the amount or the card type is wrong, so it must be sourced or removed.\n- Advisory: The draft is dense and reads like an internal research note, with CFR cites and Reg T detail. The customer-facing version should be simpler, and the statement that the team will review the details should not imply a specific outcome.",
+      "_desc": "top-k regs 10, cases 5, evidence budget 9000 tok, history full"
+    },
+    {
+      "config": "rich",
+      "outcome": "answer",
+      "evidence_retrieved": 11,
+      "evidence_in_context": 11,
+      "supported_ratio": 1.0,
+      "n_claims": 12,
+      "expected_cited": [
+        "1005.11",
+        "1005.6",
+        "1026.12"
+      ],
+      "input_tokens": 31016,
+      "output_tokens": 4930,
+      "cost_usd": 0.08563,
+      "latency_s": 33.45,
+      "llm_calls": 5,
+      "path": "prepare \u2192 supervisor \u2192 regs_agent \u2192 supervisor \u2192 stats_agent \u2192 supervisor \u2192 synthesize \u2192 verify \u2192 respond",
+      "response": "**Credit card ($700 purchases), Reg Z:** Cardholder liability for unauthorized use may not exceed the lesser of $50 or the value obtained by the unauthorized use before notification to the issuer [R-1026.12#1]. Liability applies only if the card is accepted, the issuer gave adequate notice of maximum liability and how to report loss or theft, and the issuer provided a means to identify the cardholder [R-1026.12#1]. A lesser liability under state law or agreement governs [R-1026.12#1]. Notice can be given in person, by phone, or in writing [R-1026.12#1].\n\n**Debit card (checking), Reg E:** Liability is limited only if the institution gave the required disclosures and the device was an accepted access device [R-1005.6#1].\n- Notice within two business days of learning of the loss or theft: liability is capped at the lesser of $50 or the unauthorized transfers before notice [R-1005.6#1].\n- Notice after two business days: liability is capped at the lesser of $500 or the sum of the amounts in 1005.6(b)(2)(i)-(ii), and the later transfers count only if the institution shows they would not have occurred with timely notice [R-1005.6#1].\n- Unauthorized transfers shown on a periodic statement must be reported within 60 days of transmittal to avoid liability for later transfers [R-1005.6#1].\n- Time limits must be extended to a reasonable period for extenuating circumstances [R-1005.6#1].\n- A lesser state-law or contract liability controls [R-1005.6#2].\n\n**Error-resolution timing (Reg E):** Provisional credit is generally due within 10 business days of the error notice, subject to listed exceptions [R-1005.11#2].\n\n**Our data:** The sample shows 196 complaints with \"unauthorized\" in the issue, 2026-04-01 to 2026-07-29. All fall under money transfer, virtual currency, or money service [S-1]. This is our CFPB sample, not the whole market.\n\nThe team will review the details of this customer's situation."
+    }
+  ]
+}
