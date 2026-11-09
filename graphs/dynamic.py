@@ -276,7 +276,7 @@ def build_dynamic_graph(rt):
     def verify_node(s: AnalystState):
         ids = set(s["context_ids"])
         used = [e for e in s["evidence"] if e["id"] in ids]
-        v = verify(rt, Draft(**s["draft"]), used)
+        v = verify(rt, Draft(**s["draft"]), used, request=s["request"])
         return {
             "verification": v,
             "_detail": ("PASS" if v["passed"] else f"FAIL: {len(v['issues'])} issues")

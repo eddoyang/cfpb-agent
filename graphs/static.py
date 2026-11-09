@@ -112,7 +112,7 @@ def build_static_graph(rt):
     @traced("verify")
     def verify_node(s: TriageState):
         used = [e for e in s["evidence"] if e["id"] in set(s["context_ids"])]
-        v = verify(rt, Draft(**s["draft"]), used)
+        v = verify(rt, Draft(**s["draft"]), used, request=s["request"])
         return {
             "verification": v,
             "_detail": ("PASS" if v["passed"] else f"FAIL: {len(v['issues'])} issues")
