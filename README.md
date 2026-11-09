@@ -93,44 +93,45 @@ back to the supervisor once (re-plan), then abstains or escalates.
 4. **Act on failure:** redraft with feedback, re-plan, abstain, or escalate to a human.
 5. **Prompt injection:** customer text is wrapped and marked untrusted; eval cases test it.
 
-## Results (final run, 2026-11-08)
-`python -m eval.harness --repeats 3`, lean context, report in `eval/results/2026-11-08_03-36_lean/`:
+## Results (final runs, 2026-11-08)
+All runs use lean context and 3 repeats per case, on the code at commit `b50c452` or later
+(the judge sees the customer's message; only blocking issues go back to the drafter).
 
-| Metric | Result |
-|---|---|
-| Pass rate | 78/84 (93%); 78/78 (100%) excluding the two known-failure cases |
-| Consistency across repeats | 0.988 |
-| Cost per run | $0.048 |
-| p95 latency | 54.2 s (mean 20.7 s) |
-| Verifier-forced redrafts or re-plans | 14 of 84 runs |
+| Metric | Development (`eval/cases.yaml`, 28 cases) | Held-out (`eval/holdout.yaml`, 23 cases) |
+|---|---|---|
+| Pass rate | 78/84 (93%); 78/78 (100%) excluding the two known-failure cases | 62/69 (90%) |
+| Consistency across repeats | 1.0 | 0.957 |
+| Cost per run | $0.051 | $0.046 |
+| Latency mean / p95 | 22.1 s / 56.9 s | 20.5 s / 48.5 s |
+| Verifier-forced redrafts or re-plans | 20 of 84 runs | 16 of 69 runs |
+| Report | `eval/results/2026-11-08_21-05_lean/` | `eval/results/2026-11-08_22-12_lean_holdout/` |
 
-Progression: 17/28 (61%, baseline, one run per case) → 74/84 (88%) → 76/84 (90%) → 78/84
-(93%). The only failures left are the two known-failure cases: `st-multi-product` (one search
-query for a two-issue complaint misses both liability sections) and `dy-commentary` (the Reg Z
-commentary isn't ingested; the reply says so and answers from the regulation text instead of
-abstaining). The last round of fixes: the drafter no longer repeats demands from ignored
-instructions, states rights as general rules with their exceptions, and doesn't list caveats
-as claims; the judge sees each complaint's header and sorts policy issues by severity.
+Development progression: 17/28 (61%, baseline, one run per case) -> 74/84 -> 76/84 -> 78/84 ->
+78/84 with consistency 1.0. The only development failures are the two known-failure cases:
+`st-multi-product` (one search query for a two-issue complaint misses both liability sections)
+and `dy-commentary` (the Reg Z commentary isn't ingested; the reply says so and answers from the
+regulation text instead of abstaining).
 
-**Held-out check.** Because prompts and the cutoff were tuned on those 28 cases, 23 new cases
-(`eval/holdout.yaml`) were written after the last change and run once with no tuning:
-`python -m eval.harness --cases eval/holdout.yaml --repeats 3` passed 64/69 (93%), consistency
-0.971, $0.048 per run, p95 62.6 s. Failures: a store gift card declined as out of scope (2 of 3
-runs; the classifier's scope list names prepaid cards, not gift cards), two runs where the search
-missed the most specific section (1006.18 for an arrest threat, 1005.34 for a cancellation),
-and one escalation where the judge blocked an uncited claim. Held-out results are never used
-for tuning; fixing them would make them development cases.
+**Held-out check.** Because prompts and the cutoff were tuned on the development cases, 23 new
+cases were written after tuning with expectations fixed in advance, and never tuned on. They
+passed 64/69 (93%) before the latest judge fix and 62/69 (90%) after it; the judge fix came from
+the demo and the context comparison, not from held-out results. Latest held-out failures: a store
+gift card declined as out of scope (1 of 3 runs; the classifier's scope list names prepaid cards,
+not gift cards), a remittance cancellation where search found 1005.33 instead of 1005.34 (and one
+run cited an evidence ID it was never shown, caught by the deterministic check), two escalations
+where the judge blocked an ambiguous opening line about a rule's scope, and one correct refutation
+of a false premise that tripped the plain-text forbidden-phrase check. Held-out results are never
+used for tuning; fixing them would make them development cases.
 
-**Context comparison** (`python -m experiments.context_compare`, same two-part question, two runs
-each; rerun on 2026-11-08 after the judge fixes, `experiments/results/context_compare_20261108-175018.md`):
-lean (top 3 rules / 2 cases, 2,500-token budget, summarized history) used 5.5 evidence items, cost
-$0.095 and took 50 s per answer, with a supported-claim ratio of 1.0; it answered both times. Rich
-(top 10 / 5, 9,000 tokens, full history) used 13.5 items, cost $0.13 (37% more) and took 54 s, also
-1.0 supported; it cited one more expected section (1005.11) but answered once and escalated once.
-That escalation was the judge flagging "$700", a figure taken from the question itself, as an uncited
-fact: an over-strict rule, not a hallucination. Neither config retrieved 1026.12. Lean stays the
-default: about the same quality for less. (Before the judge fixes, rich cost 2.2x and escalated both
-runs; much of that gap was the judge bug.)
+**Context comparison** (`python -m experiments.context_compare`, the same two-part question, two
+runs per config, `experiments/results/context_compare_20261108-223923.md`): lean (top 3 rules / 2
+cases, 2,500-token budget, summarized history) used 5.5 evidence items, cost $0.072 and took 41 s
+per answer; rich (top 10 / 5, 9,000 tokens, full history) used 17 items, cost $0.101 (40% more)
+and took 39 s. Both answered both runs with a supported-claim ratio of 1.0; each cited 3 of the 4
+expected sections, and rich found 1026.12, which lean missed. Lean stays the default on cost; rich
+is an option for multi-part questions. Earlier runs, before the judge fixes, showed rich at 2.2x
+the cost escalating both runs, then 37% more with one escalation on a false alarm; most of that
+gap was the judge.
 
 ## Configuration notes
 - **Models:** `claude-haiku-5-5` (classify, route, summarize) and `claude-sonnet-5-5` (draft,
