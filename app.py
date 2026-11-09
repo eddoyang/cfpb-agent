@@ -74,7 +74,20 @@ def show_result(r: dict, show_response: bool = True) -> None:
     if r["citations"]:
         with st.expander(f"Citations ({len(r['citations'])})"):
             for c in r["citations"]:
-                st.markdown(f"- `{c['id']}` [{c['citation']}]({c['url']}) · score {c['score']}")
+                st.markdown(f"**`{c['id']}`** [{c['citation']}]({c['url']}) · score {c['score']}")
+                if c.get("text"):
+                    st.text(c["text"])
+        claims = (r.get("draft") or {}).get("claims") or []
+        if claims:
+            by_id = {c["id"]: c for c in r["citations"]}
+            with st.expander(f"Claims and their sources ({len(claims)})"):
+                for i, cl in enumerate(claims, 1):
+                    st.markdown(f"**{i}. {cl['text']}**")
+                    for cid in cl.get("citations", []):
+                        src = by_id.get(cid)
+                        if src:
+                            st.caption(f"{cid} · {src['citation']}")
+                            st.text(src.get("text", ""))
     if r.get("verification"):
         v = r["verification"]
         with st.expander(

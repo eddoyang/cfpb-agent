@@ -45,6 +45,7 @@ def test_static_happy_path():
         "human_review",
     ]
     assert r["citations"][0]["id"] == "R-1026.12#1"
+    assert r["citations"][0]["text"]  # the passage the answer rests on
     assert r["verification"]["passed"]
     assert r["usage"]["llm_calls"] == 3
 

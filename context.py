@@ -53,11 +53,17 @@ def get_context_config(name: str, **overrides) -> ContextConfig:
 
 
 # ---------------------------------------------------------------- evidence
-def render_evidence(ev: dict, cfg: ContextConfig) -> str:
+def evidence_text(ev: dict, cfg: ContextConfig) -> str:
+    """The passage exactly as the drafter and judge see it: regulation chunks whole,
+    complaint narratives clipped to the config's per-case budget."""
     text = ev["text"]
     if ev["kind"] == "complaint":
         text = truncate_tokens(text, cfg.max_case_tokens)
-    return f"[{ev['id']}] {ev['citation']}\n{text}"
+    return text
+
+
+def render_evidence(ev: dict, cfg: ContextConfig) -> str:
+    return f"[{ev['id']}] {ev['citation']}\n{evidence_text(ev, cfg)}"
 
 
 def pack_evidence(evidence: list[dict], cfg: ContextConfig) -> tuple[str, list[dict], int]:

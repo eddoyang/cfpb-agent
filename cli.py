@@ -41,6 +41,10 @@ def show(r: dict) -> None:
         print("\nCITATIONS:")
         for c in r["citations"]:
             print(f"  [{c['id']}] {c['citation'][:70]}  (score {c['score']})")
+            if c.get("text"):
+                passage = " ".join(c["text"].split())
+                print(textwrap.fill(passage[:400] + ("..." if len(passage) > 400 else ""),
+                                    W, initial_indent="      ", subsequent_indent="      "))
     v = r.get("verification")
     if v:
         print(

@@ -9,6 +9,7 @@ import uuid
 from langgraph.types import Command
 
 import config
+from context import evidence_text
 from graphs.dynamic import build_dynamic_graph
 from graphs.static import build_static_graph
 
@@ -22,19 +23,24 @@ def _graph(rt, kind: str):
     return _GRAPHS[key]
 
 
-def _citations(state: dict) -> list[dict]:
+def _citations(state: dict, rt) -> list[dict]:
+    """Cited evidence, each with the passage text the drafter and judge saw."""
     cited = set((state.get("verification") or {}).get("cited_ids", []))
-    return [
-        {
-            "id": e["id"],
-            "kind": e["kind"],
-            "citation": e["citation"],
-            "score": round(e["score"], 3),
-            "url": e["source_url"],
-        }
-        for e in state.get("evidence", [])
-        if e["id"] in cited
-    ]
+    out, seen = [], set()
+    for e in state.get("evidence", []):
+        if e["id"] in cited and e["id"] not in seen:
+            seen.add(e["id"])
+            out.append(
+                {
+                    "id": e["id"],
+                    "kind": e["kind"],
+                    "citation": e["citation"],
+                    "score": round(e["score"], 3),
+                    "url": e["source_url"],
+                    "text": evidence_text(e, rt.ctx),
+                }
+            )
+    return out
 
 
 def _package(
@@ -57,7 +63,7 @@ def _package(
         "classification": state.get("classification"),
         "draft": state.get("draft"),
         "verification": state.get("verification"),
-        "citations": _citations(state),
+        "citations": _citations(state, rt),
         "retrieved_ids": [e["id"] for e in state.get("evidence", [])],
         "retrieved_sections": sorted(
             {e["section"] for e in state.get("evidence", []) if e.get("section")}

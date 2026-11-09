@@ -56,6 +56,10 @@ def test_harness_scores_and_reports(tmp_path, monkeypatch):
     by_id = {r["id"]: r for r in rows}
     assert by_id["st-unauth-credit"]["passed"]
     assert by_id["st-oos-mortgage"]["passed"] and by_id["dy-oos-reg-dd"]["passed"]
+    # Every row records what was found and cited, with the passage text.
+    ok = by_id["st-unauth-credit"]
+    assert ok["cited_sections"] == ["1026.12"] and "1026.12" in ok["retrieved_sections"]
+    assert ok["citations"][0]["id"] == "R-1026.12#1" and ok["citations"][0]["text"]
     # The fake always classifies as credit_card and cites 1026.12, so these must FAIL:
     assert not by_id["st-debit-atm-fraud"]["passed"]
     assert any("product" in x for x in by_id["st-debit-atm-fraud"]["reasons"])

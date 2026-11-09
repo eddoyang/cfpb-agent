@@ -120,6 +120,15 @@ def score(case: dict, r: dict) -> dict:
         "output_tokens": r["usage"]["output_tokens"],
         "llm_calls": r["usage"]["llm_calls"],
         "response": r.get("response", ""),
+        "retrieved_sections": sorted(retrieved),
+        "cited_sections": sorted(
+            {s for s in (_section_of(c["id"]) for c in r.get("citations", [])) if s}
+        ),
+        # The passages the answer rests on, exactly as the drafter and judge saw them.
+        "citations": [
+            {"id": c["id"], "citation": c["citation"], "text": c.get("text", "")}
+            for c in r.get("citations", [])
+        ],
     }
 
 
@@ -279,6 +288,7 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
             f"- Path: {' → '.join(r['path'])}",
             *[f"- {x}" for x in r["reasons"]],
             *[f"- Policy override: {o}" for o in r["overrides"]],
+            *[f"- Cited: `{c['id']}` {c['citation']}" for c in r.get("citations", [])],
             "- Response:",
             "",
             *[f"  > {line}".rstrip() for line in _clip(r["response"], 400).splitlines()],
