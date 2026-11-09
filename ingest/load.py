@@ -96,7 +96,7 @@ def load_complaints(df: pd.DataFrame) -> None:
 
     with get_conn() as conn, conn.cursor() as cur:
         cur.executemany(
-                """INSERT INTO complaints (complaint_id, date_received, product, sub_product, issue,
+            """INSERT INTO complaints (complaint_id, date_received, product, sub_product, issue,
                     sub_issue, company, state, submitted_via, company_response, timely,
                     reg_hint, narrative, token_count, embedding)
                 VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)

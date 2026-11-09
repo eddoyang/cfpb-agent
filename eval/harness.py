@@ -304,11 +304,14 @@ def render_report(rows: list[dict], summary: dict, meta: dict) -> str:
         L.append(
             f"- Out-of-scope runs that reached retrieval: {', '.join(f'{s:.3f}' for s in oos)}"
         )
-    inscope = sorted(r["best_reg_score"] for r in rows
-                    if r["category"] != "out_of_scope" and r["best_reg_score"])
+    inscope = sorted(
+        r["best_reg_score"] for r in rows if r["category"] != "out_of_scope" and r["best_reg_score"]
+    )
     if inscope:
-        L.append(f"- Lowest best score among in-scope runs: {inscope[0]:.3f} "
-            f"(floor {config.REG_MIN_SCORE} should stay below this)")
+        L.append(
+            f"- Lowest best score among in-scope runs: {inscope[0]:.3f} "
+            f"(floor {config.REG_MIN_SCORE} should stay below this)"
+        )
     return "\n".join(L) + "\n"
 
 

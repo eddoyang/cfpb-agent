@@ -23,6 +23,7 @@ python cli.py ask "How often can a debt collector call?"
 python cli.py triage --sample --approve
 streamlit run app.py
 python -m eval.harness --repeats 3
+python -m eval.harness --cases eval/holdout.yaml --repeats 3   # held-out set, run once
 python -m experiments.context_compare
 ```
 
@@ -111,6 +112,15 @@ abstaining). The last round of fixes: the drafter no longer repeats demands from
 instructions, states rights as general rules with their exceptions, and doesn't list caveats
 as claims; the judge sees each complaint's header and sorts policy issues by severity.
 
+**Held-out check.** Because prompts and the cutoff were tuned on those 28 cases, 23 new cases
+(`eval/holdout.yaml`) were written after the last change and run once with no tuning:
+`python -m eval.harness --cases eval/holdout.yaml --repeats 3` passed 64/69 (93%), consistency
+0.971, $0.048 per run, p95 62.6 s. Failures: a store gift card declined as out of scope (2 of 3
+runs; the classifier's scope list names prepaid cards, not gift cards), two runs where the search
+missed the most specific section (1006.18 for an arrest threat, 1005.34 for a cancellation),
+and one escalation where the judge blocked an uncited claim. Held-out results are never used
+for tuning; fixing them would make them development cases.
+
 **Context comparison** (`python -m experiments.context_compare`, same query, two runs each):
 lean (top 3 rules / 2 cases, 2,500-token budget, summarized history) used 5 evidence items,
 cost $0.149, took 46 s, had a supported-claim ratio of 1.0 and answered both times. Rich (top
@@ -156,3 +166,7 @@ August 2026, which is a stated limitation. The loaded sample is 5,163 complaints
 - Complaint narratives are consumer-reported and unverified; the sample is not the whole market.
 - The LLM judge shares a model family with the drafter; a human reviewer remains the final gate.
 - `reg_hint` and product mapping are heuristics, not legal determinations.
+- Lean retrieval keeps the top 3 sections, so a neighbouring section can crowd out the most
+  specific one (held-out: 1006.18, 1005.34). Fix: one query per issue, or re-rank more hits.
+- The classifier's scope list doesn't mention gift cards, so store gift cards can be declined
+  even though Reg E 1005.20 covers them.
