@@ -19,15 +19,18 @@ def traced(name: str):
             start = time.perf_counter()
             try:
                 out = dict(fn(state) or {})
+
             except GraphInterrupt:
                 raise  # human-in-the-loop pause, not an error
-            except Exception as e:  # noqa: BLE001 - we want every failure in state
+
+            except Exception as e:
                 ms = int((time.perf_counter() - start) * 1000)
                 return {
                     "failed": True,
                     "errors": [f"{name}: {type(e).__name__}: {e}"],
                     "trace": [{"node": name, "detail": f"ERROR: {e}", "ms": ms}],
                 }
+
             ms = int((time.perf_counter() - start) * 1000)
             out["trace"] = [{"node": name, "detail": out.pop("_detail", ""), "ms": ms}]
             return out

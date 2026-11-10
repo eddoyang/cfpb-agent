@@ -1,8 +1,8 @@
 """Context management: what evidence and history each LLM call sees, and how much.
 
 Two named configurations are compared in experiments/context_compare.py:
-  lean : few chunks, tight evidence budget, older history summarised
-  rich : many chunks, large budget, full history verbatim
+    lean : few chunks, tight evidence budget, older history summarised
+    rich : many chunks, large budget, full history verbatim
 """
 
 from __future__ import annotations

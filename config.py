@@ -12,10 +12,9 @@ RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
 
 # --- Models ---------------------------------------------------------------
-# Small/fast tier: classification + supervisor routing
-FAST_MODEL = os.getenv("FAST_MODEL", "claude-haiku-5-5")
-# Strong tier: drafting + verification
-STRONG_MODEL = os.getenv("STRONG_MODEL", "claude-sonnet-5-5")
+FAST_MODEL = os.getenv("FAST_MODEL", "claude-haiku-5-5") # Small/fast tier: classification + supervisor routing
+STRONG_MODEL = os.getenv("STRONG_MODEL", "claude-sonnet-5-5") # Strong tier: drafting + verification
+
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM", "1536"))  # must match db/schema.sql
@@ -54,36 +53,40 @@ PRODUCT_CATEGORIES = {
 COMPLAINTS_PER_PRODUCT = 1200
 COMPLAINTS_SINCE = "2023-01-01"
 COMPLAINTS_UNTIL = "2026-08-14"  # the CFPB stopped publishing narratives after this date
-# Narratives archive (CCDB_Export_*.zip); a CSV, ZIP of CSVs, or folder of either
-COMPLAINTS_SOURCE = RAW_DIR / "cfpb_archive"
+COMPLAINTS_SOURCE = RAW_DIR / "cfpb_archive" # Narratives archive (CCDB_Export_*.zip); a CSV, ZIP of CSVs, or folder of either
 
 # --- Chunking -------------------------------------------------------------
 REG_CHUNK_MAX_TOKENS = 700  # regulation chunks, split on paragraph boundaries
 COMPLAINT_MAX_TOKENS = 1500  # long narratives are truncated before embedding
 
 # --- LLM settings ----------------------------------------------------------
-# Claude 5.5-generation models (Haiku and Sonnet) reject a custom temperature, so by
-# default none is sent and each model runs at its default. Run-to-run variation is
-# measured instead (eval --repeats). Set LLM_TEMPERATURE=0 only for models that accept it.
-_temp = os.getenv("LLM_TEMPERATURE", "none")
-LLM_TEMPERATURE = None if _temp.lower() == "none" else float(_temp)
-MODELS_WITHOUT_TEMPERATURE = ("claude-sonnet-5-5", "claude-haiku-5-5", "claude-fable-5")
+# No temperature is sent: Claude 5.5-generation models reject a custom one, so each runs
+# at its default. Run-to-run variation is measured instead (eval --repeats).
 LLM_TIMEOUT_S = 90
 LLM_MAX_RETRIES = 2
 MAX_OUTPUT_TOKENS = {"fast": 1024, "strong": 4096}
 
-# USD per 1M tokens (input, output). PLACEHOLDERS: confirm against
-# https://claude.com/pricing and https://openai.com/api/pricing before quoting costs.
-MODEL_PRICES = {
-    FAST_MODEL: (
-        float(os.getenv("FAST_PRICE_IN", "1.00")),
-        float(os.getenv("FAST_PRICE_OUT", "5.00")),
-    ),
-    STRONG_MODEL: (
-        float(os.getenv("STRONG_PRICE_IN", "3.00")),
-        float(os.getenv("STRONG_PRICE_OUT", "15.00")),
-    ),
+# USD per 1M tokens, required in .env (no defaults). Unset prices are None; computing a
+# cost with one raises, and preflight reports it.
+PRICE_ENV_VARS = (
+    "FAST_PRICE_IN",
+    "FAST_PRICE_OUT",
+    "STRONG_PRICE_IN",
+    "STRONG_PRICE_OUT",
+    "EMBED_PRICE",
+)
+
+
+def _price(name: str) -> float | None:
+    value = os.getenv(name)
+    return float(value) if value else None
+
+
+MODEL_PRICES = {  # model -> (input, output)
+    FAST_MODEL: (_price("FAST_PRICE_IN"), _price("FAST_PRICE_OUT")),
+    STRONG_MODEL: (_price("STRONG_PRICE_IN"), _price("STRONG_PRICE_OUT")),
 }
+EMBED_PRICE = _price("EMBED_PRICE")  # embedding model, input only
 
 # --- Retrieval ------------------------------------------------------------
 # Cosine-similarity floors. text-embedding-3-small scores run lower than people

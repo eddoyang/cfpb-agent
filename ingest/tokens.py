@@ -1,11 +1,3 @@
-"""Token counting shared by chunking and (later) context-budget management.
-
-Uses tiktoken's cl100k_base (the tokenizer for OpenAI's text-embedding-3 models).
-For Claude it is only an approximation, which is fine for budgeting. tiktoken
-downloads its vocabulary on first use; if that fails (offline, firewall), we fall
-back to a ~4 characters-per-token estimate instead of crashing.
-"""
-
 from functools import lru_cache
 
 CHARS_PER_TOKEN = 4

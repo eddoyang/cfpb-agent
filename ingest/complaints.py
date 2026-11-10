@@ -1,17 +1,5 @@
 """Fetch and clean CFPB complaints that include a consumer narrative.
-
-IMPORTANT: on 2026-08-14 the CFPB stopped publishing complaint narratives. The live
-API and the current bulk download (complaints.csv.zip) no longer contain them. All
-narratives published up to that date are in the CFPB's official FOIA archive:
-https://www.consumerfinance.gov/foia-requests/foia-electronic-reading-room/cfpb-consumer-complaint-database-narratives-archive/
-
-Sources, same output:
-    1. Narratives archive (recommended): download one or more CCDB_Export_*.zip files into
-        a folder and pass --complaints-csv <folder>. ZIPs are read directly.
-    2. Any CSV, ZIP of CSVs, or folder of them that has a narrative column.
-The CFPB search API is not used: it no longer returns narratives.
-
-Data quality steps (the interview talking point):
+Data quality steps:
   * Keep only complaints whose narrative the consumer consented to publish.
   * CFPB already scrubs PII to 'XXXX'; we normalise it to [REDACTED] / [DATE]
     so the embedding doesn't cluster complaints by redaction pattern.

@@ -34,6 +34,11 @@ def keys():
     return (FAIL, f"missing {missing} in .env") if missing else (OK, "both keys set")
 
 
+def prices():
+    missing = [k for k in config.PRICE_ENV_VARS if not os.getenv(k)]
+    return (FAIL, f"missing {missing} in .env") if missing else (OK, "all model prices set")
+
+
 def database():
     from db.connection import get_conn
 
@@ -88,6 +93,7 @@ def retrieval():
 
 if __name__ == "__main__":
     check("API keys", keys)
+    check("Model prices", prices)
     check("Postgres + pgvector + data", database)
     check("Claude fast tier", claude(config.FAST_MODEL))
     check("Claude strong tier", claude(config.STRONG_MODEL))

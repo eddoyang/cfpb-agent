@@ -139,8 +139,8 @@ gap was the judge.
 - **Temperature:** Claude Haiku 5.5 and Sonnet 5.5 don't accept a custom temperature, so both run
   at their defaults; run-to-run variation is measured with `eval.harness --repeats`.
 - **Prices** are read from `.env` (`FAST_PRICE_IN`, `FAST_PRICE_OUT`, `STRONG_PRICE_IN`,
-  `STRONG_PRICE_OUT`, USD per 1M tokens). The defaults in `config.py` are
-  placeholders. The reported results used Haiku 5.5 $0.10 / $0.50, Sonnet 5.5 $2 / $10 and
+  `STRONG_PRICE_OUT`, `EMBED_PRICE`, USD per 1M tokens) and are required; there are no defaults in
+  code, and `preflight.py` fails if one is missing. The reported results used Haiku 5.5 $0.10 / $0.50, Sonnet 5.5 $2 / $10 and
   text-embedding-3-small $0.02; check the providers' pricing pages before quoting costs.
 - **Output limits:** 1,024 tokens for the fast tier, 4,096 for the strong tier (drafts were
   being cut off at 2,048).

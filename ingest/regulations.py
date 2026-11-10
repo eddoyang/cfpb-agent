@@ -1,6 +1,6 @@
 """Fetch Reg E / F / Z from the eCFR API and split them into section-aligned chunks.
 
-Chunking strategy (the interview talking point):
+Chunking strategy:
   * Never cross a section boundary, so every chunk maps to one citable section.
   * Within a section, pack whole paragraphs up to REG_CHUNK_MAX_TOKENS.
   * Prefix each chunk with a contextual header ("12 CFR 1026.13 Billing error

@@ -1,10 +1,10 @@
 r"""DYNAMIC workflow: a supervisor decides the next step from the request and from
 what earlier steps returned.
 
-  prepare -> supervisor -> {regs_agent | cases_agent | stats_agent} -> supervisor ...
-                       \-> synthesize -> verify -> respond
+    prepare -> supervisor -> {regs_agent | cases_agent | stats_agent} -> supervisor ...
+                        \-> synthesize -> verify -> respond
                                             \-> replan (back to supervisor, max 1)
-                       \-> clarify | abstain | escalate
+                        \-> clarify | abstain | escalate
 
 The supervisor (fast model) sees evidence SUMMARIES, not full text, which keeps its
 context small. A deterministic policy layer can override it: step cap, loop
@@ -46,18 +46,18 @@ bank's compliance and complaints analysts. Choose ONE next action.
 
 Available actions:
 - search_regulations: semantic search over 12 CFR 1005 (Reg E: electronic fund transfers,
-  debit, ATM, prepaid, remittances), 1006 (Reg F: debt collection), 1026 (Reg Z: credit
-  cards, billing disputes). Set query and optionally regulation_parts.
+    debit, ATM, prepaid, remittances), 1006 (Reg F: debt collection), 1026 (Reg Z: credit
+    cards, billing disputes). Set query and optionally regulation_parts.
 - search_complaints: find real CFPB complaint narratives similar to a description.
-  Set query and optionally product_keyword ('credit card', 'checking or savings',
-  'money transfer', 'prepaid', 'debt collection').
+    Set query and optionally product_keyword ('credit card', 'checking or savings',
+    'money transfer', 'prepaid', 'debt collection').
 - query_stats: counts/rates over our complaint sample (date range given in each request).
-  Fill `stats` (metric, group_by, filters). Use for trends, volumes, top companies.
+    Fill `stats` (metric, group_by, filters). Use for trends, volumes, top companies.
 - synthesize: you have enough evidence to answer.
 - clarify: the question is too ambiguous to plan for; give clarifying_question.
 - abstain: the question is outside the data (other regulations such as Reg DD or FCRA,
-  mortgages, non-US law, legal advice about a specific lawsuit, anything not in the
-  sources above).
+    mortgages, non-US law, legal advice about a specific lawsuit, anything not in the
+    sources above).
 
 Plan efficiently: usually 1-3 searches then synthesize. Do not repeat a search that
 already returned results. A search that found "0 new" items will not improve with
@@ -100,43 +100,52 @@ def _signature(d: dict) -> str:
         sort_keys=True,
     )
 
-
+# Supervisor decisions are filtered by policy before being executed.
 def apply_policy(s: AnalystState, d: dict) -> tuple[dict, str | None]:
-    """Deterministic guardrails on top of the supervisor's choice."""
+
     have_evidence = bool(s.get("evidence"))
     steps = s.get("steps", 0)
+
     if s.get("consecutive_errors", 0) >= config.MAX_CONSECUTIVE_ERRORS:
         return {**d, "action": "escalate"}, "repeated tool errors -> escalate"
+
     if d["action"] in SEARCH_ACTIONS:
+
         if steps >= config.MAX_SUPERVISOR_STEPS:
             act = "synthesize" if have_evidence else "abstain"
             return {**d, "action": act}, f"step cap ({steps}) reached -> {act}"
+
         if any(a.get("signature") == _signature(d) for a in s.get("actions", [])):
             act = "synthesize" if have_evidence else "abstain"
             return {**d, "action": act}, f"repeated identical search -> {act}"
+
         # Reworded queries that keep returning chunks we already hold are a loop too.
         recent = [a for a in s.get("actions", []) if "new" in a][-config.MAX_STALE_SEARCHES :]
-        if (
-            have_evidence
+        if (have_evidence
             and len(recent) == config.MAX_STALE_SEARCHES
             and all(a["new"] == 0 for a in recent)
         ):
             n = config.MAX_STALE_SEARCHES
             return {**d, "action": "synthesize"}, f"{n} searches found nothing new -> synthesize"
+
         if d["action"] != "query_stats" and not d.get("query"):
             d = {**d, "query": s["request"]}
+
         if d["action"] == "query_stats" and not d.get("stats"):
             return (
                 {**d, "action": "search_regulations", "query": s["request"]},
                 "query_stats without a request -> search_regulations",
             )
+
     if d["action"] == "synthesize" and not have_evidence:
         if steps == 0:
             return (
                 {**d, "action": "search_regulations", "query": s["request"]},
                 "synthesize with no evidence -> search first",
             )
+
         return {**d, "action": "abstain"}, "no usable evidence -> abstain"
+
     return d, None
 
 
@@ -218,7 +227,7 @@ def build_dynamic_graph(rt):
             }
             try:
                 res = fn(s, d)
-            except Exception as e:  # noqa: BLE001 - tool errors are recoverable here
+            except Exception as e:
                 return {
                     "steps": s.get("steps", 0) + 1,
                     "consecutive_errors": s.get("consecutive_errors", 0) + 1,

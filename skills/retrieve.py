@@ -23,9 +23,11 @@ def retrieve_regulations(
 ) -> dict:
     k = k or rt.ctx.reg_top_k
     hits = rt.store.search_regulations(query, k=k, parts=parts or None)
+
+    # The classifier's part filter may be wrong; fall back to all regulations.
     if parts and not any(h["score"] >= config.REG_MIN_SCORE for h in hits):
-        # The classifier's part filter may be wrong; fall back to all regulations.
         hits = rt.store.search_regulations(query, k=k, parts=None)
+
     return _result(hits, config.REG_MIN_SCORE)
 
 
@@ -37,7 +39,5 @@ def retrieve_cases(
     exclude_id: int | None = None,
 ) -> dict:
     k = k or rt.ctx.case_top_k
-    hits = rt.store.search_complaints(
-        query, k=k, product_keyword=product_keyword, exclude_id=exclude_id
-    )
+    hits = rt.store.search_complaints(query, k=k, product_keyword=product_keyword, exclude_id=exclude_id)
     return _result(hits, config.CASE_MIN_SCORE)

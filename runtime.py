@@ -20,21 +20,16 @@ T = TypeVar("T", bound=BaseModel)
 
 
 def make_chat_model(model: str, max_tokens: int):
-    """Build a ChatAnthropic client. Some newer Claude models (e.g. Sonnet 5.5) reject a
-    non-default temperature, so we only send it when the model accepts it. Where it is
-    not accepted, run-to-run variation is measured instead (eval --repeats)."""
+    """Build a ChatAnthropic client. No temperature is sent: Claude 5.5 models reject a
+    custom one, so run-to-run variation is measured instead (eval --repeats)."""
     from langchain_anthropic import ChatAnthropic
 
-    kwargs = {
-        "model": model,
-        "max_tokens": max_tokens,
-        "timeout": config.LLM_TIMEOUT_S,
-        "max_retries": config.LLM_MAX_RETRIES,
-    }
-    fixed_sampling = model.startswith(config.MODELS_WITHOUT_TEMPERATURE)
-    if config.LLM_TEMPERATURE is not None and not fixed_sampling:
-        kwargs["temperature"] = config.LLM_TEMPERATURE
-    return ChatAnthropic(**kwargs)
+    return ChatAnthropic(
+        model=model,
+        max_tokens=max_tokens,
+        timeout=config.LLM_TIMEOUT_S,
+        max_retries=config.LLM_MAX_RETRIES,
+    )
 
 
 class SkillError(RuntimeError):
@@ -52,6 +47,8 @@ class LLMCall:
     @property
     def cost(self) -> float:
         p_in, p_out = config.MODEL_PRICES.get(self.model, (0.0, 0.0))
+        if p_in is None or p_out is None:
+            raise RuntimeError(f"No price for {self.model}: set {config.PRICE_ENV_VARS} in .env")
         return (self.input_tokens * p_in + self.output_tokens * p_out) / 1e6
 
 

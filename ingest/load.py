@@ -14,8 +14,11 @@ from tqdm import tqdm
 import config
 from db.connection import get_conn
 
-# text-embedding-3-small list price at time of writing; check OpenAI pricing.
-PRICE_PER_1M_TOKENS = 0.02
+
+def _embed_cost(tokens: int) -> float:
+    if config.EMBED_PRICE is None:
+        raise RuntimeError("No embedding price: set EMBED_PRICE in .env")
+    return tokens / 1e6 * config.EMBED_PRICE
 
 
 def _embedder() -> OpenAIEmbeddings:
@@ -43,7 +46,7 @@ def load_regulations(chunks) -> None:
     tokens = sum(c.token_count for c in todo)
     print(
         f"Regulations: {len(todo)} new chunks, ~{tokens:,} tokens "
-        f"(~${tokens / 1e6 * PRICE_PER_1M_TOKENS:.4f})"
+        f"(~${_embed_cost(tokens):.4f})"
     )
     if not todo:
         return
@@ -82,7 +85,7 @@ def load_complaints(df: pd.DataFrame) -> None:
     tokens = int(todo["token_count"].sum())
     print(
         f"Complaints: {len(todo)} new rows, ~{tokens:,} tokens "
-        f"(~${tokens / 1e6 * PRICE_PER_1M_TOKENS:.4f})"
+        f"(~${_embed_cost(tokens):.4f})"
     )
     if todo.empty:
         return
