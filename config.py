@@ -51,7 +51,7 @@ PRODUCT_CATEGORIES = {
     "other": {"keyword": None, "parts": []},
 }
 COMPLAINTS_PER_PRODUCT = 1200
-COMPLAINTS_SINCE = "2023-01-01"
+COMPLAINTS_SINCE = "2023-01-01"  # ingest filter only; the loaded sample is 2026-04-01..2026-07-29
 COMPLAINTS_UNTIL = "2026-08-14"  # the CFPB stopped publishing narratives after this date
 COMPLAINTS_SOURCE = RAW_DIR / "cfpb_archive" # Narratives archive (CCDB_Export_*.zip); a CSV, ZIP of CSVs, or folder of either
 

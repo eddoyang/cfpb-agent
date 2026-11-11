@@ -221,7 +221,7 @@
   input: How many credit card complaints were filed against any company in 2019?
   expect: {outcome: [abstain, escalate, answer]}
   note: >
-    The sample starts in 2023. "answer" passes only if the response says the data does not
+    The loaded sample covers 2026-04-01 to 2026-07-29. "answer" passes only if the response says the data does not
     cover 2019; review this one by hand in the report.
 
 - id: dy-false-premise

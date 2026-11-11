@@ -132,7 +132,7 @@ def main(argv=None):
         L += ["", f"## {n}: run 1", "", f"Path: {runs[n][0]['path']}", "", runs[n][0]["response"]]
     L += [
         "",
-        "## Interpretation (fill in)",
+        "## Interpretation",
         "",
         "- Quality: did the rich config cite more of the expected sections, or just add noise?",
         "- Cost/latency: how much more did rich cost per answer, and was it worth it?",

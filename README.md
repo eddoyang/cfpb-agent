@@ -14,7 +14,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env                                  # add API keys and model prices (see Configuration)
 
-python -m pytest -q tests                             # 53 tests; DB tests need step 1 and use a separate cfpb_test DB
+python -m pytest -q tests                             # 59 tests; DB tests need step 1 and use a separate cfpb_test DB
 python -m ingest.run --dry-run                        # fetch regs, read archive, chunk; no cost
 python -m ingest.run --complaints-csv data/raw/cfpb_archive   # embed + load (see Data below)
 python preflight.py                                   # checks keys, models, data, retrieval
@@ -42,7 +42,7 @@ experiments/         context_compare.py (lean vs rich on one query)
 app.py, cli.py       demo interfaces
 preflight.py         setup checker
 ingest/, db/         data pipeline and schema
-docs/                graph diagrams, presentation notes
+docs/                graph diagrams
 ```
 
 ## Skills (reusable, framework-agnostic functions)
@@ -128,8 +128,10 @@ runs per config, `experiments/results/context_compare_20261108-223923.md`): lean
 cases, 2,500-token budget, summarized history) used 5.5 evidence items, cost $0.072 and took 41 s
 per answer; rich (top 10 / 5, 9,000 tokens, full history) used 17 items, cost $0.101 (40% more)
 and took 39 s. Both answered both runs with a supported-claim ratio of 1.0; each cited 3 of the 4
-expected sections, and rich found 1026.12, which lean missed. Lean stays the default on cost; rich
-is an option for multi-part questions. Earlier runs, before the judge fixes, showed rich at 2.2x
+expected sections, and rich found 1026.12, which lean missed. That gap shows in the answers: in
+run 1 the lean answer said its evidence did not give the dollar liability caps and listed them as
+a gap, while the rich answer stated the caps for both cards. Lean stays the default on cost; rich
+is the better choice for multi-part questions. Earlier runs, before the judge fixes, showed rich at 2.2x
 the cost escalating both runs, then 37% more with one escalation on a false alarm; most of that
 gap was the judge.
 
@@ -144,8 +146,8 @@ gap was the judge.
   text-embedding-3-small $0.02; check the providers' pricing pages before quoting costs.
 - **Output limits:** 1,024 tokens for the fast tier, 4,096 for the strong tier (drafts were
   being cut off at 2,048).
-- **Score floor** (`REG_MIN_SCORE`, default 0.45) was calibrated from eval runs: the lowest
-  best score for an in-scope case was 0.509. Recalibrate on new data; the eval report includes
+- **Score floor** (`REG_MIN_SCORE`, default 0.45) was calibrated from eval runs: in the final runs the
+  lowest best score for an in-scope case was 0.592 (development) and 0.571 (held-out). Recalibrate on new data; the eval report includes
   a calibration section. `CASE_MIN_SCORE` is 0.30.
 
 ## Data design decisions

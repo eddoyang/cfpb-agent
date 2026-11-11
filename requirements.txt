@@ -17,8 +17,7 @@ tiktoken>=0.7
 python-dotenv>=1.0
 tqdm>=4.66
 
-# Evaluation + interface (used in later steps)
+# Evaluation + interface
 pytest>=8.0
 pyyaml>=6.0
 streamlit>=1.36
-langsmith>=0.1

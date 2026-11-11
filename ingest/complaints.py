@@ -83,8 +83,9 @@ def resolve_columns(header) -> dict[str, str]:
         if "narrative" in missing:
             hint = (
                 " This file has no complaint narrative text, which the system needs. "
-                "Use the bulk file https://files.consumerfinance.gov/ccdb/complaints.csv.zip, "
-                "which includes the 'Consumer complaint narrative' column."
+                "The CFPB stopped publishing narratives on 2026-08-14, so the current bulk "
+                "file lacks them. Use the CCDB_Export_*.zip files from the CFPB narratives "
+                "archive (see README)."
             )
         raise ValueError(
             f"CSV is missing required columns {sorted(missing)}. "
